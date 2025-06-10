@@ -4,13 +4,54 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>NHS Tutoring Society</title>
-  <script src="https://cdn.tailwindcss.com"></script> 
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Glass Frosted Effect */
+    .frosted-btn {
+      background-color: inherit;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    /* Shadow Pulse Animation */
+    @keyframes shadow-pulse {
+      0%, 100% {
+        box-shadow: 0 4px 20px 0 rgba(0, 98, 255, 0.3);
+      }
+      50% {
+        box-shadow: 0 4px 40px 0 rgba(59,130,246,0.5);
+      }
+    }
+    .hover\:shadow-pulse:hover {
+      animation: shadow-pulse 0.7s;
+    }
+    /* Ripple Effect */
+    .ripple {
+      position: relative;
+      overflow: hidden;
+    }
+    .ripple-effect {
+      position: absolute;
+      border-radius: 50%;
+      transform: scale(0);
+      animation: ripple-animation 0.6s linear;
+      background-color: rgba(255,255,255,0.4);
+      pointer-events: none;
+      z-index: 10;
+    }
+    @keyframes ripple-animation {
+      to {
+        transform: scale(4);
+        opacity: 0;
+      }
+    }
+  </style>
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans">
 
   <!-- Development Notice -->
   <!-- Development Notice Banner START -->
-  <div class="w-full bg-yellow-200 text-yellow-900 text-center py-2 px-4 font-semibold">
+  <div id="dev-banner" class="w-full bg-yellow-200 text-yellow-900 text-center py-2 px-4 font-semibold transition-all duration-200">
     🚧 This website is still under development. Some features or pages may change. 🚧
   </div>
   <!-- Development Notice Banner END -->
@@ -22,7 +63,14 @@
         <img src="bixby-academic-mentors-logo.png" alt="Bixby Academic Mentors Logo" class="h-10 w-auto">
         <span class="text-2xl font-bold text-blue-600">Bixby Academic Mentors</span>
       </div>
-      <a href="https://docs.google.com/forms/d/e/1FAIpQLSd_2yA9BH24SHNjIGrCQkR4ypQTXdBH-rIQwTwtSRy2uhB0Ug/viewform?usp=header" target="_blank" class="inline-block bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 transition">Sign up for tutoring here</a>
+      <!-- Replace the top-right button in the header with a popup button -->
+      <a
+        href="javascript:void(0);"
+        onclick="openTutoringPopup()"
+        class="frosted-btn ripple inline-block bg-blue-800 text-white px-6 py-3 rounded hover:bg-blue-900 transition shadow-lg hover:shadow-pulse hover:-translate-y-1 duration-200 backdrop-blur-md bg-opacity-90"
+      >
+        Sign up for tutoring here
+      </a>
     </div>
   </header>
 
@@ -32,14 +80,13 @@
       <h2 class="text-4xl font-bold text-blue-700 mb-4">Helping Students Succeed</h2>
       <p class="text-lg text-gray-700 mb-6">Organized by National Honor Society members to offer free peer tutoring across all core subjects.</p>
       <div class="flex flex-col sm:flex-row justify-center gap-4">
-        <a href="#about" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition">Learn More</a>
-        <a href="mentors.html" class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition">Meet the Mentors</a>
-        <!-- Announcements Button Example with Yellow Badge -->
-        <a href="announcements.html" class="relative bg-yellow-500 text-white px-6 py-3 rounded-lg hover:bg-yellow-600 transition flex items-center justify-center">
+        <a href="#contact" class="frosted-btn ripple bg-blue-800 text-white px-6 py-3 rounded-lg transition shadow-lg hover:shadow-pulse hover:-translate-y-1 duration-200 backdrop-blur-md bg-opacity-90">Learn More</a>
+        <a href="mentors.html" class="frosted-btn ripple bg-green-800 text-white px-6 py-3 rounded-lg transition shadow-lg hover:shadow-pulse hover:-translate-y-1 duration-200 backdrop-blur-md bg-opacity-90">Meet the Mentors</a>
+        <a href="announcements.html" class="frosted-btn ripple relative bg-yellow-700 text-white px-6 py-3 rounded-lg transition shadow-lg hover:shadow-pulse hover:-translate-y-1 duration-200 backdrop-blur-md bg-opacity-90 flex items-center justify-center">
           Announcements
-          <!-- <span class="absolute -top-2 -right-2 bg-yellow-300 text-black text-xs font-bold rounded-full px-2 py-0.5 shadow border border-yellow-600">!</span> -->
+<!-- <span class="absolute -top-2 -right-2 bg-black text-yellow-300 text-xs font-bold rounded-full px-2 py-0.5 shadow border border-yellow-300">!</span> -->
         </a>
-        <a href="#faq" class="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition">FAQ</a>
+        <a href="#faq" class="frosted-btn ripple bg-purple-900 text-white px-6 py-3 rounded-lg transition shadow-lg hover:shadow-pulse hover:-translate-y-1 duration-200 backdrop-blur-md bg-opacity-90">FAQ</a>
       </div>
     </div>
   </section>
@@ -74,23 +121,14 @@
     </div>
   </section>
 
-  <!-- FAQs Section -->
-  <section id="faq" class="py-16 bg-gray-100">
-    <div class="max-w-5xl mx-auto px-4">
-      <h3 class="text-3xl font-bold text-blue-700 mb-8 text-center">Frequently Asked Questions</h3>
-      <div class="space-y-6">
-        <div class="bg-white p-6 rounded-xl shadow">
-          <h4 class="text-xl font-semibold text-blue-600 mb-2">Who can receive tutoring?</h4>
-          <p class="text-gray-700">Any Bixby High School student needing help in academic subjects may request tutoring.</p>
-        </div>
-        <div class="bg-white p-6 rounded-xl shadow">
-          <h4 class="text-xl font-semibold text-blue-600 mb-2">How do I sign up?</h4>
-          <p class="text-gray-700">Use the "Sign up for tutoring here" button at the top of the page. Fill out the Google Form and we’ll connect you with a mentor.</p>
-        </div>
-        <div class="bg-white p-6 rounded-xl shadow">
-          <h4 class="text-xl font-semibold text-blue-600 mb-2">When and where are sessions held?</h4>
-          <p class="text-gray-700">Tutoring sessions are usually held after school in the library or other designated classrooms. Check the announcements or calendar below for scheduling.</p>
-        </div>
+  <!-- Weekly Study Tip Section -->
+  <section class="bg-white py-14">
+    <div class="max-w-5xl mx-auto px-4 text-center">
+      <h3 class="text-3xl font-bold text-blue-700 mb-6">🎓 Weekly Study Tip</h3>
+      <div class="bg-blue-50 p-6 rounded-lg shadow-md hover:shadow-lg transition">
+        <h4 class="text-xl font-semibold text-blue-600 mb-2">Use the Pomodoro Technique ⏲️</h4>
+        <p class="text-gray-700 mb-2">Study in focused 25-minute bursts with 5-minute breaks to improve concentration and avoid burnout.</p>
+        <a href="https://youtu.be/1pADI_eZt5E" target="_blank" class="frosted-btn ripple bg-blue-100 text-blue-600 underline hover:text-blue-800 px-4 py-2 rounded transition shadow hover:shadow-pulse hover:-translate-y-1 duration-200 backdrop-blur-md bg-opacity-70 inline-block">Watch this quick video on how to do it</a>
       </div>
     </div>
   </section>
@@ -113,26 +151,115 @@
     </div>
   </section>
 
-  <!-- Contact Section -->
-  <section id="contact" class="py-16 bg-blue-50">
-    <div class="max-w-3xl mx-auto text-center px-4">
-      <h3 class="text-3xl font-bold text-blue-700 mb-6">Get in Touch</h3>
-      <p class="text-gray-700 mb-8">Interested in tutoring or being tutored? Sign up through one of the forms below.</p>
-      <div class="space-y-4">
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSd_2yA9BH24SHNjIGrCQkR4ypQTXdBH-rIQwTwtSRy2uhB0Ug/viewform?usp=header" target="_blank" class="inline-block bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 transition">Sign up for tutoring here</a>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLScPhAue867NtZX7WUiIS_hrmgYsovBrGBaUrdc3TBKWk1yI5A/viewform?usp=dialog" target="_blank" class="inline-block bg-green-600 text-white px-6 py-3 rounded hover:bg-green-700 transition">Sign up to be a mentor</a>
-        <p class="mt-4 text-gray-700">
-          Questions? Contact <a href="mailto:tkraus@bixbyps.org" class="text-blue-600 underline hover:text-blue-800">tkraus@bixbyps.org</a>
-        </p>
-        <p class="text-gray-700">
-          Join our GroupMe chat: <a href="https://groupme.com/join_group/108067647/nuF2SDh3" target="_blank" class="text-blue-500 underline hover:text-blue-700">Click here to join</a>
-        </p>
-        <p class="text-gray-700">
-          Follow us on Instagram: <a href="https://www.instagram.com/bixbyacademicmentors/?utm_source=ig_web_button_share_sheet" target="_blank" class="text-pink-600 underline hover:text-pink-800">@bixbyacademicmentors</a>
-        </p>
+  <!-- FAQs Section -->
+  <section id="faq" class="py-16 bg-gray-100 scroll-mt-24">
+    <div class="max-w-5xl mx-auto px-4">
+      <h3 class="text-3xl font-bold text-blue-700 mb-8 text-center">Frequently Asked Questions</h3>
+      <div class="space-y-6">
+        <div class="bg-white p-6 rounded-xl shadow">
+          <h4 class="text-xl font-semibold text-blue-600 mb-2">Who can receive tutoring?</h4>
+          <p class="text-gray-700">Any Bixby High School student needing help in academic subjects may request tutoring.</p>
+        </div>
+        <div class="bg-white p-6 rounded-xl shadow">
+          <h4 class="text-xl font-semibold text-blue-600 mb-2">How do I sign up?</h4>
+          <p class="text-gray-700">Use the "Sign up for tutoring here" button at the top of the page. Fill out the Google Form and we’ll connect you with a mentor.</p>
+        </div>
+        <div class="bg-white p-6 rounded-xl shadow">
+          <h4 class="text-xl font-semibold text-blue-600 mb-2">When and where are sessions held?</h4>
+          <p class="text-gray-700">Tutoring sessions are usually held after school in the library or other designated classrooms. Check the announcements or calendar below for scheduling.</p>
+        </div>
       </div>
     </div>
   </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="py-16 bg-blue-50 scroll-mt-24">
+    <div class="max-w-3xl mx-auto text-center px-4">
+      <h3 class="text-3xl font-bold text-blue-700 mb-6">Get in Touch</h3>
+      <p class="text-gray-700 mb-8">Interested in tutoring or being tutored? Sign up through one of the forms below.</p>
+      <div class="space-y-4 flex flex-col sm:flex-row sm:justify-center sm:space-x-4 sm:space-y-0">
+        <button
+          onclick="openTutoringPopup()"
+          class="frosted-btn ripple inline-block bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 transition shadow-lg hover:shadow-pulse hover:-translate-y-1 duration-200 backdrop-blur-md bg-opacity-70"
+        >
+          Sign up for tutoring here
+        </button>
+        <button
+          onclick="openMentorPopup()"
+          class="frosted-btn ripple inline-block bg-green-600 text-white px-6 py-3 rounded hover:bg-green-700 transition shadow-lg hover:shadow-pulse hover:-translate-y-1 duration-200 backdrop-blur-md bg-opacity-70"
+        >
+          Sign up to be a mentor
+        </button>
+        <!-- Feedback Button -->
+        <button
+          onclick="openFeedbackPopup()"
+          class="frosted-btn ripple inline-block bg-purple-900 text-white px-6 py-3 rounded hover:bg-purple-700 transition shadow-lg hover:shadow-pulse hover:-translate-y-1 duration-200 backdrop-blur-md bg-opacity-70"
+        >
+          Give Feedback
+        </button>
+      </div>
+      <p class="mt-4 text-gray-700">
+        Questions? Contact <a href="mailto:tkraus@bixbyps.org" class="text-blue-600 underline hover:text-blue-800">tkraus@bixbyps.org</a>
+      </p>
+      <p class="text-gray-700">
+        Join our GroupMe chat: <a href="https://groupme.com/join_group/108067647/nuF2SDh3" target="_blank" class="text-blue-500 underline hover:text-blue-700">Click here to join</a>
+      </p>
+      <p class="text-gray-700">
+        Follow us on Instagram: <a href="https://www.instagram.com/bixbyacademicmentors/?utm_source=ig_web_button_share_sheet" target="_blank" class="text-pink-600 underline hover:text-pink-800">@bixbyacademicmentors</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- Tutoring Signup Popup Modal -->
+  <div id="tutoring-popup" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-lg shadow-lg w-full max-w-2xl relative">
+      <button onclick="closeTutoringPopup()" class="absolute top-2 right-2 text-gray-400 hover:text-gray-700 text-2xl">&times;</button>
+      <iframe
+        src="https://docs.google.com/forms/d/e/1FAIpQLSd_2yA9BH24SHNjIGrCQkR4ypQTXdBH-rIQwTwtSRy2uhB0Ug/viewform?embedded=true"
+        width="100%"
+        height="600"
+        frameborder="0"
+        marginheight="0"
+        marginwidth="0"
+        class="rounded-b-lg"
+        allowfullscreen
+      >Loading…</iframe>
+    </div>
+  </div>
+
+  <!-- Mentor Signup Popup Modal -->
+  <div id="mentor-popup" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-lg shadow-lg w-full max-w-2xl relative">
+      <button onclick="closeMentorPopup()" class="absolute top-2 right-2 text-gray-400 hover:text-gray-700 text-2xl">&times;</button>
+      <iframe
+        src="https://docs.google.com/forms/d/e/1FAIpQLScPhAue867NtZX7WUiIS_hrmgYsovBrGBaUrdc3TBKWk1yI5A/viewform?embedded=true"
+        width="100%"
+        height="600"
+        frameborder="0"
+        marginheight="0"
+        marginwidth="0"
+        class="rounded-b-lg"
+        allowfullscreen
+      >Loading…</iframe>
+    </div>
+  </div>
+
+  <!-- Feedback Popup Modal -->
+  <div id="feedback-popup" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-lg shadow-lg w-full max-w-2xl relative">
+      <button onclick="closeFeedbackPopup()" class="absolute top-2 right-2 text-gray-400 hover:text-gray-700 text-2xl">&times;</button>
+      <iframe
+        src="https://docs.google.com/forms/d/e/1FAIpQLScfMKHcYD91aPm9nwfvg7aWCY-yBfoQsjoaUbz251spXg3fgw/viewform?embedded=true"
+        width="100%"
+        height="600"
+        frameborder="0"
+        marginheight="0"
+        marginwidth="0"
+        class="rounded-b-lg"
+        allowfullscreen
+      >Loading…</iframe>
+    </div>
+  </div>
 
   <!-- Footer -->
   <footer class="bg-white py-6 text-center text-sm text-gray-500">
@@ -141,5 +268,74 @@
     <p>Affiliated with the National Honor Society at Bixby High School</p>
   </footer>
 
+  <script>
+    // Shrink banner padding and font size on small screens
+    function adjustBanner() {
+      const banner = document.getElementById('dev-banner');
+      if (window.innerWidth <= 640) { // Tailwind's sm breakpoint
+        banner.classList.add('py-1', 'text-sm');
+        banner.classList.remove('py-2', 'font-semibold');
+      } else {
+        banner.classList.add('py-2', 'font-semibold');
+        banner.classList.remove('py-1', 'text-sm');
+      }
+    }
+    window.addEventListener('resize', adjustBanner);
+    window.addEventListener('DOMContentLoaded', adjustBanner);
+
+    // Feedback popup
+    function openFeedbackPopup() {
+      document.getElementById('feedback-popup').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeFeedbackPopup() {
+      document.getElementById('feedback-popup').classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+
+    // Tutoring popup
+    function openTutoringPopup() {
+      document.getElementById('tutoring-popup').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeTutoringPopup() {
+      document.getElementById('tutoring-popup').classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+    // Mentor popup
+    function openMentorPopup() {
+      document.getElementById('mentor-popup').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMentorPopup() {
+      document.getElementById('mentor-popup').classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+    // Close popups on ESC key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === "Escape") {
+        closeMentorPopup();
+        closeTutoringPopup();
+        closeFeedbackPopup && closeFeedbackPopup();
+      }
+    });
+
+    // Ripple effect for all .ripple elements
+    document.addEventListener('DOMContentLoaded', function () {
+      document.querySelectorAll('.ripple').forEach(function (el) {
+        el.addEventListener('click', function (e) {
+          const circle = document.createElement('span');
+          circle.classList.add('ripple-effect');
+          const rect = el.getBoundingClientRect();
+          const size = Math.max(rect.width, rect.height);
+          circle.style.width = circle.style.height = size + 'px';
+          circle.style.left = (e.clientX - rect.left - size / 2) + 'px';
+          circle.style.top = (e.clientY - rect.top - size / 2) + 'px';
+          el.appendChild(circle);
+          setTimeout(() => circle.remove(), 600);
+        });
+      });
+    });
+  </script>
 </body>
 </html>
