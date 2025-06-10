@@ -49,7 +49,22 @@
       </div>
 
       <!-- Add more announcements here by duplicating the block above -->
+    </div>
 
+    <!-- Sign Up Buttons -->
+    <div class="mt-10 text-center">
+      <button
+        onclick="openMentorPopup()"
+        class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition mr-4"
+      >
+        Sign up to be a mentor
+      </button>
+      <button
+        onclick="openTutoringPopup()"
+        class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition"
+      >
+        Sign up for tutoring here
+      </button>
     </div>
   </main>
 
@@ -58,8 +73,43 @@
     <p>&copy; 2025 Bixby High School NHS | BAM Program</p>
   </footer>
 
-  <!-- Filtering Script -->
+  <!-- Mentor Signup Popup Modal -->
+  <div id="mentor-popup" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-lg shadow-lg w-full max-w-2xl relative">
+      <button onclick="closeMentorPopup()" class="absolute top-2 right-2 text-gray-400 hover:text-gray-700 text-2xl">&times;</button>
+      <iframe
+        src="https://docs.google.com/forms/d/e/1FAIpQLScPhAue867NtZX7WUiIS_hrmgYsovBrGBaUrdc3TBKWk1yI5A/viewform?embedded=true"
+        width="100%"
+        height="600"
+        frameborder="0"
+        marginheight="0"
+        marginwidth="0"
+        class="rounded-b-lg"
+        allowfullscreen
+      >Loading…</iframe>
+    </div>
+  </div>
+
+  <!-- Tutoring Signup Popup Modal -->
+  <div id="tutoring-popup" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-lg shadow-lg w-full max-w-2xl relative">
+      <button onclick="closeTutoringPopup()" class="absolute top-2 right-2 text-gray-400 hover:text-gray-700 text-2xl">&times;</button>
+      <iframe
+        src="https://docs.google.com/forms/d/e/1FAIpQLSd_2yA9BH24SHNjIGrCQkR4ypQTXdBH-rIQwTwtSRy2uhB0Ug/viewform?embedded=true"
+        width="100%"
+        height="600"
+        frameborder="0"
+        marginheight="0"
+        marginwidth="0"
+        class="rounded-b-lg"
+        allowfullscreen
+      >Loading…</iframe>
+    </div>
+  </div>
+
+  <!-- Filtering and Popup Script -->
   <script>
+    // Announcement filtering
     const searchInput = document.getElementById('searchInput');
     const dateInput = document.getElementById('dateInput');
     const announcements = document.querySelectorAll('.announcement');
@@ -85,6 +135,32 @@
 
     searchInput.addEventListener('input', filterAnnouncements);
     dateInput.addEventListener('input', filterAnnouncements);
+
+    // Mentor popup
+    function openMentorPopup() {
+      document.getElementById('mentor-popup').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMentorPopup() {
+      document.getElementById('mentor-popup').classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+    // Tutoring popup
+    function openTutoringPopup() {
+      document.getElementById('tutoring-popup').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeTutoringPopup() {
+      document.getElementById('tutoring-popup').classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+    // Close popup on ESC key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === "Escape") {
+        closeMentorPopup();
+        closeTutoringPopup();
+      }
+    });
   </script>
 </body>
 </html>
