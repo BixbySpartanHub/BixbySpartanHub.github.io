@@ -264,6 +264,30 @@
     </div>
   </div>
 
+  <!-- Back to Top Button -->
+<button id="back-to-top-btn"
+  class="fixed bottom-6 right-6 z-50 bg-blue-600 hover:bg-blue-800 text-white rounded-full w-12 h-12 flex items-center justify-center shadow-lg transition-all duration-200 group"
+  aria-label="Back to top"
+  style="display:none;"
+>
+  <svg class="w-6 h-6 mx-auto group-hover:-translate-y-1 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/>
+  </svg>
+</button>
+<script>
+const backToTopBtn = document.getElementById('back-to-top-btn');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 200) {
+    backToTopBtn.style.display = 'flex';
+  } else {
+    backToTopBtn.style.display = 'none';
+  }
+});
+backToTopBtn.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+</script>
+
   <!-- Footer -->
   <footer class="bg-white py-6 text-center text-sm text-gray-500">
     <p>This society was created by Teja Mathukumalli and Cade Rainwater</p>
