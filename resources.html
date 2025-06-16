@@ -202,5 +202,83 @@ window.addEventListener('DOMContentLoaded', () => {
 window.addEventListener('scroll', activateTab);
 </script>
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.0/dist/confetti.browser.min.js"></script>
+
+<!-- Easter Egg Message with Clapping Hands and Confetti (transparent box) -->
+<div id="easter-egg-message" class="fixed inset-0 flex items-center justify-center z-[9999] pointer-events-none hidden">
+  <div class="absolute left-8 md:left-24 top-1/2 -translate-y-1/2 text-6xl animate-clap select-none" style="pointer-events:none;">👏</div>
+  <div class="bg-white bg-opacity-90 rounded-xl shadow-xl px-8 py-6 text-3xl font-bold text-blue-700 border-4 border-blue-300 animate-bounce">
+    🎉 Congrats, you found an easter egg! 🎉
+  </div>
+  <div class="absolute right-8 md:right-24 top-1/2 -translate-y-1/2 text-6xl animate-clap select-none" style="pointer-events:none;">👏</div>
+</div>
+<script>
+let spaceCount = 0, tapCount = 0, lastPress = 0, lastTap = 0, eggTimestamps = [];
+let spamTimeout = null;
+
+function showSpamWarning() {
+  const warn = document.getElementById('egg-spam-warning');
+  warn.classList.remove('opacity-0');
+  warn.classList.add('opacity-90');
+  // Clear any previous timeout to avoid stacking
+  if (spamTimeout) clearTimeout(spamTimeout);
+  spamTimeout = setTimeout(() => {
+    warn.classList.remove('opacity-90');
+    warn.classList.add('opacity-0');
+  }, 5000);
+}
+
+function triggerEasterEgg() {
+  const now = Date.now();
+  eggTimestamps = eggTimestamps.filter(ts => now - ts < 20000);
+  if (eggTimestamps.length >= 2) {
+    showSpamWarning();
+    return;
+  }
+  eggTimestamps.push(now);
+  const msg = document.getElementById('easter-egg-message');
+  if (msg) {
+    msg.classList.remove('hidden');
+    if (typeof confetti === "function") {
+      const duration = 2000, end = Date.now() + duration;
+      (function frame() {
+        confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 } });
+        confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 } });
+        if (Date.now() < end) requestAnimationFrame(frame);
+      })();
+    }
+    setTimeout(() => msg.classList.add('hidden'), 2500);
+  }
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.code === 'Space') {
+    const now = Date.now();
+    if (now - lastPress > 1200) spaceCount = 0;
+    lastPress = now;
+    spaceCount++;
+    if (spaceCount === 5) { spaceCount = 0; triggerEasterEgg(); }
+  } else { spaceCount = 0; }
+});
+document.addEventListener('touchstart', function() {
+  const now = Date.now();
+  if (now - lastTap > 1200) tapCount = 0;
+  lastTap = now;
+  tapCount++;
+  if (tapCount === 5) { tapCount = 0; triggerEasterEgg(); }
+});
+</script>
+<style>
+#egg-spam-warning {
+  transition: opacity 1.2s;
+}
+@keyframes clap {
+  0%, 100% { transform: scale(1) rotate(-10deg);}
+  20% { transform: scale(1.15) rotate(10deg);}
+  40% { transform: scale(1) rotate(-10deg);}
+  60% { transform: scale(1.15) rotate(10deg);}
+  80% { transform: scale(1) rotate(-10deg);}
+}
+.animate-clap { animation: clap 1s infinite; }
+</style>
 </body>
 </html>
