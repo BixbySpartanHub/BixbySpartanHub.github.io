@@ -158,9 +158,25 @@
     👏
   </div>
 </div>
+<!-- Subtle Spam Warning -->
+<div id="egg-spam-warning" class="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-red-100 text-red-700 px-4 py-2 rounded shadow text-xs font-semibold opacity-0 pointer-events-none transition-opacity duration-700 z-[9999]">
+  Please wait 20 seconds before triggering the easter egg again.
+</div>
 <script>
 let spaceCount = 0;
 let lastPress = 0;
+let eggTimestamps = [];
+
+function showSpamWarning() {
+  const warn = document.getElementById('egg-spam-warning');
+  warn.classList.remove('opacity-0');
+  warn.classList.add('opacity-90');
+  setTimeout(() => {
+    warn.classList.remove('opacity-90');
+    warn.classList.add('opacity-0');
+  }, 5000);
+}
+
 document.addEventListener('keydown', function(e) {
   if (e.code === 'Space') {
     const now = Date.now();
@@ -169,6 +185,14 @@ document.addEventListener('keydown', function(e) {
     spaceCount++;
     if (spaceCount === 5) {
       spaceCount = 0;
+      // Spam protection: only 2 triggers per 20 seconds
+      eggTimestamps = eggTimestamps.filter(ts => now - ts < 20000);
+      if (eggTimestamps.length >= 2) {
+        showSpamWarning();
+        return;
+      }
+      eggTimestamps.push(now);
+
       const msg = document.getElementById('easter-egg-message');
       if (msg) {
         msg.classList.remove('hidden');
@@ -202,6 +226,9 @@ document.addEventListener('keydown', function(e) {
 }
 .animate-clap {
   animation: clap 1s infinite;
+}
+#egg-spam-warning {
+  transition: opacity 1.2s;
 }
 </style>
 
