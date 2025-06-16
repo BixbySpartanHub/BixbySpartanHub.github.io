@@ -164,7 +164,9 @@
 </div>
 <script>
 let spaceCount = 0;
+let tapCount = 0;
 let lastPress = 0;
+let lastTap = 0;
 let eggTimestamps = [];
 
 function showSpamWarning() {
@@ -177,6 +179,35 @@ function showSpamWarning() {
   }, 5000);
 }
 
+function triggerEasterEgg() {
+  const now = Date.now();
+  // Spam protection: only 2 triggers per 20 seconds
+  eggTimestamps = eggTimestamps.filter(ts => now - ts < 20000);
+  if (eggTimestamps.length >= 2) {
+    showSpamWarning();
+    return;
+  }
+  eggTimestamps.push(now);
+
+  const msg = document.getElementById('easter-egg-message');
+  if (msg) {
+    msg.classList.remove('hidden');
+
+    // Confetti logic
+    if (typeof confetti === "function") {
+      const duration = 2 * 1000;
+      const end = Date.now() + duration;
+      (function frame() {
+        confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 } });
+        confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 } });
+        if (Date.now() < end) requestAnimationFrame(frame);
+      })();
+    }
+
+    setTimeout(() => msg.classList.add('hidden'), 2500);
+  }
+}
+
 document.addEventListener('keydown', function(e) {
   if (e.code === 'Space') {
     const now = Date.now();
@@ -185,34 +216,22 @@ document.addEventListener('keydown', function(e) {
     spaceCount++;
     if (spaceCount === 5) {
       spaceCount = 0;
-      // Spam protection: only 2 triggers per 20 seconds
-      eggTimestamps = eggTimestamps.filter(ts => now - ts < 20000);
-      if (eggTimestamps.length >= 2) {
-        showSpamWarning();
-        return;
-      }
-      eggTimestamps.push(now);
-
-      const msg = document.getElementById('easter-egg-message');
-      if (msg) {
-        msg.classList.remove('hidden');
-
-        // Confetti logic
-        if (typeof confetti === "function") {
-          const duration = 2 * 1000;
-          const end = Date.now() + duration;
-          (function frame() {
-            confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 } });
-            confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 } });
-            if (Date.now() < end) requestAnimationFrame(frame);
-          })();
-        }
-
-        setTimeout(() => msg.classList.add('hidden'), 2500);
-      }
+      triggerEasterEgg();
     }
   } else {
     spaceCount = 0;
+  }
+});
+
+// Touch support for mobile (tap 5 times quickly)
+document.addEventListener('touchstart', function() {
+  const now = Date.now();
+  if (now - lastTap > 1200) tapCount = 0;
+  lastTap = now;
+  tapCount++;
+  if (tapCount === 5) {
+    tapCount = 0;
+    triggerEasterEgg();
   }
 });
 </script>
