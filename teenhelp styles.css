@@ -1,0 +1,126 @@
+/* Calming, supportive color palette */
+:root {
+  --base-bg: #f7f6f3;
+  --base-text: #2d2d2d;
+  --accent-blue: #a7c7e7;
+  --accent-lavender: #c7b7e7;
+  --accent-sage: #b7e7c7;
+  --button-bg: #e7e6f7;
+  --button-hover: #d6e7f7;
+  --lowlight-bg: #23232b;
+  --lowlight-text: #e7e6f7;
+}
+
+body {
+  background: var(--base-bg);
+  color: var(--base-text);
+  font-family: 'Nunito', 'Segoe UI', Arial, sans-serif;
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  padding: 2rem 1rem 1rem 1rem;
+  text-align: center;
+  background: none;
+}
+
+h1 {
+  font-family: 'Nunito', 'Segoe UI', Arial, sans-serif;
+  font-weight: 800;
+  font-size: 2.5rem;
+  letter-spacing: 0.02em;
+  color: var(--accent-blue);
+  margin: 0 0 0.5rem 0;
+}
+
+.intro h2 {
+  font-family: 'Nunito', 'Segoe UI', Arial, sans-serif;
+  font-weight: 700;
+  color: var(--accent-lavender);
+  margin-top: 0;
+}
+
+.intro p {
+  font-size: 1.2rem;
+  color: var(--base-text);
+  margin-bottom: 2rem;
+}
+
+.main-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.main-actions button {
+  background: var(--button-bg);
+  color: var(--base-text);
+  border: none;
+  border-radius: 1.5rem;
+  padding: 1rem 2.5rem;
+  font-size: 1.1rem;
+  font-family: inherit;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(167, 199, 231, 0.08);
+  transition: background 0.2s;
+}
+
+.main-actions button:hover {
+  background: var(--button-hover);
+}
+
+.illustration {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 120px;
+  margin-bottom: 2rem;
+}
+
+.sketch {
+  background: #fff;
+  border: 2px dashed var(--accent-sage);
+  border-radius: 1rem;
+  color: var(--accent-sage);
+  padding: 2rem 3rem;
+  font-size: 1.1rem;
+  font-style: italic;
+  opacity: 0.7;
+}
+
+footer {
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.95rem;
+  color: #888;
+  margin-top: auto;
+}
+
+/* Low Light Mode */
+body.lowlight {
+  background: var(--lowlight-bg);
+  color: var(--lowlight-text);
+}
+body.lowlight .main-actions button {
+  background: #35354a;
+  color: var(--lowlight-text);
+}
+body.lowlight .main-actions button:hover {
+  background: #44445a;
+}
+body.lowlight .sketch {
+  background: #2d2d3a;
+  border-color: var(--accent-blue);
+  color: var(--accent-blue);
+}
+body.lowlight h1 {
+  color: var(--accent-sage);
+}
+body.lowlight .intro h2 {
+  color: var(--accent-blue);
+}

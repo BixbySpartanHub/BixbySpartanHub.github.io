@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Announcements | Bixby Academic Mentors</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans leading-relaxed">
+
+  <!-- Header -->
+  <header class="bg-white shadow">
+    <div class="max-w-7xl mx-auto px-4 py-6 flex justify-between items-center">
+      <div class="flex items-center space-x-3">
+        <a href="BAM index.html" class="flex items-center space-x-3 group">
+          <img src="bixby-academic-mentors-logo.png" alt="BAM logo" class="h-10 w-auto" loading="lazy">
+          <span class="text-2xl font-bold text-blue-600 group-hover:underline">Bixby Academic Mentors</span>
+        </a>
+      </div>
+      <a href="BAM index.html" class="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition text-sm font-medium">Back to Home</a>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main class="max-w-3xl mx-auto px-4 py-10">
+    <h2 class="text-4xl font-bold text-blue-700 mb-6 text-center">📢 Announcements</h2>
+
+    <!-- Search + Date Filter -->
+    <div class="bg-white p-4 rounded shadow mb-8 flex flex-col sm:flex-row gap-4 justify-between items-center">
+      <input id="searchInput" type="text" placeholder="Search announcements..." class="w-full sm:w-1/2 px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+      <input id="dateInput" type="date" class="w-full sm:w-auto px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+    </div>
+
+    <!-- Announcements -->
+    <div id="announcementList" class="space-y-6">
+      <!-- Template for each announcement -->
+      <div class="announcement bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition"
+           data-title="New Tutoring Sessions Begin"
+           data-date="2025-06-08">
+        <h3 class="text-2xl font-semibold text-blue-600 mb-2">New Tutoring Sessions Begin!</h3>
+        <p class="text-gray-700 mb-3">Starting Monday, all tutoring sessions will follow the updated schedule. Please check your mentor email or the calendar for your new time slots.</p>
+        <span class="text-sm text-gray-400">Posted: June 8, 2025</span>
+      </div>
+
+      <div class="announcement bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition"
+           data-title="Mentor Orientation"
+           data-date="2025-06-06">
+        <h3 class="text-2xl font-semibold text-blue-600 mb-2">Mentor Orientation</h3>
+        <p class="text-gray-700 mb-3">All new mentors must attend the orientation this Thursday after school in Room 101. Snacks provided!</p>
+        <span class="text-sm text-gray-400">Posted: June 6, 2025</span>
+      </div>
+
+      <!-- Add more announcements here by duplicating the block above -->
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white mt-16 py-6 text-center text-sm text-gray-500">
+    <p>&copy; 2025 Bixby High School NHS | BAM Program</p>
+  </footer>
+
+  <!-- Mentor Signup Popup Modal -->
+  <div id="mentor-popup" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-lg shadow-lg w-full max-w-2xl relative">
+      <button onclick="closeMentorPopup()" class="absolute top-2 right-2 text-gray-400 hover:text-gray-700 text-2xl">&times;</button>
+      <iframe
+        src="https://docs.google.com/forms/d/e/1FAIpQLScPhAue867NtZX7WUiIS_hrmgYsovBrGBaUrdc3TBKWk1yI5A/viewform?embedded=true"
+        width="100%"
+        height="600"
+        frameborder="0"
+        marginheight="0"
+        marginwidth="0"
+        class="rounded-b-lg"
+        allowfullscreen
+      >Loading…</iframe>
+    </div>
+  </div>
+
+  <!-- Tutoring Signup Popup Modal -->
+  <div id="tutoring-popup" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-lg shadow-lg w-full max-w-2xl relative">
+      <button onclick="closeTutoringPopup()" class="absolute top-2 right-2 text-gray-400 hover:text-gray-700 text-2xl">&times;</button>
+      <iframe
+        src="https://docs.google.com/forms/d/e/1FAIpQLSd_2yA9BH24SHNjIGrCQkR4ypQTXdBH-rIQwTwtSRy2uhB0Ug/viewform?embedded=true"
+        width="100%"
+        height="600"
+        frameborder="0"
+        marginheight="0"
+        marginwidth="0"
+        class="rounded-b-lg"
+        allowfullscreen
+      >Loading…</iframe>
+    </div>
+  </div>
+
+  <!-- Filtering and Popup Script -->
+  <script>
+    // Announcement filtering
+    const searchInput = document.getElementById('searchInput');
+    const dateInput = document.getElementById('dateInput');
+    const announcements = document.querySelectorAll('.announcement');
+
+    function filterAnnouncements() {
+      const keyword = searchInput.value.toLowerCase();
+      const dateFilter = dateInput.value;
+
+      announcements.forEach(card => {
+        const title = card.dataset.title.toLowerCase();
+        const date = card.dataset.date;
+
+        const matchesKeyword = title.includes(keyword);
+        const matchesDate = !dateFilter || new Date(date) >= new Date(dateFilter);
+
+        if (matchesKeyword && matchesDate) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    searchInput.addEventListener('input', filterAnnouncements);
+    dateInput.addEventListener('input', filterAnnouncements);
+
+    // Mentor popup
+    function openMentorPopup() {
+      document.getElementById('mentor-popup').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMentorPopup() {
+      document.getElementById('mentor-popup').classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+    // Tutoring popup
+    function openTutoringPopup() {
+      document.getElementById('tutoring-popup').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeTutoringPopup() {
+      document.getElementById('tutoring-popup').classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+    // Close popup on ESC key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === "Escape") {
+        closeMentorPopup();
+        closeTutoringPopup();
+      }
+    });
+  </script>
+</body>
+</html>

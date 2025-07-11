@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>University Recruitment & Research Overview</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(120deg, #e0eafc 0%, #cfdef3 100%);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+    header {
+      background: linear-gradient(120deg, #2574eb 0%, #6dd5ed 100%);
+      color: #fff;
+      padding: 2em 0 1em 0;
+      text-align: center;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      margin-bottom: 2em;
+    }
+    h1 {
+      margin: 0 0 0.5em 0;
+      font-size: 2.5em;
+      letter-spacing: 1px;
+    }
+    #controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1em;
+      justify-content: center;
+      align-items: center;
+      background: #fff;
+      padding: 1em 2em;
+      border-radius: 16px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      margin: 0 auto 2em auto;
+      max-width: 900px;
+    }
+    #controls input, #controls select {
+      border: 1px solid #b3c6e0;
+      border-radius: 8px;
+      padding: 0.6em 1em;
+      font-size: 1em;
+      outline: none;
+      transition: border 0.2s;
+      background: #f7fbff;
+    }
+    #controls input:focus, #controls select:focus {
+      border: 1.5px solid #2574eb;
+    }
+    #universities {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 2em;
+      max-width: 1100px;
+      margin: 0 auto 2em auto;
+      padding: 0 1em;
+    }
+    .university {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(37,116,235,0.08);
+      padding: 1.5em 1.5em 1em 1.5em;
+      transition: transform 0.15s, box-shadow 0.15s;
+      border-left: 6px solid #2574eb;
+      position: relative;
+    }
+    .university:hover {
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 8px 32px rgba(37,116,235,0.13);
+      border-left: 6px solid #43cea2;
+    }
+    .university h2 {
+      margin-top: 0;
+      margin-bottom: 0.5em;
+      font-size: 1.4em;
+      color: #2574eb;
+    }
+    .university p {
+      margin: 0.3em 0;
+      color: #333;
+      font-size: 1em;
+    }
+    .university strong {
+      color: #185a9d;
+    }
+    @media (max-width: 700px) {
+      #controls {
+        flex-direction: column;
+        gap: 0.7em;
+        padding: 1em;
+      }
+      #universities {
+        grid-template-columns: 1fr;
+        padding: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Comprehensive Overview of Universities</h1>
+    <p style="font-size:1.1em; margin:0; color:#eaf6ff;">Search, filter, and discover top universities across the U.S.</p>
+  </header>
+
+  <!-- Search and Filters -->
+  <div id="controls">
+    <input type="text" id="search" placeholder="Search by name, location, or overview...">
+    <select id="typeFilter">
+      <option value="">All Types</option>
+      <option value="Private">Private</option>
+      <option value="Public">Public</option>
+    </select>
+    <select id="stateFilter">
+      <option value="">All States</option>
+      <option value="TX">TX</option>
+      <option value="NY">NY</option>
+      <option value="WA">WA</option>
+      <option value="PA">PA</option>
+      <option value="MA">MA</option>
+      <option value="NC">NC</option>
+    </select>
+  </div>
+
+  <div id="universities"></div>
+  <script>
+    const universities = [
+      {
+        name: "Rice University",
+        location: "Houston, TX",
+        overview: "A private research university known for its small class sizes, strong STEM programs (especially engineering and computer science), and high academic rigor. It’s often ranked among the top 20 U.S. universities (e.g., #17 in U.S. News 2023). Highly selective with a tight-knit community and a focus on undergraduate research.",
+        notable: "Low student-to-faculty ratio (6:1), vibrant residential college system.",
+        type: "Private",
+        state: "TX"
+      },
+      {
+        name: "Columbia University",
+        location: "New York, NY",
+        overview: "An Ivy League institution, globally renowned for its academic excellence, particularly in humanities, social sciences, and business. It’s highly selective (acceptance rate ~4%) and located in Manhattan, offering unmatched access to cultural and professional opportunities.",
+        notable: "Core Curriculum, strong graduate programs (e.g., journalism, law), and urban campus.",
+        type: "Private",
+        state: "NY"
+      },
+      {
+        name: "University of Washington - Tacoma",
+        location: "Tacoma, WA",
+        overview: "A satellite campus of the University of Washington, focused on serving non-traditional and regional students. It’s smaller than the main Seattle campus, emphasizing undergraduate education, business, and interdisciplinary studies. Less selective than UW-Seattle but growing in reputation.",
+        notable: "Urban-serving mission, strong community engagement.",
+        type: "Public",
+        state: "WA"
+      },
+      {
+        name: "University of Houston (UH)",
+        location: "Houston, TX",
+        overview: "A large public research university with diverse programs, particularly strong in business, engineering, and energy-related fields. It’s a Tier One research institution with a more accessible admission process compared to Rice or Columbia.",
+        notable: "Affordable tuition, vibrant campus life, and growing national recognition.",
+        type: "Public",
+        state: "TX"
+      },
+      {
+        name: "Swarthmore College",
+        location: "Swarthmore, PA",
+        overview: "A top-tier liberal arts college, known for its intellectual intensity, small size, and commitment to social justice. Highly selective (acceptance rate ~7%) with a focus on undergraduate education and close faculty interaction.",
+        notable: "Part of the Tri-College Consortium with Haverford and Bryn Mawr, strong humanities and social sciences.",
+        type: "Private",
+        state: "PA"
+      },
+      {
+        name: "UMass Amherst | University of Massachusetts Amherst",
+        location: "Amherst, MA",
+        overview: "A major public research university with a wide range of programs, particularly strong in computer science, engineering, and social sciences. More affordable than private institutions, with a moderately selective admissions process.",
+        notable: "Large campus with a vibrant student life, part of the Five College Consortium.",
+        type: "Public",
+        state: "MA"
+      },
+      {
+        name: "UNC Charlotte | University of North Carolina at Charlotte",
+        location: "Charlotte, NC",
+        overview: "A public research university with a focus on business, engineering, and data science. It’s less selective than some others on this list but has a growing reputation, especially in the Southeast.",
+        notable: "Strong ties to Charlotte’s business community, affordable for in-state students.",
+        type: "Public",
+        state: "NC"
+      },
+      {
+        name: "Northeastern University",
+        location: "Boston, MA",
+        overview: "A private research university famous for its co-op program, which integrates classroom learning with professional experience. Highly selective, with strengths in engineering, business, and health sciences.",
+        notable: "Experiential learning focus, global campus network, urban location.",
+        type: "Private",
+        state: "MA"
+      }
+    ];
+
+    function renderUniversities(list) {
+      const container = document.getElementById('universities');
+      if (list.length === 0) {
+        container.innerHTML = "<p style='grid-column:1/-1;text-align:center;color:#888;'>No universities found.</p>";
+        return;
+      }
+      container.innerHTML = list.map(u => `
+        <div class="university">
+          <h2>${u.name}</h2>
+          <p><strong>Location:</strong> ${u.location}</p>
+          <p><strong>Overview:</strong> ${u.overview}</p>
+          <p><strong>Notable:</strong> ${u.notable}</p>
+        </div>
+      `).join('');
+    }
+
+    function filterUniversities() {
+      const search = document.getElementById('search').value.toLowerCase();
+      const type = document.getElementById('typeFilter').value;
+      const state = document.getElementById('stateFilter').value;
+
+      const filtered = universities.filter(u => {
+        const matchesSearch =
+          u.name.toLowerCase().includes(search) ||
+          u.location.toLowerCase().includes(search) ||
+          u.overview.toLowerCase().includes(search) ||
+          u.notable.toLowerCase().includes(search);
+        const matchesType = !type || u.type === type;
+        const matchesState = !state || u.state === state;
+        return matchesSearch && matchesType && matchesState;
+      });
+      renderUniversities(filtered);
+    }
+
+    document.getElementById('search').addEventListener('input', filterUniversities);
+    document.getElementById('typeFilter').addEventListener('change', filterUniversities);
+    document.getElementById('stateFilter').addEventListener('change', filterUniversities);
+
+    document.addEventListener('DOMContentLoaded', () => renderUniversities(universities));
+  </script>
+</body>
+</html>

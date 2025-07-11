@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Meet the Mentors | Bixby Academic Mentors</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          animation: {
+            fadeIn: "fadeIn 1s ease-in-out"
+          },
+          keyframes: {
+            fadeIn: {
+              '0%': { opacity: 0 },
+              '100%': { opacity: 1 }
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+  <!-- Header -->
+  <header class="bg-white shadow-md mb-8">
+    <div class="max-w-7xl mx-auto px-4 py-6 flex justify-between items-center">
+      <div class="flex items-center space-x-3">
+        <a href="BAM index.html" class="flex items-center space-x-3 group">
+          <img src="bixby-academic-mentors-logo.png" alt="Bixby Academic Mentors Logo" class="h-10 w-auto">
+          <span class="text-2xl font-bold text-blue-600 group-hover:underline">Bixby Academic Mentors</span>
+        </a>
+      </div>
+      <a href="BAM index.html" class="inline-block bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 transition">Back to Home</a>
+    </div>
+  </header>
+
+  <!-- Filters -->
+  <main class="max-w-5xl mx-auto px-4">
+    <h2 class="text-3xl font-bold text-blue-700 mb-6 text-center">Meet the Mentors</h2>
+
+    <div class="mb-6 flex flex-col sm:flex-row gap-4 justify-between">
+      <input id="mentorSearch" type="text" placeholder="Search by name or subject..." class="w-full sm:w-1/2 px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+      <div class="flex flex-wrap gap-2">
+        <button class="subject-btn px-3 py-1 bg-blue-100 text-blue-700 rounded" data-subject="All">All</button>
+        <button class="subject-btn px-3 py-1 bg-blue-100 text-blue-700 rounded" data-subject="Math">Math</button>
+        <button class="subject-btn px-3 py-1 bg-blue-100 text-blue-700 rounded" data-subject="Science">Science</button>
+        <button class="subject-btn px-3 py-1 bg-blue-100 text-blue-700 rounded" data-subject="English">English</button>
+        <button class="subject-btn px-3 py-1 bg-blue-100 text-blue-700 rounded" data-subject="History">History</button>
+      </div>
+    </div>
+
+    <!-- Mentors Grid -->
+    <div id="mentorsGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+      <!-- Mentor Card Template -->
+      <div class="mentor-card bg-white rounded-lg shadow p-6 flex flex-col items-center transition transform hover:scale-105 duration-300 animate-fadeIn"
+           data-name="Sarah Lee" data-subjects="Biology, Science" data-availability="Available">
+        <img src="mentor1.jpg" alt="Sarah Lee" class="h-32 w-32 object-cover rounded-full mb-4 border-2 border-blue-200">
+        <h3 class="text-xl font-semibold text-blue-700">Sarah Lee</h3>
+        <p class="text-gray-600">Subjects: Biology, Science</p>
+        <span class="text-green-500 text-sm mt-1">Available</span>
+        <button onclick="openModal('Sarah Lee', 'Biology, Science', 'Sarah is passionate about biology and has mentored over 30 students successfully.')" class="mt-3 text-blue-600 hover:underline text-sm">More Info</button>
+        <a href="https://yourform.com" class="mt-2 inline-block text-sm text-white bg-blue-600 px-4 py-1 rounded hover:bg-blue-700">Request Mentor</a>
+      </div>
+
+      <!-- Duplicate and customize more mentor cards here -->
+    </div>
+  </main>
+
+  <!-- Modal -->
+  <div id="mentorModal" class="fixed inset-0 bg-black bg-opacity-50 hidden justify-center items-center z-50">
+    <div class="bg-white p-6 rounded-lg max-w-md mx-auto">
+      <h3 id="modalName" class="text-2xl font-bold text-blue-700 mb-2"></h3>
+      <p id="modalSubjects" class="text-gray-700 font-medium mb-2"></p>
+      <p id="modalBio" class="text-gray-600"></p>
+      <button onclick="closeModal()" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Close</button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-white py-6 text-center text-sm text-gray-500 mt-12">
+    <p>&copy; 2025 NHS Tutoring Society. All rights reserved.</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    const mentorSearch = document.getElementById('mentorSearch');
+    const subjectButtons = document.querySelectorAll('.subject-btn');
+    const mentorCards = document.querySelectorAll('.mentor-card');
+
+    mentorSearch.addEventListener('input', () => {
+      const keyword = mentorSearch.value.toLowerCase();
+      mentorCards.forEach(card => {
+        const name = card.dataset.name.toLowerCase();
+        const subjects = card.dataset.subjects.toLowerCase();
+        card.style.display = (name.includes(keyword) || subjects.includes(keyword)) ? 'flex' : 'none';
+      });
+    });
+
+    subjectButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const subject = button.dataset.subject;
+        mentorCards.forEach(card => {
+          if (subject === 'All' || card.dataset.subjects.includes(subject)) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    function openModal(name, subjects, bio) {
+      document.getElementById('modalName').innerText = name;
+      document.getElementById('modalSubjects').innerText = `Subjects: ${subjects}`;
+      document.getElementById('modalBio').innerText = bio;
+      document.getElementById('mentorModal').classList.remove('hidden');
+      document.getElementById('mentorModal').classList.add('flex');
+    }
+
+    function closeModal() {
+      document.getElementById('mentorModal').classList.add('hidden');
+      document.getElementById('mentorModal').classList.remove('flex');
+    }
+  </script>
+</body>
+</html>
