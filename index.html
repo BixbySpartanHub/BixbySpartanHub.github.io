@@ -649,11 +649,11 @@
       color: white;
       border: none;
       border-radius: 50%;
-      width: 60px;
-      height: 60px;
-      font-size: 1.5em;
+      width: 45px;
+      height: 45px;
+      font-size: 1.1em;
       cursor: pointer;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
       transition: all 0.3s ease;
       display: flex;
       align-items: center;
@@ -661,8 +661,8 @@
     }
 
     .chatbot-toggle:hover {
-      transform: scale(1.1);
-      box-shadow: 0 6px 25px rgba(0,0,0,0.3);
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.25);
     }
   </style>
 </head>
@@ -795,8 +795,17 @@
   <!-- Loading Spinner -->
   <div id="loading-spinner" class="loading-spinner"></div>
 
-  <!-- Jotform Chatbot Script -->
-  <script src='https://cdn.jotfor.ms/agent/embedjs/019838507c1b7516a83f8e062ad19f16b05e/embed.js?skipWelcome=1&maximizable=1'></script>
+  <!-- Jotform Chatbot Script - Modified to prevent popups -->
+  <script>
+    // Custom chatbot loader to prevent auto-popups
+    window.addEventListener('load', function() {
+      // Load the Jotform script but suppress automatic behaviors
+      const script = document.createElement('script');
+      script.src = 'https://cdn.jotfor.ms/agent/embedjs/019838507c1b7516a83f8e062ad19f16b05e/embed.js?skipWelcome=1&maximizable=1&autoOpen=0';
+      script.async = true;
+      document.head.appendChild(script);
+    });
+  </script>
 
   <script>
     // Easter Egg Function
