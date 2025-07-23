@@ -290,34 +290,35 @@
   
 
     /* Responsive Design */
-    @media (max-width: 768px) {
+    /* Only shrink header on small phones */
+    @media (max-width: 480px) {
       .header-banner {
-        height: 120px;
-        padding: 0 4vw;
-      }
-      .header-content {
+        height: 90px;
         padding: 0 2vw;
       }
+      .header-content {
+        padding: 0 1vw;
+      }
       .spartan-logo {
-        margin-bottom: 8px;
-        gap: 6px;
+        margin-bottom: 4px;
+        gap: 4px;
       }
       .logo-icon {
-        font-size: 1.2em;
+        font-size: 1em;
       }
       .logo-text {
-        font-size: 1em;
-        letter-spacing: 1px;
+        font-size: 0.8em;
+        letter-spacing: 0.5px;
       }
       .header-title {
-        font-size: 1em;
-        margin-bottom: 6px;
+        font-size: 0.9em;
+        margin-bottom: 4px;
       }
       .header-subtitle {
-        font-size: 0.85em;
+        font-size: 0.7em;
       }
       .main-content {
-        min-height: calc(100vh - 120px);
+        min-height: calc(100vh - 90px);
       }
     }
 
