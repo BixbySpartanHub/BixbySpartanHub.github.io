@@ -4,8 +4,17 @@
   <meta charset="UTF-8">
   <title>Spartan Hub</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Google AdSense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9939115771782027"
     crossorigin="anonymous"></script>
+  
+  <!-- AdSense Auto Ads (Optional - enables automatic ad placement) -->
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+      google_ad_client: "ca-pub-9939115771782027",
+      enable_page_level_ads: true
+    });
+  </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.0/math.min.js"></script>
   <style>
     /* Larger header for tablets and computers */
@@ -220,6 +229,146 @@
     
     .logo-image:hover {
       transform: scale(1.05) rotate(5deg);
+    }
+    
+    .logo-image.clicked {
+      animation: logoEasterEgg 2s ease-in-out;
+      position: relative;
+      z-index: 2000;
+    }
+    
+    @keyframes logoEasterEgg {
+      0% { 
+        transform: scale(1) rotate(0deg) translateZ(0px); 
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      }
+      15% { 
+        transform: scale(1.5) rotate(180deg) translateZ(50px); 
+        box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+      }
+      25% { 
+        transform: scale(2) rotate(360deg) translateZ(100px); 
+        box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+      }
+      35% { 
+        transform: scale(2.2) rotate(540deg) translateZ(120px); 
+        box-shadow: 0 50px 100px rgba(0,0,0,0.6);
+      }
+      45% { 
+        transform: scale(1.8) rotate(720deg) translateZ(100px); 
+        filter: hue-rotate(180deg) saturate(2);
+        box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+      }
+      55% { 
+        transform: scale(2.5) rotate(900deg) translateZ(150px); 
+        filter: hue-rotate(360deg) saturate(1.5);
+        box-shadow: 0 60px 120px rgba(0,0,0,0.7);
+      }
+      65% { 
+        transform: scale(1.7) rotate(1080deg) translateZ(100px); 
+        filter: hue-rotate(540deg) saturate(2.5);
+        box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+      }
+      75% { 
+        transform: scale(2.3) rotate(1260deg) translateZ(130px); 
+        filter: hue-rotate(720deg) saturate(1);
+        box-shadow: 0 55px 110px rgba(0,0,0,0.6);
+      }
+      85% { 
+        transform: scale(1.9) rotate(1440deg) translateZ(80px); 
+        filter: hue-rotate(0deg) saturate(1);
+        box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+      }
+      95% { 
+        transform: scale(1.1) rotate(1620deg) translateZ(20px); 
+        box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+      }
+      100% { 
+        transform: scale(1) rotate(1800deg) translateZ(0px); 
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      }
+    }
+    
+    /* Paper airplane orbiting animation */
+    .paper-airplane {
+      position: absolute;
+      font-size: 24px;
+      pointer-events: none;
+      z-index: 1999;
+      opacity: 0;
+    }
+    
+    .paper-airplane.active {
+      opacity: 1;
+      animation: orbitGlobe 2s ease-in-out;
+    }
+    
+    @keyframes orbitGlobe {
+      0% {
+        transform: rotate(0deg) translateX(80px) rotate(0deg) scale(0.5);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+        transform: rotate(36deg) translateX(100px) rotate(-36deg) scale(0.8);
+      }
+      20% {
+        transform: rotate(72deg) translateX(120px) rotate(-72deg) scale(1);
+      }
+      30% {
+        transform: rotate(108deg) translateX(140px) rotate(-108deg) scale(1.2);
+      }
+      40% {
+        transform: rotate(144deg) translateX(160px) rotate(-144deg) scale(1);
+      }
+      50% {
+        transform: rotate(180deg) translateX(180px) rotate(-180deg) scale(1.3);
+      }
+      60% {
+        transform: rotate(216deg) translateX(160px) rotate(-216deg) scale(1);
+      }
+      70% {
+        transform: rotate(252deg) translateX(140px) rotate(-252deg) scale(1.1);
+      }
+      80% {
+        transform: rotate(288deg) translateX(120px) rotate(-288deg) scale(0.9);
+      }
+      90% {
+        transform: rotate(324deg) translateX(100px) rotate(-324deg) scale(0.7);
+      }
+      100% {
+        transform: rotate(360deg) translateX(80px) rotate(-360deg) scale(0.5);
+        opacity: 0;
+      }
+    }
+    
+    /* Enhanced 3D perspective */
+    .spartan-logo {
+      perspective: 1000px;
+      transform-style: preserve-3d;
+    }
+    
+    /* Easter egg particles */
+    @keyframes particle {
+      0% { 
+        opacity: 1; 
+        transform: translate(0, 0) scale(1); 
+      }
+      100% { 
+        opacity: 0; 
+        transform: translate(var(--dx), var(--dy)) scale(0); 
+      }
+    }
+    
+    .particle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: radial-gradient(circle, #ffd700, #ff6b6b);
+      border-radius: 50%;
+      pointer-events: none;
+      animation: particle 1s ease-out forwards;
+      z-index: 1000;
     }
     
     .logo-text {
@@ -457,7 +606,37 @@
       border: 0;
     }
 
-    /* Chatbot Styles */
+    /* Ad Placement Styles */
+    .ad-container {
+      text-align: center;
+      margin: 40px 0;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      backdrop-filter: blur(10px);
+    }
+    
+    .ad-label {
+      font-size: 0.8em;
+      color: #6b7280;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .footer-ad {
+      background: #f8fafc;
+      padding: 40px 20px;
+      border-top: 1px solid #e5e7eb;
+    }
+    
+    /* Responsive ad containers */
+    @media (max-width: 768px) {
+      .ad-container {
+        margin: 20px 0;
+        padding: 15px;
+      }
+    }
     .chatbot-container {
       position: fixed;
       bottom: 20px;
@@ -499,7 +678,7 @@
     <div class="header-overlay"></div>
     <div class="header-content">
       <div class="spartan-logo">
-        <img src="https://lh3.googleusercontent.com/a/ACg8ocLM6F0zNHRdLCJQwy2zhRQd0rjITYBgHXFt87gzh1dZphpRTaQ=s288-c-no" alt="Spartan Hub Logo" class="logo-image">
+        <img src="https://lh3.googleusercontent.com/a/ACg8ocLM6F0zNHRdLCJQwy2zhRQd0rjITYBgHXFt87gzh1dZphpRTaQ=s288-c-no" alt="Spartan Hub Logo" class="logo-image" onclick="triggerEasterEgg(this)" style="cursor: pointer;">
         <span class="logo-text">SPARTAN HUB</span>
       </div>
       <h1 class="header-title">How can we help you?</h1>
@@ -511,6 +690,17 @@
   <div class="main-content">
     <div class="topics-section">
       <h2 class="section-title">Explore Our Services</h2>
+      
+      <!-- Optional: Top Banner Ad -->
+      <div class="ad-container">
+        <div class="ad-label">Advertisement</div>
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-9939115771782027"
+             data-ad-slot="1234567890"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+      </div>
       
       <div class="topics-grid">
         <!-- Academic Help -->
@@ -593,6 +783,19 @@
     </div>
   </div>
 
+  <!-- Footer Ad Section -->
+  <div class="footer-ad">
+    <div class="ad-container">
+      <div class="ad-label">Advertisement</div>
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-9939115771782027"
+           data-ad-slot="0987654321"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+    </div>
+  </div>
+
   <!-- Chatbot -->
   <div class="chatbot-container">
     <button id="chatbot-toggle" class="chatbot-toggle" aria-label="Open chatbot">
@@ -607,6 +810,98 @@
   <script src='https://cdn.jotfor.ms/agent/embedjs/019838507c1b7516a83f8e062ad19f16b05e/embed.js?skipWelcome=1&maximizable=1'></script>
 
   <script>
+    // Easter Egg Function
+    function triggerEasterEgg(logoElement) {
+      // Prevent multiple triggers
+      if (logoElement.classList.contains('clicked')) return;
+      
+      // Add the animation class
+      logoElement.classList.add('clicked');
+      
+      // Create paper airplane that orbits the logo
+      createOrbitingAirplane(logoElement);
+      
+      // Create particle explosion
+      createParticleExplosion(logoElement);
+      
+      // Play a fun sound effect (if you want to add audio later)
+      console.log('🎉 SPARTAN EASTER EGG ACTIVATED! ✈️ 🌍 🎉');
+      
+      // Remove the class after animation completes
+      setTimeout(() => {
+        logoElement.classList.remove('clicked');
+      }, 2000);
+    }
+    
+    function createOrbitingAirplane(logoElement) {
+      const airplane = document.createElement('div');
+      airplane.className = 'paper-airplane';
+      airplane.innerHTML = '✈️';
+      
+      // Position airplane relative to logo
+      const rect = logoElement.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      
+      airplane.style.left = centerX + 'px';
+      airplane.style.top = centerY + 'px';
+      airplane.style.transformOrigin = '0 0';
+      
+      document.body.appendChild(airplane);
+      
+      // Trigger the orbit animation
+      setTimeout(() => {
+        airplane.classList.add('active');
+      }, 100);
+      
+      // Remove airplane after animation completes
+      setTimeout(() => {
+        if (airplane.parentNode) {
+          airplane.parentNode.removeChild(airplane);
+        }
+      }, 2200);
+    }
+    
+    function createParticleExplosion(element) {
+      const rect = element.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      
+      // Create 20 particles
+      for (let i = 0; i < 20; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        
+        // Random direction and distance
+        const angle = (Math.PI * 2 * i) / 20;
+        const distance = 100 + Math.random() * 100;
+        const dx = Math.cos(angle) * distance;
+        const dy = Math.sin(angle) * distance;
+        
+        // Set CSS custom properties for animation
+        particle.style.setProperty('--dx', dx + 'px');
+        particle.style.setProperty('--dy', dy + 'px');
+        
+        // Position particle at logo center
+        particle.style.left = centerX + 'px';
+        particle.style.top = centerY + 'px';
+        
+        // Add random colors
+        const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#ffeaa7', '#dda0dd', '#98d8c8'];
+        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+        particle.style.background = `radial-gradient(circle, ${randomColor}, ${randomColor}aa)`;
+        
+        document.body.appendChild(particle);
+        
+        // Remove particle after animation
+        setTimeout(() => {
+          if (particle.parentNode) {
+            particle.parentNode.removeChild(particle);
+          }
+        }, 1000);
+      }
+    }
+
     // Error Handling System
     function showError(message) {
       const banner = document.getElementById('error-banner');
@@ -695,8 +990,16 @@
       });
     }, observerOptions);
 
-    // Initialize animations
+    // Initialize ads when page loads
     document.addEventListener('DOMContentLoaded', function() {
+      // Initialize AdSense ads
+      try {
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      } catch (e) {
+        console.log('AdSense not loaded yet');
+      }
+      
       // Observe all topic cards
       document.querySelectorAll('.topic-card').forEach(card => {
         observer.observe(card);
