@@ -468,34 +468,6 @@
       transform: scale(1.1);
       box-shadow: 0 6px 25px rgba(0,0,0,0.3);
     }
-
-    .chatbot-iframe {
-      position: absolute;
-      bottom: 70px;
-      right: 0;
-      width: 350px;
-      height: 500px;
-      border: none;
-      border-radius: 12px;
-      box-shadow: 0 8px 40px rgba(0,0,0,0.3);
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(20px);
-      transition: all 0.3s ease;
-    }
-
-    .chatbot-iframe.active {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
-    }
-
-    @media (max-width: 768px) {
-      .chatbot-iframe {
-        width: 300px;
-        height: 400px;
-      }
-    }
   </style>
 </head>
 <body>
@@ -609,14 +581,13 @@
     <button id="chatbot-toggle" class="chatbot-toggle" aria-label="Open chatbot">
       💬
     </button>
-    <iframe id="chatbot-iframe" class="chatbot-iframe" 
-            src="https://cdn.jotfor.ms/agent/embedjs/019838507c1b7516a83f8e062ad19f16b05e/embed.js?skipWelcome=1&maximizable=1"
-            title="Spartan Hub Chatbot">
-    </iframe>
   </div>
 
   <!-- Loading Spinner -->
   <div id="loading-spinner" class="loading-spinner"></div>
+
+  <!-- Jotform Chatbot Script -->
+  <script src='https://cdn.jotfor.ms/agent/embedjs/019838507c1b7516a83f8e062ad19f16b05e/embed.js?skipWelcome=1&maximizable=1'></script>
 
   <script>
     // Error Handling System
@@ -662,31 +633,24 @@
 
     // Chatbot Functionality
     const chatbotToggle = document.getElementById('chatbot-toggle');
-    const chatbotIframe = document.getElementById('chatbot-iframe');
-    let hideTimeout;
 
-    function showChatbot() {
-      clearTimeout(hideTimeout);
-      chatbotIframe.classList.add('active');
-    }
-
-    function hideChatbot() {
-      hideTimeout = setTimeout(() => {
-        chatbotIframe.classList.remove('active');
-      }, 300);
-    }
-
-    // Event listeners for chatbot
-    chatbotToggle.addEventListener('click', showChatbot);
-    chatbotToggle.addEventListener('mouseenter', showChatbot);
-    chatbotToggle.addEventListener('mouseleave', hideChatbot);
-    chatbotIframe.addEventListener('mouseenter', () => clearTimeout(hideTimeout));
-    chatbotIframe.addEventListener('mouseleave', hideChatbot);
+    // Simple chatbot toggle - the Jotform script handles the display
+    chatbotToggle.addEventListener('click', function() {
+      // Add click animation
+      this.style.transform = 'scale(0.9)';
+      setTimeout(() => {
+        this.style.transform = '';
+      }, 150);
+      
+      // The Jotform script should handle opening the chat
+      console.log('Chatbot clicked - Jotform should handle this');
+    });
 
     // Keyboard navigation
     document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape' && chatbotIframe.classList.contains('active')) {
-        chatbotIframe.classList.remove('active');
+      if (e.key === 'Escape') {
+        // Let Jotform handle escape key if chatbot is open
+        console.log('Escape pressed');
       }
     });
 
