@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,36 +9,69 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.0/math.min.js"></script>
   <style>
     /* Larger header for tablets and computers */
-    @media (min-width: 481px) {
+    @media (min-width: 769px) {
       .header-banner {
-        height: 420px;
+        height: 500px;
         padding: 0 80px;
       }
       .header-content {
         padding: 0 60px;
       }
       .spartan-logo {
-        margin-bottom: 50px;
-        gap: 32px;
+        margin-bottom: 60px;
+        gap: 40px;
       }
       .logo-icon {
-        font-size: 5em;
+        font-size: 6em;
       }
       .logo-text {
-        font-size: 4em;
-        letter-spacing: 6px;
+        font-size: 5em;
+        letter-spacing: 8px;
       }
       .header-title {
-        font-size: 4em;
-        margin-bottom: 32px;
+        font-size: 4.5em;
+        margin-bottom: 40px;
       }
       .header-subtitle {
-        font-size: 2em;
+        font-size: 2.2em;
       }
       .main-content {
-        min-height: calc(100vh - 420px);
+        min-height: calc(100vh - 500px);
       }
     }
+
+    /* Medium screens (tablets) */
+    @media (min-width: 481px) and (max-width: 768px) {
+      .header-banner {
+        height: 350px;
+        padding: 0 40px;
+      }
+      .header-content {
+        padding: 0 30px;
+      }
+      .spartan-logo {
+        margin-bottom: 30px;
+        gap: 20px;
+      }
+      .logo-icon {
+        font-size: 3.5em;
+      }
+      .logo-text {
+        font-size: 2.8em;
+        letter-spacing: 4px;
+      }
+      .header-title {
+        font-size: 2.5em;
+        margin-bottom: 20px;
+      }
+      .header-subtitle {
+        font-size: 1.4em;
+      }
+      .main-content {
+        min-height: calc(100vh - 350px);
+      }
+    }
+    
     * {
       margin: 0;
       padding: 0;
@@ -63,11 +95,30 @@
       font-weight: 500;
       border-bottom: 1px solid #fca5a5;
       display: none;
+      position: relative;
     }
     
     .error-banner.show {
       display: block;
       animation: slideDown 0.3s ease-out;
+    }
+    
+    .error-close {
+      background: none;
+      border: none;
+      color: inherit;
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      font-size: 1.2em;
+      padding: 0;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     
     @keyframes slideDown {
@@ -83,7 +134,7 @@
       height: 24px;
       animation: spin 1s linear infinite;
       display: none;
-      margin: 0 auto;
+      margin: 20px auto;
     }
     
     @keyframes spin {
@@ -109,13 +160,13 @@
       background: linear-gradient(135deg, #1e3a8a 0%, #3730a3 25%, #7c3aed 50%, #be185d 75%, #dc2626 100%);
       background-size: 400% 400%;
       animation: gradientShift 8s ease infinite;
-      height: 220px;
+      height: 280px;
       display: flex;
       align-items: center;
       justify-content: center;
       position: relative;
       overflow: hidden;
-      padding: 0 10px;
+      padding: 0 20px;
     }
     
     @keyframes gradientShift {
@@ -147,51 +198,40 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
-      margin-bottom: 18px;
+      gap: 15px;
+      margin-bottom: 25px;
     }
     
     .logo-icon {
-      font-size: 2em;
+      font-size: 2.5em;
       filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
     }
     
     .logo-text {
-      font-size: 1.5em;
+      font-size: 2em;
       font-weight: 900;
-      letter-spacing: 2px;
+      letter-spacing: 3px;
       text-shadow: 0 4px 8px rgba(0,0,0,0.3);
     }
     
     .header-title {
-      font-size: 1.5em;
+      font-size: 2em;
       font-weight: 700;
-      margin-bottom: 10px;
+      margin-bottom: 15px;
       text-shadow: 0 4px 8px rgba(0,0,0,0.3);
     }
     
     .header-subtitle {
-      font-size: 1em;
+      font-size: 1.2em;
       font-weight: 400;
       opacity: 0.9;
       text-shadow: 0 2px 4px rgba(0,0,0,0.3);
     }
 
-    /* Blue Bar */
-    .blue-bar {
-      background: linear-gradient(90deg, #3b82f6, #1d4ed8);
-      color: #fff;
-      text-align: center;
-      padding: 20px;
-      font-size: 1.2em;
-      font-weight: 500;
-      box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
-    }
-
     /* Main Content */
     .main-content {
       background: #f8fafc;
-      min-height: calc(100vh - 320px);
+      min-height: calc(100vh - 280px);
       padding: 60px 20px;
     }
     
@@ -238,6 +278,13 @@
       cursor: pointer;
       position: relative;
       overflow: hidden;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    
+    .topic-card.animate {
+      opacity: 1;
+      transform: translateY(0);
     }
     
     .topic-card::before {
@@ -270,6 +317,11 @@
       cursor: not-allowed;
     }
     
+    .topic-card.coming-soon:hover {
+      transform: none;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+    
     .topic-icon {
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       border-radius: 50%;
@@ -286,6 +338,10 @@
     
     .topic-card:hover .topic-icon {
       transform: scale(1.1) rotate(5deg);
+    }
+    
+    .topic-card.coming-soon:hover .topic-icon {
+      transform: none;
     }
     
     .topic-name {
@@ -319,38 +375,50 @@
     .status-coming-soon {
       background: #f3f4f6;
       color: #6b7280;
-  
+    }
 
     /* Responsive Design */
-    /* Only shrink header on small phones */
     @media (max-width: 480px) {
       .header-banner {
-        height: 90px;
-        padding: 0 2vw;
+        height: 200px;
+        padding: 0 15px;
       }
       .header-content {
-        padding: 0 1vw;
+        padding: 0 10px;
       }
       .spartan-logo {
-        margin-bottom: 4px;
-        gap: 4px;
+        margin-bottom: 15px;
+        gap: 8px;
       }
       .logo-icon {
-        font-size: 1em;
+        font-size: 1.8em;
       }
       .logo-text {
-        font-size: 0.8em;
-        letter-spacing: 0.5px;
+        font-size: 1.3em;
+        letter-spacing: 1px;
       }
       .header-title {
-        font-size: 0.9em;
-        margin-bottom: 4px;
+        font-size: 1.4em;
+        margin-bottom: 8px;
+        line-height: 1.3;
       }
       .header-subtitle {
-        font-size: 0.7em;
+        font-size: 0.9em;
+        line-height: 1.4;
       }
       .main-content {
-        min-height: calc(100vh - 90px);
+        min-height: calc(100vh - 200px);
+        padding: 40px 15px;
+      }
+      .section-title {
+        font-size: 1.8em;
+        margin-bottom: 30px;
+      }
+      .topics-grid {
+        gap: 20px;
+      }
+      .topic-card {
+        padding: 25px 15px;
       }
     }
 
@@ -371,21 +439,73 @@
       white-space: nowrap;
       border: 0;
     }
+
+    /* Chatbot Styles */
+    .chatbot-container {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+    }
+
+    .chatbot-toggle {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      font-size: 1.5em;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .chatbot-toggle:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 25px rgba(0,0,0,0.3);
+    }
+
+    .chatbot-iframe {
+      position: absolute;
+      bottom: 70px;
+      right: 0;
+      width: 350px;
+      height: 500px;
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.3);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(20px);
+      transition: all 0.3s ease;
+    }
+
+    .chatbot-iframe.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 768px) {
+      .chatbot-iframe {
+        width: 300px;
+        height: 400px;
+      }
+    }
   </style>
 </head>
 <body>
   <!-- Error Banner -->
   <div id="error-banner" class="error-banner" role="alert" aria-live="polite">
     <span id="error-message"></span>
-    <button onclick="hideError()" style="background: none; border: none; color: inherit; float: right; cursor: pointer; font-size: 1.2em;">&times;</button>
+    <button class="error-close" onclick="hideError()" aria-label="Close error message">&times;</button>
   </div>
 
-  <!-- Development Banner 
-  <div class="dev-banner">
-    🚧 This website is still under development. Some features may change. 🚧
-  </div> -->
-
-  <!-- New Header Banner -->
+  <!-- Header Banner -->
   <div class="header-banner">
     <div class="header-overlay"></div>
     <div class="header-content">
@@ -405,7 +525,7 @@
       
       <div class="topics-grid">
         <!-- Academic Help -->
-        <div class="topic-card available" onclick="window.location.href='BAM index.html'" tabindex="0" role="button" aria-label="Academic Help - Available">
+        <div class="topic-card available" onclick="handleCardClick('BAM index.html')" tabindex="0" role="button" aria-label="Academic Help - Available">
           <div class="status-badge status-available">Available</div>
           <div class="topic-icon">
             <span>📚</span>
@@ -415,7 +535,7 @@
         </div>
 
         <!-- College Search -->
-        <div class="topic-card available" onclick="window.location.href='college index.html'" tabindex="0" role="button" aria-label="College Search Help - Available">
+        <div class="topic-card available" onclick="handleCardClick('college index.html')" tabindex="0" role="button" aria-label="College Search Help - Available">
           <div class="status-badge status-available">Available</div>
           <div class="topic-icon">
             <span>🎓</span>
@@ -425,7 +545,7 @@
         </div>
 
         <!-- Mental Health Support -->
-        <div class="topic-card available" onclick="window.location.href='teenhelp index.html'" tabindex="0" role="button" aria-label="Mental Health Support - Available">
+        <div class="topic-card available" onclick="handleCardClick('teenhelp index.html')" tabindex="0" role="button" aria-label="Mental Health Support - Available">
           <div class="status-badge status-available">Available</div>
           <div class="topic-icon">
             <span>💚</span>
@@ -435,7 +555,7 @@
         </div>
 
         <!-- Spartan Armory -->
-        <div class="topic-card available" onclick="window.location.href='spartan-armory.html'" tabindex="0" role="button" aria-label="Spartan Armory - Available">
+        <div class="topic-card available" onclick="handleCardClick('spartan-armory.html')" tabindex="0" role="button" aria-label="Spartan Armory - Available">
           <div class="status-badge status-available">Available</div>
           <div class="topic-icon">
             <span>👕</span>
@@ -445,7 +565,7 @@
         </div>
 
         <!-- Coming Soon Items -->
-        <div class="topic-card coming-soon" tabindex="0" role="button" aria-label="Connect with the World - Coming Soon">
+        <div class="topic-card coming-soon" onclick="handleComingSoon()" tabindex="0" role="button" aria-label="Connect with the World - Coming Soon">
           <div class="status-badge status-coming-soon">Coming Soon</div>
           <div class="topic-icon">
             <span>🌍</span>
@@ -454,7 +574,7 @@
           <div class="topic-description">Build global connections and cultural awareness</div>
         </div>
 
-        <div class="topic-card coming-soon" tabindex="0" role="button" aria-label="General Support - Coming Soon">
+        <div class="topic-card coming-soon" onclick="handleComingSoon()" tabindex="0" role="button" aria-label="General Support - Coming Soon">
           <div class="status-badge status-coming-soon">Coming Soon</div>
           <div class="topic-icon">
             <span>🤝</span>
@@ -463,7 +583,7 @@
           <div class="topic-description">Get help with everyday challenges and questions</div>
         </div>
 
-        <div class="topic-card coming-soon" tabindex="0" role="button" aria-label="Career Guidance - Coming Soon">
+        <div class="topic-card coming-soon" onclick="handleComingSoon()" tabindex="0" role="button" aria-label="Career Guidance - Coming Soon">
           <div class="status-badge status-coming-soon">Coming Soon</div>
           <div class="topic-icon">
             <span>💼</span>
@@ -472,7 +592,7 @@
           <div class="topic-description">Explore career paths and professional development</div>
         </div>
 
-        <div class="topic-card coming-soon" tabindex="0" role="button" aria-label="Driving Help - Coming Soon">
+        <div class="topic-card coming-soon" onclick="handleComingSoon()" tabindex="0" role="button" aria-label="Driving Help - Coming Soon">
           <div class="status-badge status-coming-soon">Coming Soon</div>
           <div class="topic-icon">
             <span>🚗</span>
@@ -484,12 +604,21 @@
     </div>
   </div>
 
+  <!-- Chatbot -->
+  <div class="chatbot-container">
+    <button id="chatbot-toggle" class="chatbot-toggle" aria-label="Open chatbot">
+      💬
+    </button>
+    <iframe id="chatbot-iframe" class="chatbot-iframe" 
+            src="https://cdn.jotfor.ms/agent/embedjs/019838507c1b7516a83f8e062ad19f16b05e/embed.js?skipWelcome=1&maximizable=1"
+            title="Spartan Hub Chatbot">
+    </iframe>
+  </div>
 
   <!-- Loading Spinner -->
   <div id="loading-spinner" class="loading-spinner"></div>
 
-<script
-  src='https://cdn.jotfor.ms/agent/embedjs/019838507c1b7516a83f8e062ad19f16b05e/embed.js?skipWelcome=1&maximizable=1'>
+  <script>
     // Error Handling System
     function showError(message) {
       const banner = document.getElementById('error-banner');
@@ -508,42 +637,9 @@
       banner.classList.remove('show');
     }
 
-    // Navigation with Error Handling
-    function handleNavigation(url) {
-      try {
-        // Show loading state
-        document.getElementById('loading-spinner').style.display = 'block';
-        
-        // Simulate network delay and potential error
-        setTimeout(() => {
-          document.getElementById('loading-spinner').style.display = 'none';
-          
-          // For demo purposes, randomly show an error
-          if (Math.random() > 0.8) {
-            showError('Unable to navigate to page. Please try again.');
-            return;
-          }
-          
-          // In a real app, you'd navigate here
-          console.log('Navigating to:', url);
-          // window.location.href = url;
-        }, 1000);
-      } catch (error) {
-        document.getElementById('loading-spinner').style.display = 'none';
-        showError('An unexpected error occurred. Please refresh the page.');
-        console.error('Navigation error:', error);
-      }
-    }
-
-    // Card Click Handler with Error Handling
+    // Navigation Functions
     function handleCardClick(url) {
       const card = event.currentTarget;
-      
-      // Check if card is available
-      if (card.classList.contains('coming-soon')) {
-        showError('This feature is coming soon! Stay tuned for updates.');
-        return;
-      }
       
       // Add click animation
       card.style.transform = 'scale(0.95)';
@@ -551,32 +647,27 @@
         card.style.transform = '';
       }, 150);
       
-      handleNavigation(url);
+      // Navigate to the page
+      try {
+        window.location.href = url;
+      } catch (error) {
+        showError('Unable to navigate to page. Please try again.');
+        console.error('Navigation error:', error);
+      }
     }
 
-    // Remove the broken dynamic header code
-    // Header now uses CSS animations instead of JavaScript
+    function handleComingSoon() {
+      showError('This feature is coming soon! Stay tuned for updates.');
+    }
 
-    // Chatbot Functionality with Error Handling
+    // Chatbot Functionality
     const chatbotToggle = document.getElementById('chatbot-toggle');
     const chatbotIframe = document.getElementById('chatbot-iframe');
     let hideTimeout;
-    let chatbotLoaded = false;
 
     function showChatbot() {
       clearTimeout(hideTimeout);
       chatbotIframe.classList.add('active');
-      
-      // Load iframe content on first show
-      if (!chatbotLoaded) {
-        chatbotLoaded = true;
-        chatbotIframe.onload = function() {
-          console.log('Chatbot loaded successfully');
-        };
-        chatbotIframe.onerror = function() {
-          showError('Unable to load chatbot. Please try again later.');
-        };
-      }
     }
 
     function hideChatbot() {
@@ -585,9 +676,9 @@
       }, 300);
     }
 
-    // Event listeners
-    chatbotToggle.addEventListener('mouseenter', showChatbot);
+    // Event listeners for chatbot
     chatbotToggle.addEventListener('click', showChatbot);
+    chatbotToggle.addEventListener('mouseenter', showChatbot);
     chatbotToggle.addEventListener('mouseleave', hideChatbot);
     chatbotIframe.addEventListener('mouseenter', () => clearTimeout(hideTimeout));
     chatbotIframe.addEventListener('mouseleave', hideChatbot);
@@ -597,6 +688,48 @@
       if (e.key === 'Escape' && chatbotIframe.classList.contains('active')) {
         chatbotIframe.classList.remove('active');
       }
+    });
+
+    // Card animations on scroll
+    function animateCards() {
+      const cards = document.querySelectorAll('.topic-card');
+      cards.forEach((card, index) => {
+        setTimeout(() => {
+          card.classList.add('animate');
+        }, index * 100);
+      });
+    }
+
+    // Intersection Observer for animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !entry.target.classList.contains('animate')) {
+          entry.target.classList.add('animate');
+        }
+      });
+    }, observerOptions);
+
+    // Initialize animations
+    document.addEventListener('DOMContentLoaded', function() {
+      // Observe all topic cards
+      document.querySelectorAll('.topic-card').forEach(card => {
+        observer.observe(card);
+      });
+
+      // Add keyboard support for cards
+      document.querySelectorAll('.topic-card').forEach(card => {
+        card.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            this.click();
+          }
+        });
+      });
     });
 
     // Global error handler
@@ -611,40 +744,10 @@
     });
 
     window.addEventListener('online', function() {
-      showError('Connection restored!');
-    });
-
-    // Intersection Observer for animations
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
-        }
-      });
-    }, observerOptions);
-
-    // Observe all topic cards
-    document.querySelectorAll('.topic-card').forEach(card => {
-      card.style.opacity = '0';
-      card.style.transform = 'translateY(20px)';
-      card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-      observer.observe(card);
-    });
-
-    // Add focus management for accessibility
-    document.querySelectorAll('.topic-card').forEach(card => {
-      card.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          this.click();
-        }
-      });
+      hideError();
+      setTimeout(() => {
+        showError('Connection restored!');
+      }, 100);
     });
   </script>
 </body>
