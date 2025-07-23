@@ -786,7 +786,7 @@
   </div>
 
   <!-- Chatbot -->
-  <div class="chatbot-container">
+  <div class="chatbot-container" style="display: none;">
     <button id="chatbot-toggle" class="chatbot-toggle" aria-label="Open chatbot">
       💬
     </button>
@@ -795,15 +795,31 @@
   <!-- Loading Spinner -->
   <div id="loading-spinner" class="loading-spinner"></div>
 
-  <!-- Jotform Chatbot Script - Modified to prevent popups -->
+  <!-- Jotform Chatbot Script - Smaller bubble size -->
   <script>
-    // Custom chatbot loader to prevent auto-popups
+    // Custom chatbot loader with smaller size
     window.addEventListener('load', function() {
-      // Load the Jotform script but suppress automatic behaviors
       const script = document.createElement('script');
-      script.src = 'https://cdn.jotfor.ms/agent/embedjs/019838507c1b7516a83f8e062ad19f16b05e/embed.js?skipWelcome=1&maximizable=1&autoOpen=0';
+      script.src = 'https://cdn.jotfor.ms/agent/embedjs/019838507c1b7516a83f8e062ad19f16b05e/embed.js?skipWelcome=1&maximizable=1&autoOpen=0&size=small';
       script.async = true;
       document.head.appendChild(script);
+      
+      // Additional CSS to make Jotform bubble smaller
+      setTimeout(() => {
+        const style = document.createElement('style');
+        style.textContent = `
+          .jotform-chat-widget {
+            transform: scale(0.8) !important;
+            transform-origin: bottom right !important;
+          }
+          .jotform-chat-bubble {
+            width: 45px !important;
+            height: 45px !important;
+            font-size: 14px !important;
+          }
+        `;
+        document.head.appendChild(style);
+      }, 1000);
     });
   </script>
 
