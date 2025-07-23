@@ -21,8 +21,10 @@
         margin-bottom: 60px;
         gap: 40px;
       }
-      .logo-icon {
-        font-size: 6em;
+      .logo-image {
+        width: 120px;
+        height: 120px;
+        border: 4px solid rgba(255, 255, 255, 0.4);
       }
       .logo-text {
         font-size: 5em;
@@ -53,8 +55,10 @@
         margin-bottom: 30px;
         gap: 20px;
       }
-      .logo-icon {
-        font-size: 3.5em;
+      .logo-image {
+        width: 80px;
+        height: 80px;
+        border: 3px solid rgba(255, 255, 255, 0.35);
       }
       .logo-text {
         font-size: 2.8em;
@@ -202,9 +206,20 @@
       margin-bottom: 25px;
     }
     
-    .logo-icon {
-      font-size: 2.5em;
+    .logo-image {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center;
       filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+      transition: transform 0.3s ease;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .logo-image:hover {
+      transform: scale(1.05) rotate(5deg);
     }
     
     .logo-text {
@@ -390,8 +405,10 @@
         margin-bottom: 15px;
         gap: 8px;
       }
-      .logo-icon {
-        font-size: 1.8em;
+      .logo-image {
+        width: 40px;
+        height: 40px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
       }
       .logo-text {
         font-size: 1.3em;
