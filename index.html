@@ -77,12 +77,13 @@
       background: linear-gradient(135deg, #1e3a8a 0%, #3730a3 25%, #7c3aed 50%, #be185d 75%, #dc2626 100%);
       background-size: 400% 400%;
       animation: gradientShift 8s ease infinite;
-      height: 320px;
+      height: 220px;
       display: flex;
       align-items: center;
       justify-content: center;
       position: relative;
       overflow: hidden;
+      padding: 0 10px;
     }
     
     @keyframes gradientShift {
@@ -107,38 +108,38 @@
       text-align: center;
       color: white;
       max-width: 800px;
-      padding: 0 20px;
+      padding: 0 10px;
     }
     
     .spartan-logo {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 15px;
-      margin-bottom: 30px;
+      gap: 10px;
+      margin-bottom: 18px;
     }
     
     .logo-icon {
-      font-size: 3em;
+      font-size: 2em;
       filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
     }
     
     .logo-text {
-      font-size: 2.5em;
+      font-size: 1.5em;
       font-weight: 900;
-      letter-spacing: 3px;
+      letter-spacing: 2px;
       text-shadow: 0 4px 8px rgba(0,0,0,0.3);
     }
     
     .header-title {
-      font-size: 3em;
+      font-size: 1.5em;
       font-weight: 700;
-      margin-bottom: 15px;
+      margin-bottom: 10px;
       text-shadow: 0 4px 8px rgba(0,0,0,0.3);
     }
     
     .header-subtitle {
-      font-size: 1.3em;
+      font-size: 1em;
       font-weight: 400;
       opacity: 0.9;
       text-shadow: 0 2px 4px rgba(0,0,0,0.3);
@@ -291,53 +292,32 @@
     /* Responsive Design */
     @media (max-width: 768px) {
       .header-banner {
-        height: 280px;
+        height: 120px;
+        padding: 0 4vw;
       }
-      
+      .header-content {
+        padding: 0 2vw;
+      }
       .spartan-logo {
-        margin-bottom: 20px;
+        margin-bottom: 8px;
+        gap: 6px;
       }
-      
       .logo-icon {
-        font-size: 2.5em;
+        font-size: 1.2em;
       }
-      
       .logo-text {
-        font-size: 1.8em;
-        letter-spacing: 2px;
+        font-size: 1em;
+        letter-spacing: 1px;
       }
-      
       .header-title {
-        font-size: 2.2em;
+        font-size: 1em;
+        margin-bottom: 6px;
       }
-      
       .header-subtitle {
-        font-size: 1.1em;
+        font-size: 0.85em;
       }
-      
       .main-content {
-        min-height: calc(100vh - 280px);
-      }
-      
-      .topics-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-      }
-      
-      .topic-card {
-        padding: 25px 15px;
-      }
-      
-      .topic-icon {
-        width: 70px;
-        height: 70px;
-        font-size: 2em;
-      }
-      
-      .chatbot-iframe {
-        width: 95vw;
-        height: 80vh;
-        right: 2.5vw;
+        min-height: calc(100vh - 120px);
       }
     }
 
