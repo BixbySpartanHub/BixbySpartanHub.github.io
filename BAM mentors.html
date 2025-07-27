@@ -55,25 +55,28 @@
  <!-- Mentors Grid -->
     
 <div id="mentorsGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-      <!-- Mentor Card Template -->
-      <div class="mentor-card bg-white rounded-lg shadow p-6 flex flex-col items-center transition transform hover:scale-105 duration-300 animate-fadeIn"
-           data-name="Cade Rainwater" data-subjects="Biology, Science" data-availability="Available">
-        <img src="Cade.jpg" alt="Cade Rainwater" class="h-32 w-32 object-cover rounded-full mb-4 border-2 border-blue-200">
-        <h3 class="text-xl font-semibold text-blue-700">Cade Rainwater</h3>
-        <p class="text-gray-600 text-sm text-center">
-          Algebra & Functions
+  <!-- Mentor Card Template -->
+  <div class="mentor-card bg-white rounded-lg shadow p-6 flex flex-col items-center transition transform hover:scale-105 duration-300 animate-fadeIn"
+       data-name="Cade Rainwater" data-subjects="Biology, Science" data-availability="Available">
+    <img src="Cade.jpg" alt="Cade Rainwater" class="h-32 w-32 object-cover rounded-full mb-4 border-2 border-blue-200">
+    <h3 class="text-xl font-semibold text-blue-700">Cade Rainwater</h3>
+    
+    <!-- Bullet point list for topics -->
+    <ul class="text-gray-600 text-sm text-center list-disc list-inside">
+      <li>Algebra & Functions</li>
+      <li>Geometry & Proofs</li>
+      <li>Precalculus & Trigonometry</li>
+      <li>Calculus & Statistics</li>
+      <li>SAT/ACT Prep</li>
+    </ul>
 
-          Geometry & Proofs
+    <span class="text-green-500 text-sm mt-1">Available</span>
+    <button onclick="openModal('Cade Rainwater', 'Biology, Science', 'Expert tutor in Algebra 1 & 2, covering equations, functions, and quadratics. Proficient in Geometry, including proofs, triangles, and circles. Skilled in Pre-Calculus, specializing in trigonometry and complex numbers; teaching assistant for AP Precalculus. Experienced with Calculus AB/BC, tackling limits, derivatives, integrals, series, and parametric/polar functions. Provides ACT/SAT math prep with a focus on time-saving strategies and core concepts. Offers support in introductory Statistics, including probability, data analysis, and statistical inference.')"
+      class="mt-3 text-blue-600 hover:underline text-sm">More Info</button>
+    <a href="https://yourform.com" class="mt-2 inline-block text-sm text-white bg-blue-600 px-4 py-1 rounded hover:bg-blue-700">Request Mentor</a>
+  </div>
+</div>
 
-          Precalculus & Trigonometry
-
-          Calculus & Statistics
-
-          SAT/ACT Prep    </p>
-        <span class="text-green-500 text-sm mt-1">Available</span>
-        <button onclick="openModal('Cade Rainwater', 'Biology, Science', 'Expert tutor in Algebra 1 & 2, covering equations, functions, and quadratics. Proficient in Geometry, including proofs, triangles, and circles. Skilled in Pre-Calculus, specializing in trigonometry and complex numbers; teaching assistant for AP Precalculus. Experienced with Calculus AB/BC, tackling limits, derivatives, integrals, series, and parametric/polar functions. Provides ACT/SAT math prep with a focus on time-saving strategies and core concepts. Offers support in introductory Statistics, including probability, data analysis, and statistical inference.')" class="mt-3 text-blue-600 hover:underline text-sm">More Info</button>
-        <a href="https://yourform.com" class="mt-2 inline-block text-sm text-white bg-blue-600 px-4 py-1 rounded hover:bg-blue-700">Request Mentor</a>
-      </div>
 
       <!-- Duplicate and customize more mentor cards here -->
 </div>
