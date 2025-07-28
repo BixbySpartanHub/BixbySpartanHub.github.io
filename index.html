@@ -629,6 +629,39 @@
       padding: 40px 20px;
       border-top: 1px solid #e5e7eb;
     }
+
+    .privacy-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3000;
+  background: linear-gradient(90deg,#7c3aed,#764ba2 70%);
+  color: #fff;
+  text-align: center;
+  padding: 16px 10px 14px 10px;
+  font-size: 1em;
+  box-shadow: 0 -2px 14px rgba(44,44,44,0.10);
+  letter-spacing: 0.03em;
+  font-weight: 500;
+}
+.privacy-bar .privacy-link {
+  color: #ffd700;
+  text-decoration: underline;
+  margin-left: 4px;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+.privacy-bar .privacy-link:hover {
+  color: #fff200;
+  text-decoration: underline wavy;
+}
+@media (max-width: 600px) {
+  .privacy-bar {
+    font-size: 0.92em;
+    padding: 13px 4px 11px 4px;
+  }
+}
     
     /* Responsive ad containers */
     @media (max-width: 768px) {
@@ -685,6 +718,14 @@
       <p class="header-subtitle">Your gateway to academic success and personal growth</p>
     </div>
   </div>
+
+  <!-- Privacy Policy Bar -->
+<div class="privacy-bar">
+  <span>
+    Read our 
+    <a href="Privacy Policy.html" target="_blank" rel="noopener" class="privacy-link">Privacy Policy</a>
+  </span>
+</div>
   
   <!-- Main Content -->
   <div class="main-content">
