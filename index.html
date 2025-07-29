@@ -1070,7 +1070,7 @@
       });
     });
 
-    /* Global error handler */
+    /* Global error handler 
     window.addEventListener('error', function(e) {
       console.error('Global error:', e.error);
       showError('Something went wrong. Please refresh the page if the issue persists.');
@@ -1079,7 +1079,7 @@
     // Handle offline/online status
     window.addEventListener('offline', function() {
       showError('You are currently offline. Some features may not work properly.');
-    });
+    }); This thing sucks. Just  not needed */
 
     window.addEventListener('online', function() {
       hideError();
