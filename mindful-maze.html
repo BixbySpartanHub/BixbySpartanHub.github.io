@@ -1,0 +1,174 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5278524441199683"
+     crossorigin="anonymous"></script>
+        
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mindful Maze</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ffafbd 0%, #ffc3a0 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #333;
+        }
+        .game-container {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            font-size: 2.5rem;
+            color: white;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        canvas {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin: 20px auto;
+            display: block;
+        }
+        #maze-message {
+            font-size: 1.2rem;
+            color: white;
+            margin: 10px 0;
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #fff;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1>Mindful Maze</h1>
+        <p>Navigate the maze at your own pace and breathe deeply.</p>
+        <div id="maze-message">Take a deep breath...</div>
+        <canvas id="maze-canvas" width="400" height="400"></canvas>
+        <a href="index.html">Back to Game Hub</a>
+    </div>
+    <script>
+        const canvas = document.getElementById('maze-canvas');
+        const ctx = canvas.getContext('2d');
+        const maze = [
+            [1,1,1,1,1,1,1,1,1,1],
+            [1,0,0,0,1,0,0,0,0,1],
+            [1,1,1,0,1,0,1,1,0,1],
+            [1,0,0,0,1,0,0,0,0,1],
+            [1,0,1,1,1,1,1,1,0,1],
+            [1,0,0,0,0,0,0,0,0,1],
+            [1,1,1,1,1,1,1,1,0,1],
+            [1,0,0,0,0,0,0,0,0,1],
+            [1,0,1,1,1,1,1,1,1,1],
+            [1,0,0,0,0,0,0,0,0,0]
+        ];
+        let player = { x: 1, y: 1 };
+        let breathCount = 0;
+
+        document.addEventListener('keydown', movePlayer);
+
+        function movePlayer(e) {
+            let newX = player.x, newY = player.y;
+            if (e.key === 'ArrowUp') newY--;
+            if (e.key === 'ArrowDown') newY++;
+            if (e.key === 'ArrowLeft') newX--;
+            if (e.key === 'ArrowRight') newX++;
+            if (newX >= 0 && newX < 10 && newY >= 0 && newY < 10 && maze[newY][newX] === 0) {
+                player.x = newX;
+                player.y = newY;
+                breathCount++;
+                if (breathCount % 5 === 0) {
+                    document.getElementById('maze-message').textContent = 'Pause and take a deep breath...';
+                    setTimeout(() => {
+                        document.getElementById('maze-message').textContent = 'Keep going, you’re doing great!';
+                    }, 2000);
+                }
+                if (player.x === 9 && player.y === 9) {
+                    document.getElementById('maze-message').textContent = 'You’ve reached the end! Well done!';
+                    setTimeout(() => {
+                        player = { x: 1, y: 1 };
+                        breathCount = 0;
+                        document.getElementById('maze-message').textContent = 'Take a deep breath...';
+                    }, 3000);
+                }
+            }
+            drawMaze();
+        }
+
+        function drawMaze() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let y = 0; y < 10; y++) {
+                for (let x = 0; x < 10; x++) {
+                    ctx.fillStyle = maze[y][x] === 1 ? '#667eea' : '#e0f7fa';
+                    ctx.fillRect(x * 40, y * 40, 40, 40);
+                }
+            }
+            ctx.fillStyle = '#ff9a9e';
+            ctx.beginPath();
+            ctx.arc(player.x * 40 + 20, player.y * 40 + 20, 15, 0, 2 * Math.PI);
+            ctx.fill();
+        }
+
+        drawMaze();
+    </script>
+</body>
+</html>

@@ -1,0 +1,198 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5278524441199683"
+     crossorigin="anonymous"></script>
+        
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Positive Bubbles</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            background: linear-gradient(to bottom, #e0f7fa, #b2ebf2);
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .game-container {
+            margin: 20px auto;
+            max-width: 600px;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        canvas {
+            background-color: #f5f5f5;
+            border: 2px solid #81d4fa;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            aspect-ratio: 1 / 1;
+            touch-action: manipulation;
+        }
+        #bubble-score {
+            font-size: 24px;
+            margin: 20px 0;
+            color: #0288d1;
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #0288d1;
+            font-size: 18px;
+        }
+        @media (max-width: 500px) {
+            .game-container {
+                padding: 10px;
+                max-width: 98vw;
+            }
+            h1 {
+                font-size: 1.3rem;
+            }
+            #bubble-score {
+                font-size: 18px;
+            }
+            a {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Positive Bubbles</h1>
+    <div class="game-container">
+        <canvas id="bubble-canvas" width="400" height="400"></canvas>
+        <div id="bubble-score">Positive Thoughts: 0</div>
+        <a href="index.html">Back to Game Hub</a>
+    </div>
+    <script>
+        let bubbles = [];
+        let bubbleScore = 0;
+        let canvas, ctx;
+        let intervalId;
+
+        function resizeCanvas() {
+            const container = document.querySelector('.game-container');
+            const size = Math.min(container.offsetWidth, window.innerWidth, 400);
+            canvas.width = size;
+            canvas.height = size;
+        }
+
+        function initBubble() {
+            canvas = document.getElementById('bubble-canvas');
+            ctx = canvas.getContext('2d');
+            bubbles = [];
+            bubbleScore = 0;
+            document.getElementById('bubble-score').textContent = `Positive Thoughts: ${bubbleScore}`;
+            canvas.addEventListener('click', handleBubbleClick);
+            window.addEventListener('resize', () => {
+                resizeCanvas();
+            });
+            resizeCanvas();
+            for (let i = 0; i < 5; i++) createBubble();
+            if (intervalId) clearInterval(intervalId);
+            intervalId = setInterval(updateBubbles, 50);
+        }
+
+        function createBubble() {
+            const positiveWords = ['Hope', 'Joy', 'Peace', 'Love', 'Calm', 'Smile', 'Kind', 'Happy'];
+            const negativeWords = ['Fear', 'Sad', 'Anger', 'Doubt'];
+            const isPositive = Math.random() > 0.3;
+            const word = isPositive
+                ? positiveWords[Math.floor(Math.random() * positiveWords.length)]
+                : negativeWords[Math.floor(Math.random() * negativeWords.length)];
+            bubbles.push({
+                x: Math.random() * (canvas.width - 50) + 25,
+                y: canvas.height + 25,
+                radius: 25,
+                speed: Math.random() * 2 + 1,
+                word: word,
+                isPositive: isPositive
+            });
+        }
+
+        function updateBubbles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            bubbles = bubbles.filter(bubble => bubble.y > -bubble.radius);
+            if (bubbles.length < 5) createBubble();
+            bubbles.forEach(bubble => {
+                bubble.y -= bubble.speed;
+                ctx.beginPath();
+                ctx.arc(bubble.x, bubble.y, bubble.radius, 0, 2 * Math.PI);
+                ctx.fillStyle = bubble.isPositive ? '#4dd0e1' : '#b0bec5';
+                ctx.fill();
+                ctx.fillStyle = '#fff';
+                ctx.font = '14px Arial';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(bubble.word, bubble.x, bubble.y);
+            });
+        }
+
+        function handleBubbleClick(event) {
+            const rect = canvas.getBoundingClientRect();
+            const clickX = event.clientX - rect.left;
+            const clickY = event.clientY - rect.top;
+            bubbles = bubbles.filter(bubble => {
+                const dx = clickX - bubble.x;
+                const dy = clickY - bubble.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                if (distance < bubble.radius && bubble.isPositive) {
+                    bubbleScore += 1;
+                    document.getElementById('bubble-score').textContent = `Positive Thoughts: ${bubbleScore}`;
+                    return false;
+                }
+                return true;
+            });
+        }
+
+        initBubble();
+    </script>
+</body>
+</html>

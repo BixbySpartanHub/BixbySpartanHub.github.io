@@ -1,0 +1,175 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+        
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5278524441199683"
+     crossorigin="anonymous"></script>
+        
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gratitude Garden</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #b3ffab 0%, #12fff7 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #333;
+        }
+        .game-container {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            font-size: 2.5rem;
+            color: white;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.8);
+            colcolor: #333;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            background: linear-gradient(135deg, #ff9a9e, #fecfef);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        button:hover {
+            transform: scale(1.05);
+        }
+        canvas {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin: 20px auto;
+            display: block;
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #fff;
+            font-size: 1rem;
+        }
+        .flower {
+            position: absolute;
+            transition: transform 3s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1>Gratitude Garden</h1>
+        <p>Plant a seed of gratitude by sharing something you're thankful for.</p>
+        <input type="text" id="gratitudeInput" placeholder="I'm grateful for..." maxlength="100">
+        <button onclick="plantSeed()">Plant Seed</button>
+        <canvas id="garden-canvas" width="500" height="300"></canvas>
+        <a href="index.html">Back to Game Hub</a>
+    </div>
+    <script>
+        const canvas = document.getElementById('garden-canvas');
+        const ctx = canvas.getContext('2d');
+        let flowers = [];
+
+        function plantSeed() {
+            const input = document.getElementById('gratitudeInput');
+            const text = input.value.trim();
+            if (text) {
+                flowers.push({
+                    x: Math.random() * (canvas.width - 50) + 25,
+                    y: canvas.height - 30,
+                    growth: 0,
+                    text: text.substring(0, 20),
+                    color: `hsl(${Math.random() * 360}, 70%, 70%)`
+                });
+                input.value = '';
+                drawGarden();
+            }
+        }
+
+        function drawGarden() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            flowers.forEach(flower => {
+                if (flower.growth < 100) flower.growth += 0.5;
+                ctx.fillStyle = '#4CAF50';
+                ctx.fillRect(flower.x - 5, flower.y - flower.growth, 10, flower.growth);
+                if (flower.growth >= 50) {
+                    ctx.beginPath();
+                    ctx.arc(flower.x, flower.y - flower.growth, 15, 0, 2 * Math.PI);
+                    ctx.fillStyle = flower.color;
+                    ctx.fill();
+                    ctx.fillStyle = '#fff';
+                    ctx.font = '12px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.fillText(flower.text, flower.x, flower.y - flower.growth - 20);
+                }
+            });
+            if (flowers.length > 0) requestAnimationFrame(drawGarden);
+        }
+    </script>
+</body>
+</html>

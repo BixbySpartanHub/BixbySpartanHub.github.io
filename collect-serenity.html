@@ -1,0 +1,145 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5278524441199683"
+     crossorigin="anonymous"></script>
+        
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collect Serenity</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            background: linear-gradient(to bottom, #e0f7fa, #b2ebf2);
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .game-container {
+            margin: 20px auto;
+            max-width: 600px;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        canvas {
+            background-color: #f5f5f5;
+            border: 2px solid #81d4fa;
+            border-radius: 5px;
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #0288d1;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Collect Serenity</h1>
+    <div class="game-container">
+        <canvas id="snake-canvas" width="400" height="400"></canvas>
+        <a href="index.html">Back to Game Hub</a>
+    </div>
+    <script>
+        let snake, serenity, dx, dy, serenityCount;
+        let canvas, ctx;
+
+        function initSnake() {
+            canvas = document.getElementById('snake-canvas');
+            ctx = canvas.getContext('2d');
+            snake = [{ x: 10, y: 10 }];
+            serenity = { x: 15, y: 15 };
+            dx = 1;
+            dy = 0;
+            serenityCount = 0;
+            document.addEventListener('keydown', changeDirection);
+            setInterval(updateSnake, 100);
+        }
+
+        function changeDirection(event) {
+            const LEFT = 37, UP = 38, RIGHT = 39, DOWN = 40;
+            switch (event.keyCode) {
+                case LEFT: if (dx !== 1) { dx = -1; dy = 0; } break;
+                case UP: if (dy !== 1) { dx = 0; dy = -1; } break;
+                case RIGHT: if (dx !== -1) { dx = 1; dy = 0; } break;
+                case DOWN: if (dy !== -1) { dx = 0; dy = 1; } break;
+            }
+        }
+
+        function updateSnake() {
+            const head = { x: snake[0].x + dx, y: snake[0].y + dy };
+            if (head.x < 0 || head.x >= 20 || head.y < 0 || head.y >= 20 || snake.some(segment => segment.x === head.x && segment.y === head.y)) {
+                alert(`SReedrenity collected: ${serenityCount}. Start anew!`);
+                initSnake();
+                return;
+            }
+            snake.unshift(head);
+            if (head.x === serenity.x && head.y === serenity.y) {
+                serenityCount += 1;
+                serenity = { x: Math.floor(Math.random() * 20), y: Math.floor(Math.random() * 20) };
+            } else {
+                snake.pop();
+            }
+            drawSnake();
+        }
+
+        function drawSnake() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#4dd0e1';
+            ctx.beginPath();
+            ctx.arc(serenity.x * 20 + 10, serenity.y * 20 + 10, 8, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.fillStyle = '#0288d1';
+            snake.forEach(segment => {
+                ctx.fillRect(segment.x * 20, segment.y * 20, 18, 18);
+            });
+        }
+
+        initSnake();
+    </script>
+</body>
+</html>
