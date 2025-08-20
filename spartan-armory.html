@@ -74,6 +74,9 @@
     .navbar-links {
       display: flex;
       gap: 32px;
+      margin-left: 0;
+      margin-right: 48px;
+      justify-content: flex-start;
     }
     
     .navbar-links a {
@@ -147,6 +150,13 @@
       color: #444;
       margin-bottom: 20px;
       font-weight: 500;
+      display: block;
+      white-space: pre-line;
+    }
+    
+    .hero-subtitle .mobile-break {
+      display: block;
+      margin-top: 8px;
     }
     
     .enterprise-info {
@@ -433,97 +443,37 @@
     
     @media (max-width: 700px) {
       .navbar {
-        flex-direction: column;
-        align-items: stretch;
-        padding: 0 8px;
-        height: auto;
-      }
-      .navbar-logo {
-        font-size: 1.1em;
-        margin-bottom: 8px;
-        justify-content: flex-start;
-      }
-      .navbar-logo img {
-        height: 32px;
-      }
-      .navbar-links {
-        flex-direction: column;
-        gap: 0;
-        width: 100%;
         display: none;
-        margin-bottom: 8px;
       }
-      .navbar-links.active {
-        display: flex;
-      }
-      .navbar-links a {
-        font-size: 1em;
-        padding: 12px 0;
-        border-radius: 0;
-        border-bottom: 1px solid #e5e7eb;
+      .mobile-spartan-hub {
+        display: block;
         width: 100%;
-        text-align: left;
+        margin: 16px 0 0 0;
+        text-align: center;
       }
-      .spartan-studio-btn {
-        width: 100%;
-        margin-top: 8px;
+      .mobile-spartan-hub .spartan-studio-btn {
+        width: 90vw;
+        margin: 0 auto;
         padding: 14px 0;
         font-size: 1.1em;
+        display: inline-block;
       }
-      .navbar-toggle {
+      .hero-subtitle {
         display: block;
-        position: absolute;
-        right: 16px;
-        top: 16px;
-        z-index: 101;
+        white-space: pre-line;
       }
-      .hero-section {
-        margin-top: 24px;
-        padding: 0 6px;
+      .hero-subtitle .mobile-break {
+        display: block;
+        margin-top: 8px;
       }
-      .hero-title {
-        font-size: 2em;
+    }
+    @media (min-width: 701px) {
+      .mobile-spartan-hub {
+        display: none !important;
       }
-      .enterprise-info {
-        padding: 12px;
-        margin: 12px 0;
-      }
-      .info-grid {
-        grid-template-columns: 1fr;
-        gap: 12px;
-      }
-      .products-grid {
-        grid-template-columns: 1fr;
-        gap: 16px;
-        margin-top: 24px;
-      }
-      .product-card img {
-        max-width: 90vw;
-        height: auto;
-      }
-      .store-main {
-        padding: 0 6px 24px;
-        margin-top: 24px;
-      }
-      .section-title {
-        font-size: 1.5em;
-      }
-      .section-subtitle {
-        font-size: 1em;
-        margin-bottom: 24px;
-      }
-      .footer-links {
-        gap: 8px;
-        font-size: 0.95em;
-        flex-wrap: wrap;
-      }
-      .store-footer {
-        padding: 24px 6px 12px;
-        margin-top: 32px;
-      }
-      .modal-content {
-        padding: 16px;
-        max-width: 95vw;
+      .hero-subtitle .mobile-break {
+        display: inline;
+        margin-top: 0;
       }
     }
     
@@ -579,6 +529,7 @@
   </style>
 </head>
 <body>
+  <!-- Remove navbar for mobile, keep for desktop/tablet -->
   <nav class="navbar">
     <a href="#" class="navbar-logo">
       <img src="bixby-academic-mentors-logo.png" alt="Bixby Academic Mentors Logo">
@@ -597,8 +548,14 @@
 
   <section class="hero-section">
     <h1 class="hero-title">SPARTAN SPIRIT STORE</h1>
-    <p class="hero-subtitle">Official Bixby Spartan Merchandise • Student-Led Enterprise</p>
-    
+    <p class="hero-subtitle">
+      Official Bixby Spartan Merchandise
+      <span class="mobile-break">• Student-Led Enterprise</span>
+    </p>
+    <!-- Mobile Spartan Hub button (hidden on desktop/tablet) -->
+    <div class="mobile-spartan-hub">
+      <a href="https://bixbyacademicmentors.github.io/" class="spartan-studio-btn">Spartan Hub</a>
+    </div>
     <div class="enterprise-info">
       <h2 style="color: #667eea; margin-bottom: 16px; font-size: 1.8em;">🎓 Educational Excellence Since 2008</h2>
       <p style="font-size: 1.1em; margin-bottom: 24px;">
