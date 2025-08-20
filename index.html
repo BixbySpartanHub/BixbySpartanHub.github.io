@@ -1,167 +1,970 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
   <meta charset="UTF-8">
   <title>Spartan Hub</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Google AdSense -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9939115771782027"
-    crossorigin="anonymous"></script>
-  
-  <!-- AdSense Auto Ads (Optional - enables automatic ad placement) -->
-  <script>
-    (adsbygoogle = window.adsbygoogle || []).push({
-      google_ad_client: "ca-pub-9939115771782027",
-      enable_page_level_ads: true
-    });
-  </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.0/math.min.js"></script>
   <style>
     /* Larger header for tablets and computers */
-
-        padding: 15px;
+    @media (min-width: 769px) {
+      .header-banner {
+        height: 500px;
+        padding: 0 80px;
+      }
+      .header-content {
+        padding: 0 60px;
+      }
+      .spartan-logo {
+        margin-bottom: 60px;
+        gap: 40px;
+      }
+      .logo-image {
+        width: 120px;
+        height: 120px;
+        border: 4px solid rgba(255, 255, 255, 0.4);
+      }
+      .logo-text {
+        font-size: 5em;
+        letter-spacing: 8px;
+      }
+      .header-title {
+        font-size: 4.5em;
+        margin-bottom: 40px;
+      }
+      .header-subtitle {
+        font-size: 2.2em;
+      }
+      .main-content {
+        min-height: calc(100vh - 500px);
       }
     }
-    .chatbot-container {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      z-index: 1000;
+
+    /* Medium screens (tablets) */
+    @media (min-width: 481px) and (max-width: 768px) {
+      .header-banner {
+        height: 350px;
+        padding: 0 40px;
+      }
+      .header-content {
+        padding: 0 30px;
+      }
+      .spartan-logo {
+        margin-bottom: 30px;
+        gap: 20px;
+      }
+      .logo-image {
+        width: 80px;
+        height: 80px;
+        border: 3px solid rgba(255, 255, 255, 0.35);
+      }
+      .logo-text {
+        font-size: 2.8em;
+        letter-spacing: 4px;
+      }
+      .header-title {
+        font-size: 2.5em;
+        margin-bottom: 20px;
+      }
+      .header-subtitle {
+        font-size: 1.4em;
+      }
+      .main-content {
+        min-height: calc(100vh - 350px);
+      }
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      color: #333;
+      line-height: 1.6;
     }
 
-    .chatbot-toggle {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
+    /* Error Handling Styles */
+    .error-banner {
+      background: #fee2e2;
+      color: #dc2626;
+      padding: 12px 20px;
+      text-align: center;
+      font-weight: 500;
+      border-bottom: 1px solid #fca5a5;
+      display: none;
+      position: relative;
+    }
+    
+    .error-banner.show {
+      display: block;
+      animation: slideDown 0.3s ease-out;
+    }
+    
+    .error-close {
+      background: none;
       border: none;
-      border-radius: 50%;
-      width: 45px;
-      height: 45px;
-      font-size: 1.1em;
+      color: inherit;
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
       cursor: pointer;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-      transition: all 0.3s ease;
+      font-size: 1.2em;
+      padding: 0;
+      width: 24px;
+      height: 24px;
       display: flex;
       align-items: center;
       justify-content: center;
     }
+    
+    @keyframes slideDown {
+      from { transform: translateY(-100%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    
+    .loading-spinner {
+      border: 3px solid #f3f4f6;
+      border-top: 3px solid #3b82f6;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      animation: spin 1s linear infinite;
+      display: none;
+      margin: 20px auto;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
 
-    .chatbot-toggle:hover {
-      transform: scale(1.05);
-      box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    /* Development Banner */
+    .dev-banner {
+      background: linear-gradient(90deg, #fbbf24, #f59e0b);
+      color: #92400e;
+      text-align: center;
+      padding: 14px 20px;
+      font-weight: 600;
+      font-size: 1.05em;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      position: relative;
+      z-index: 1000;
+    }
+
+    /* Header Banner */
+    .header-banner {
+      background: linear-gradient(135deg, #1e3a8a 0%, #3730a3 25%, #7c3aed 50%, #be185d 75%, #dc2626 100%);
+      background-size: 400% 400%;
+      animation: gradientShift 8s ease infinite;
+      height: 280px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      padding: 0 20px;
+    }
+    
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
+    .header-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.2);
+      z-index: 1;
+    }
+    
+    .header-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      color: white;
+      max-width: 800px;
+      padding: 0 10px;
+    }
+    
+    .spartan-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+    
+    .logo-image {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+      transition: transform 0.3s ease;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .logo-image:hover {
+      transform: scale(1.05) rotate(5deg);
+    }
+    
+    .logo-image.clicked {
+      animation: logoEasterEgg 2s ease-in-out;
+      position: relative;
+      z-index: 2000;
+    }
+    
+    @keyframes logoEasterEgg {
+      0% { 
+        transform: scale(1) rotate(0deg) translateZ(0px); 
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      }
+      15% { 
+        transform: scale(1.5) rotate(180deg) translateZ(50px); 
+        box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+      }
+      25% { 
+        transform: scale(2) rotate(360deg) translateZ(100px); 
+        box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+      }
+      35% { 
+        transform: scale(2.2) rotate(540deg) translateZ(120px); 
+        box-shadow: 0 50px 100px rgba(0,0,0,0.6);
+      }
+      45% { 
+        transform: scale(1.8) rotate(720deg) translateZ(100px); 
+        filter: hue-rotate(180deg) saturate(2);
+        box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+      }
+      55% { 
+        transform: scale(2.5) rotate(900deg) translateZ(150px); 
+        filter: hue-rotate(360deg) saturate(1.5);
+        box-shadow: 0 60px 120px rgba(0,0,0,0.7);
+      }
+      65% { 
+        transform: scale(1.7) rotate(1080deg) translateZ(100px); 
+        filter: hue-rotate(540deg) saturate(2.5);
+        box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+      }
+      75% { 
+        transform: scale(2.3) rotate(1260deg) translateZ(130px); 
+        filter: hue-rotate(720deg) saturate(1);
+        box-shadow: 0 55px 110px rgba(0,0,0,0.6);
+      }
+      85% { 
+        transform: scale(1.9) rotate(1440deg) translateZ(80px); 
+        filter: hue-rotate(0deg) saturate(1);
+        box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+      }
+      95% { 
+        transform: scale(1.1) rotate(1620deg) translateZ(20px); 
+        box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+      }
+      100% { 
+        transform: scale(1) rotate(1800deg) translateZ(0px); 
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      }
+    }
+    
+    /* Paper airplane orbiting animation */
+    .paper-airplane {
+      position: absolute;
+      font-size: 24px;
+      pointer-events: none;
+      z-index: 1999;
+      opacity: 0;
+    }
+    
+    .paper-airplane.active {
+      opacity: 1;
+      animation: orbitGlobe 2s ease-in-out;
+    }
+    
+    @keyframes orbitGlobe {
+      0% {
+        transform: rotate(0deg) translateX(80px) rotate(0deg) scale(0.5);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+        transform: rotate(36deg) translateX(100px) rotate(-36deg) scale(0.8);
+      }
+      20% {
+        transform: rotate(72deg) translateX(120px) rotate(-72deg) scale(1);
+      }
+      30% {
+        transform: rotate(108deg) translateX(140px) rotate(-108deg) scale(1.2);
+      }
+      40% {
+        transform: rotate(144deg) translateX(160px) rotate(-144deg) scale(1);
+      }
+      50% {
+        transform: rotate(180deg) translateX(180px) rotate(-180deg) scale(1.3);
+      }
+      60% {
+        transform: rotate(216deg) translateX(160px) rotate(-216deg) scale(1);
+      }
+      70% {
+        transform: rotate(252deg) translateX(140px) rotate(-252deg) scale(1.1);
+      }
+      80% {
+        transform: rotate(288deg) translateX(120px) rotate(-288deg) scale(0.9);
+      }
+      90% {
+        transform: rotate(324deg) translateX(100px) rotate(-324deg) scale(0.7);
+      }
+      100% {
+        transform: rotate(360deg) translateX(80px) rotate(-360deg) scale(0.5);
+        opacity: 0;
+      }
+    }
+    
+    /* Enhanced 3D perspective */
+    .spartan-logo {
+      perspective: 1000px;
+      transform-style: preserve-3d;
+    }
+    
+    /* Easter egg particles */
+    @keyframes particle {
+      0% { 
+        opacity: 1; 
+        transform: translate(0, 0) scale(1); 
+      }
+      100% { 
+        opacity: 0; 
+        transform: translate(var(--dx), var(--dy)) scale(0); 
+      }
+    }
+    
+    .particle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: radial-gradient(circle, #ffd700, #ff6b6b);
+      border-radius: 50%;
+      pointer-events: none;
+      animation: particle 1s ease-out forwards;
+      z-index: 1000;
+    }
+    
+    .logo-text {
+      font-size: 2em;
+      font-weight: 900;
+      letter-spacing: 3px;
+      text-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+    
+    .header-title {
+      font-size: 2em;
+      font-weight: 700;
+      margin-bottom: 15px;
+      text-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+    
+    .header-subtitle {
+      font-size: 1.2em;
+      font-weight: 400;
+      opacity: 0.9;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+
+    /* Main Content */
+    .main-content {
+      background: #f8fafc;
+      min-height: calc(100vh - 280px);
+      padding: 60px 20px;
+    }
+    
+    .topics-section {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .section-title {
+      text-align: center;
+      font-size: 2.2em;
+      font-weight: 700;
+      color: #1f2937;
+      margin-bottom: 50px;
+      position: relative;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+      border-radius: 2px;
+    }
+    
+    .topics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+    
+    .topic-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 30px 20px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    
+    .topic-card.animate {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .topic-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      transition: left 0.5s ease;
+    }
+    
+    .topic-card:hover::before {
+      left: 100%;
+    }
+    
+    .topic-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+    }
+    
+    .topic-card.available {
+      border: 2px solid #10b981;
+    }
+    
+    .topic-card.coming-soon {
+      border: 2px dashed #d1d5db;
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+    
+    .topic-card.coming-soon:hover {
+      transform: none;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+    
+    .topic-icon {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 50%;
+      width: 80px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 2.5em;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+    
+    .topic-card:hover .topic-icon {
+      transform: scale(1.1) rotate(5deg);
+    }
+    
+    .topic-card.coming-soon:hover .topic-icon {
+      transform: none;
+    }
+    
+    .topic-name {
+      font-size: 1.3em;
+      font-weight: 600;
+      color: #1f2937;
+      margin-bottom: 10px;
+    }
+    
+    .topic-description {
+      color: #6b7280;
+      font-size: 0.95em;
+      line-height: 1.5;
+    }
+    
+    .status-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-size: 0.8em;
+      font-weight: 500;
+    }
+    
+    .status-available {
+      background: #d1fae5;
+      color: #065f46;
+    }
+    
+    .status-coming-soon {
+      background: #f3f4f6;
+      color: #6b7280;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 480px) {
+      .header-banner {
+        height: 200px;
+        padding: 0 15px;
+      }
+      .header-content {
+        padding: 0 10px;
+      }
+      .spartan-logo {
+        margin-bottom: 15px;
+        gap: 8px;
+      }
+      .logo-image {
+        width: 40px;
+        height: 40px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+      }
+      .logo-text {
+        font-size: 1.3em;
+        letter-spacing: 1px;
+      }
+      .header-title {
+        font-size: 1.4em;
+        margin-bottom: 8px;
+        line-height: 1.3;
+      }
+      .header-subtitle {
+        font-size: 0.9em;
+        line-height: 1.4;
+      }
+      .main-content {
+        min-height: calc(100vh - 200px);
+        padding: 40px 15px;
+      }
+      .section-title {
+        font-size: 1.8em;
+        margin-bottom: 30px;
+      }
+      .topics-grid {
+        gap: 20px;
+      }
+      .topic-card {
+        padding: 25px 15px;
+      }
+    }
+
+    /* Accessibility */
+    .topic-card:focus {
+      outline: 3px solid #3b82f6;
+      outline-offset: 2px;
+    }
+    
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* Ad Placement Styles */
+    .ad-container {
+      text-align: center;
+      margin: 40px 0;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      backdrop-filter: blur(10px);
+    }
+    
+    .ad-label {
+      font-size: 0.8em;
+      color: #6b7280;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .footer-ad {
+      background: #f8fafc;
+      padding: 40px 20px;
+      border-top: 1px solid #e5e7eb;
+    }
+
+    .privacy-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3000;
+  background: linear-gradient(90deg,#7c3aed,#764ba2 70%);
+  color: #fff;
+  text-align: center;
+  padding: 16px 10px 14px 10px;
+  font-size: 1em;
+  box-shadow: 0 -2px 14px rgba(44,44,44,0.10);
+  letter-spacing: 0.03em;
+  font-weight: 500;
+}
+.privacy-bar .privacy-link {
+  color: #ffd700;
+  text-decoration: underline;
+  margin-left: 4px;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+.privacy-bar .privacy-link:hover {
+  color: #fff200;
+  text-decoration: underline wavy;
+}
+@media (max-width: 600px) {
+  .privacy-bar {
+    font-size: 0.92em;
+    padding: 13px 4px 11px 4px;
+  }
+}
+    
+    /* Responsive ad containers */
+    @media (max-width: 768px) {
+      .ad-container {
+        margin: 20px 0;
+        padding: 15px;
+      }
     }
   </style>
 </head>
 <body>
+  <!-- Error Banner -->
+  <div id="error-banner" class="error-banner" role="alert" aria-live="polite">
+    <span id="error-message"></span>
+    <button class="error-close" onclick="hideError()" aria-label="Close error message">&times;</button>
+  </div>
 
+  <!-- Header Banner -->
+  <div class="header-banner">
+    <div class="header-overlay"></div>
+    <div class="header-content">
+      <div class="spartan-logo">
+        <img src="https://lh3.googleusercontent.com/a/ACg8ocLM6F0zNHRdLCJQwy2zhRQd0rjITYBgHXFt87gzh1dZphpRTaQ=s288-c-no" alt="Spartan Hub Logo" class="logo-image" onclick="triggerEasterEgg(this)" style="cursor: pointer;">
+        <span class="logo-text">SPARTAN HUB</span>
+      </div>
+      <h1 class="header-title">How can we help you?</h1>
+      <p class="header-subtitle">Your gateway to academic success and personal growth</p>
+    </div>
+  </div>
+
+  <!-- Privacy Policy Bar -->
+<div class="privacy-bar">
+  <span>
+    Read our 
+    <a href="Privacy Policy.html" target="_blank" rel="noopener" class="privacy-link">Privacy Policy</a>
+  </span>
+</div>
+  
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="topics-section">
+      <h2 class="section-title">Explore Our Services</h2>
+      
+      <div class="topics-grid">
+        <!-- Academic Help -->
+        <div class="topic-card available" onclick="handleCardClick('BAM index.html')" tabindex="0" role="button" aria-label="Academic Help - Available">
+          <div class="status-badge status-available">Available</div>
+          <div class="topic-icon">
+            <span>📚</span>
+          </div>
+          <div class="topic-name">Academic Help</div>
+          <div class="topic-description">Get personalized tutoring and study support across all subjects</div>
+        </div>
+
+        <!-- College Search -->
+        <div class="topic-card available" onclick="handleCardClick('college index.html')" tabindex="0" role="button" aria-label="College Search Help - Available">
+          <div class="status-badge status-available">Available</div>
+          <div class="topic-icon">
+            <span>🎓</span>
+          </div>
+          <div class="topic-name">College Search Help</div>
+          <div class="topic-description">Find the perfect college match with our comprehensive guidance</div>
+        </div>
+
+        <!-- Mental Health Support -->
+        <div class="topic-card available" onclick="handleCardClick('teenhelp index.html')" tabindex="0" role="button" aria-label="Mental Health Support - Available">
+          <div class="status-badge status-available">Available</div>
+          <div class="topic-icon">
+            <span>💚</span>
+          </div>
+          <div class="topic-name">Mental Health Support</div>
+          <div class="topic-description">Access resources and support for your mental wellbeing</div>
+        </div>
+
+        <!-- Spartan Armory -->
+        <div class="topic-card available" onclick="handleCardClick('spartan-armory.html')" tabindex="0" role="button" aria-label="Spartan Armory - Available">
+          <div class="status-badge status-available">Available</div>
+          <div class="topic-icon">
+            <span>👕</span>
+          </div>
+          <div class="topic-name">Spartan Armory</div>
+          <div class="topic-description">Shop official Spartan merchandise and gear</div>
+        </div>
+
+        <!-- Coming Soon Items -->
+        <div class="topic-card coming-soon" onclick="handleComingSoon()" tabindex="0" role="button" aria-label="Connect with the World - Coming Soon">
+          <div class="status-badge status-coming-soon">Coming Soon</div>
+          <div class="topic-icon">
+            <span>🌍</span>
+          </div>
+          <div class="topic-name">Connect with the World</div>
+          <div class="topic-description">Build global connections and cultural awareness</div>
+        </div>
+
+        <div class="topic-card coming-soon" onclick="handleComingSoon()" tabindex="0" role="button" aria-label="General Support - Coming Soon">
+          <div class="status-badge status-coming-soon">Coming Soon</div>
+          <div class="topic-icon">
+            <span>🤝</span>
+          </div>
+          <div class="topic-name">General Support</div>
+          <div class="topic-description">Get help with everyday challenges and questions</div>
+        </div>
+
+        <div class="topic-card coming-soon" onclick="handleComingSoon()" tabindex="0" role="button" aria-label="Career Guidance - Coming Soon">
+          <div class="status-badge status-coming-soon">Coming Soon</div>
+          <div class="topic-icon">
+            <span>💼</span>
+          </div>
+          <div class="topic-name">Career Guidance</div>
+          <div class="topic-description">Explore career paths and professional development</div>
+        </div>
+
+        <div class="topic-card coming-soon" onclick="handleComingSoon()" tabindex="0" role="button" aria-label="Driving Help - Coming Soon">
+          <div class="status-badge status-coming-soon">Coming Soon</div>
+          <div class="topic-icon">
+            <span>🚗</span>
+          </div>
+          <div class="topic-name">Driving Help</div>
+          <div class="topic-description">Learn safe driving practices and get your license</div>
+        </div>
+      </div>
     </div>
   </div>  
 
-  <!-- Footer Ad Section 
-  <div class="footer-ad">
-    <div class="ad-container">
-      <div class="ad-label">Advertisement</div>
-      <ins class="adsbygoogle"
-           style="display:block"
-           data-ad-client="ca-pub-9939115771782027"
-           data-ad-slot="0987654321"
-           data-ad-format="auto"
-           data-full-width-responsive="true"></ins>
-    </div>
-  </div> -->
-
-  <!-- Chatbot -->
-  <div class="chatbot-container" style="display: none;">
-    <button id="chatbot-toggle" class="chatbot-toggle" aria-label="Open chatbot">
-      💬
-    </button>
-  </div> 
 
   <!-- Loading Spinner -->
   <div id="loading-spinner" class="loading-spinner"></div>
 
-  <!-- Jotform Chatbot Script - Smaller bubble size -->
-  <script>
-    // Custom chatbot loader with smaller size
-    window.addEventListener('load', function() {
-      const script = document.createElement('script');
-      script.src = 'https://cdn.jotfor.ms/agent/embedjs/019838507c1b7516a83f8e062ad19f16b05e/embed.js?skipWelcome=1&maximizable=1&autoOpen=0&size=small';
-      script.async = true;
-      document.head.appendChild(script);
-      
-      // Additional CSS to make Jotform bubble smaller
-      setTimeout(() => {
-        const style = document.createElement('style');
-        style.textContent = `
-          .jotform-chat-widget {
-            transform: scale(0.8) !important;
-            transform-origin: bottom right !important;
-          }
-          .jotform-chat-bubble {
-            width: 45px !important;
-            height: 45px !important;
-            font-size: 14px !important;
-          }
-        `;
-        document.head.appendChild(style);
-      }, 1000);
-    });
-  </script>
-
   <script>
     // Easter Egg Function
     function triggerEasterEgg(logoElement) {
+      // Prevent multiple triggers
+      if (logoElement.classList.contains('clicked')) return;
+      
+      // Add the animation class
+      logoElement.classList.add('clicked');
+      
+      // Create paper airplane that orbits the logo
+      createOrbitingAirplane(logoElement);
+      
+      // Create particle explosion
+      createParticleExplosion(logoElement);
+      
+      // Play a fun sound effect (if you want to add audio later)
+      console.log('🎉 SPARTAN EASTER EGG ACTIVATED! ✈️ 🌍 🎉');
+      
+      // Remove the class after animation completes
+      setTimeout(() => {
+        logoElement.classList.remove('clicked');
+      }, 2000);
+    }
+    
+    function createOrbitingAirplane(logoElement) {
+      const airplane = document.createElement('div');
+      airplane.className = 'paper-airplane';
+      airplane.innerHTML = '✈️';
+      
+      // Position airplane relative to logo
+      const rect = logoElement.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      
+      airplane.style.left = centerX + 'px';
+      airplane.style.top = centerY + 'px';
+      airplane.style.transformOrigin = '0 0';
+      
+      document.body.appendChild(airplane);
+      
+      // Trigger the orbit animation
+      setTimeout(() => {
+        airplane.classList.add('active');
+      }, 100);
+      
+      // Remove airplane after animation completes
+      setTimeout(() => {
+        if (airplane.parentNode) {
+          airplane.parentNode.removeChild(airplane);
+        }
+      }, 2200);
+    }
+    
+    function createParticleExplosion(element) {
+      const rect = element.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      
+      // Create 20 particles
+      for (let i = 0; i < 20; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        
+        // Random direction and distance
+        const angle = (Math.PI * 2 * i) / 20;
+        const distance = 100 + Math.random() * 100;
+        const dx = Math.cos(angle) * distance;
+        const dy = Math.sin(angle) * distance;
+        
+        // Set CSS custom properties for animation
+        particle.style.setProperty('--dx', dx + 'px');
+        particle.style.setProperty('--dy', dy + 'px');
+        
+        // Position particle at logo center
+        particle.style.left = centerX + 'px';
+        particle.style.top = centerY + 'px';
+        
+        // Add random colors
+        const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#ffeaa7', '#dda0dd', '#98d8c8'];
+        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+        particle.style.background = `radial-gradient(circle, ${randomColor}, ${randomColor}aa)`;
+        
+        document.body.appendChild(particle);
+        
+        // Remove particle after animation
+        setTimeout(() => {
+          if (particle.parentNode) {
+            particle.parentNode.removeChild(particle);
+          }
+        }, 1000);
+      }
+    }
 
+    // Error Handling System
+    function showError(message) {
+      const banner = document.getElementById('error-banner');
+      const messageEl = document.getElementById('error-message');
+      messageEl.textContent = message;
+      banner.classList.add('show');
+      
+      // Auto-hide after 5 seconds
+      setTimeout(() => {
+        hideError();
+      }, 5000);
+    }
+
+    function hideError() {
+      const banner = document.getElementById('error-banner');
+      banner.classList.remove('show');
+    }
+
+    // Navigation Functions
+    function handleCardClick(url) {
+      const card = event.currentTarget;
+      
+      // Add click animation
+      card.style.transform = 'scale(0.95)';
+      setTimeout(() => {
+        card.style.transform = '';
+      }, 150);
+      
+      // Navigate to the page
+      try {
+        window.location.href = url;
+      } catch (error) {
+        showError('Unable to navigate to page. Please try again.');
+        console.error('Navigation error:', error);
+      }
+    }
+
+    function handleComingSoon() {
       showError('This feature is coming soon! Stay tuned for updates.');
     }
 
-    // Chatbot Functionality
-    const chatbotToggle = document.getElementById('chatbot-toggle');
 
-    // Simple chatbot toggle - the Jotform script handles the display
-    chatbotToggle.addEventListener('click', function() {
-      // Add click animation
-      this.style.transform = 'scale(0.9)';
-      setTimeout(() => {
-        this.style.transform = '';
-      }, 150);
-      
-      // The Jotform script should handle opening the chat
-      console.log('Chatbot clicked - Jotform should handle this');
-    });
 
     // Keyboard navigation
     document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        // Let Jotform handle escape key if chatbot is open
+        console.log('Escape pressed');
+      }
+    });
 
+    // Card animations on scroll
+    function animateCards() {
+      const cards = document.querySelectorAll('.topic-card');
+      cards.forEach((card, index) => {
+        setTimeout(() => {
+          card.classList.add('animate');
+        }, index * 100);
+      });
+    }
+
+    // Intersection Observer for animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !entry.target.classList.contains('animate')) {
+          entry.target.classList.add('animate');
+        }
       });
     }, observerOptions);
 
-    // Initialize ads when page loads
 
     document.addEventListener('DOMContentLoaded', function() {
-      // Initialize AdSense ads
-      try {
-        (adsbygoogle = window.adsbygoogle || []).push({});
-      } catch (e) {
-        console.log('AdSense not loaded yet');
-      }
-      
-      // Observe all topic cards
    
       document.querySelectorAll('.topic-card').forEach(card => {
         observer.observe(card);
       });
 
+      // Add keyboard support for cards
+      document.querySelectorAll('.topic-card').forEach(card => {
+        card.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            this.click();
+          }
+        });
       });
     });
 
-    /* Global error handler 
-    window.addEventListener('error', function(e) {
-      console.error('Global error:', e.error);
-      showError('Something went wrong. Please refresh the page if the issue persists.');
-    }); 
-
-    // Handle offline/online status
-    window.addEventListener('offline', function() {
-      showError('You are currently offline. Some features may not work properly.');
-    }); This thing sucks. Just  not needed */
 
     window.addEventListener('online', function() {
       hideError();
