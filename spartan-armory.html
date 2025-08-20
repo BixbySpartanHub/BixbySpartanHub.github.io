@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Spartan Armory - Official Bixby Spartan Merchandise</title>
+  <title>Spartan Spirit Store - Official Bixby Spartan Merchandise</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     * {
@@ -94,27 +94,6 @@
       color: #d97706;
       background: #f3f4f6;
       transform: translateY(-2px);
-    }
-    
-    .cart-section {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-    
-    .cart-icon {
-      font-size: 1.8em;
-      color: #1e40af;
-      cursor: pointer;
-      transition: all 0.3s;
-      padding: 8px;
-      border-radius: 50%;
-    }
-    
-    .cart-icon:hover {
-      color: #d97706;
-      background: #f3f4f6;
-      transform: scale(1.1);
     }
     
     .spartan-studio-btn {
@@ -443,45 +422,126 @@
     .modal strong {
       color: #1e40af;
     }
-      .navbar {
-        padding: 0 16px;
-        height: 64px;
-      }
-      
-      .navbar-links {
-        gap: 16px;
-      }
-      
-      .navbar-links a {
-        font-size: 0.9em;
-        padding: 4px 8px;
-      }
-      
-      .hero-title {
-        font-size: 2.5em;
-        letter-spacing: 1px;
-      }
-      
-      .hero-subtitle {
-        font-size: 1.1em;
-      }
-      
-      .enterprise-info {
-        padding: 24px;
-        margin: 20px;
-      }
-      
-      .products-grid {
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 24px;
-      }
-      
-      .footer-links {
-        flex-direction: row;
-        gap: 20px;
-        flex-wrap: nowrap;
-      }
     
+    @media (max-width: 700px) {
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0 8px;
+        height: auto;
+      }
+      .navbar-logo {
+        font-size: 1.1em;
+        margin-bottom: 8px;
+      }
+      .navbar-links {
+        gap: 8px;
+        font-size: 0.95em;
+        margin-bottom: 8px;
+      }
+      .spartan-studio-btn {
+        padding: 10px 16px;
+        font-size: 0.95em;
+      }
+      .hero-section {
+        margin-top: 24px;
+        padding: 0 6px;
+      }
+      .hero-title {
+        font-size: 2em;
+      }
+      .enterprise-info {
+        padding: 12px;
+        margin: 12px 0;
+      }
+      .info-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+      .products-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        margin-top: 24px;
+      }
+      .product-card img {
+        max-width: 90vw;
+        height: auto;
+      }
+      .store-main {
+        padding: 0 6px 24px;
+        margin-top: 24px;
+      }
+      .section-title {
+        font-size: 1.5em;
+      }
+      .section-subtitle {
+        font-size: 1em;
+        margin-bottom: 24px;
+      }
+      .footer-links {
+        gap: 8px;
+        font-size: 0.95em;
+        flex-wrap: wrap;
+      }
+      .store-footer {
+        padding: 24px 6px 12px;
+        margin-top: 32px;
+      }
+      .modal-content {
+        padding: 16px;
+        max-width: 95vw;
+      }
+    }
+    
+    /* Modal for viewing images */
+    #imageModal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(4px);
+      justify-content: center;
+      align-items: center;
+    }
+    #imageModal .modal-img-content {
+      background: none;
+      box-shadow: none;
+      border-radius: 0;
+      padding: 0;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 95vw;
+      max-height: 95vh;
+    }
+    #imageModal img {
+      max-width: 95vw;
+      max-height: 80vh;
+      border-radius: 16px;
+      box-shadow: 0 4px 32px rgba(0,0,0,0.3);
+      background: white;
+    }
+    #imageModal .close {
+      color: #fff;
+      font-size: 2.5em;
+      font-weight: bold;
+      cursor: pointer;
+      position: absolute;
+      right: 0;
+      top: -40px;
+      background: none;
+      border: none;
+      z-index: 1;
+      transition: color 0.3s;
+    }
+    #imageModal .close:hover {
+      color: #d97706;
+    }
   </style>
 </head>
 <body>
@@ -491,7 +551,7 @@
   
   <nav class="navbar">
     <a href="#" class="navbar-logo">
-      Spartan Armory
+      Spartan Spirit Store
     </a>
     <div class="navbar-links">
       <a href="#products">Shop</a>
@@ -499,13 +559,12 @@
       <a href="#contact">Contact</a>
     </div>
     <div class="cart-section">
-      <span class="cart-icon" title="Cart">🛒</span>
-      <a href="https://bixbyacademicmentors.github.io/" class="spartan-studio-btn" target="_blank" rel="noopener">Spartan Hub</a>
+      <a href="https://bixbyacademicmentors.github.io/" class="spartan-studio-btn">Spartan Hub</a>
     </div>
   </nav>
 
   <section class="hero-section">
-    <h1 class="hero-title">SPARTAN ARMORY</h1>
+    <h1 class="hero-title">SPARTAN SPIRIT STORE</h1>
     <p class="hero-subtitle">Official Bixby Spartan Merchandise • Student-Led Enterprise</p>
     
     <div class="enterprise-info">
@@ -565,56 +624,56 @@
         <div class="product-title">Spartan T-Shirts</div>
         <div class="product-price">$15</div>
         <div class="charity-note">$2 goes to American Cancer Society</div>
-        <button class="add-cart-btn">Add to Cart</button>
+        <button class="add-cart-btn view-btn" data-img="https://lh5.googleusercontent.com/g5o7FoCHUwrpxI3c3t3TW0eDfm5fXZdXNviGIEADbLSSlt8o2e2y-rH2KUVzEIdKa5etk_kx6yGLR8s2wYeKJE2_jrWmE3u2OCJqUa4Eta7Md4jy6z2GcJRKcKf_AlRXgW8IwR9Zq1F-LEn_4JHylVB9vf8e_2j-fi4VaCcod2jZ6VfA46dN=w400">View</button>
       </div>
       
       <div class="product-card">
         <img src="https://lh6.googleusercontent.com/CKtM-uZiVujDSgxqIZgwfJaFjw7-dKyX7puLDVPIP_c9DxWlSq6Eqms15bEgTmHAU3EHRFmGDvGSA5JmzAfQdv8Fz4LTvL1cjJDu0SGDbjL0j1qCqGC0LWXlIY-r5-W0dMLrx48CVv9NmSNV9rNk3JEE1pTtY9ooRMioNLJfaOA_8uAkbhUvmw=w400" alt="Spartan Hats">
         <div class="product-title">Spartan Hats</div>
         <div class="product-price">$15</div>
-        <button class="add-cart-btn">Add to Cart</button>
+        <button class="add-cart-btn view-btn" data-img="https://lh6.googleusercontent.com/CKtM-uZiVujDSgxqIZgwfJaFjw7-dKyX7puLDVPIP_c9DxWlSq6Eqms15bEgTmHAU3EHRFmGDvGSA5JmzAfQdv8Fz4LTvL1cjJDu0SGDbjL0j1qCqGC0LWXlIY-r5-W0dMLrx48CVv9NmSNV9rNk3JEE1pTtY9ooRMioNLJfaOA_8uAkbhUvmw=w400">View</button>
       </div>
       
       <div class="product-card">
         <img src="https://lh6.googleusercontent.com/rJMeUTjDP3tkFvqZn-uPOhu_f4aYQ6_yjzRgYMaoHkoPQHSyY1wpsvaYUanIlkCVie_uYq0awdbS-uNEFmNyoZ_bvri2ipVFoqpdx_vZwr3ocEeuQN_18UZHx1ty7caw6eaZNFey2qnZTJtiBSM8PJT8zDQ6KBnVEYffn8pHicxIDZMavOe2yQ=w400" alt="Champion Crewneck">
         <div class="product-title">Champion Crewneck</div>
         <div class="product-price">$30</div>
-        <button class="add-cart-btn">Add to Cart</button>
+        <button class="add-cart-btn view-btn" data-img="https://lh6.googleusercontent.com/rJMeUTjDP3tkFvqZn-uPOhu_f4aYQ6_yjzRgYMaoHkoPQHSyY1wpsvaYUanIlkCVie_uYq0awdbS-uNEFmNyoZ_bvri2ipVFoqpdx_vZwr3ocEeuQN_18UZHx1ty7caw6eaZNFey2qnZTJtiBSM8PJT8zDQ6KBnVEYffn8pHicxIDZMavOe2yQ=w400">View</button>
       </div>
       
       <div class="product-card">
         <img src="https://lh4.googleusercontent.com/9S4ESUQeFOxDlv3aqPKaaMygfbBJJQCRYy9JPkdBTnPapTRiheTEGkMayjBj6RuexfB9LjuheKIr8qxNSc1a6T5cjQeAYZFgObm3P82gSoRSS51Tf4nM8x2Lbh8z50sv5hYENpbkvW4bgwXJNHwzMezkhuUuNk0lZJvJ5heYpAYUK1RUKGomrQ=w400" alt="Champion Hoodie">
         <div class="product-title">Champion Hoodies</div>
         <div class="product-price">$40</div>
-        <button class="add-cart-btn">Add to Cart</button>
+        <button class="add-cart-btn view-btn" data-img="https://lh4.googleusercontent.com/9S4ESUQeFOxDlv3aqPKaaMygfbBJJQCRYy9JPkdBTnPapTRiheTEGkMayjBj6RuexfB9LjuheKIr8qxNSc1a6T5cjQeAYZFgObm3P82gSoRSS51Tf4nM8x2Lbh8z50sv5hYENpbkvW4bgwXJNHwzMezkhuUuNk0lZJvJ5heYpAYUK1RUKGomrQ=w400">View</button>
       </div>
       
       <div class="product-card">
         <img src="https://lh6.googleusercontent.com/NuwtahzNFTcplUkZwUDer2p7y3lQIO28SrND-tBrPaJ_Bdh5cciuEPwCeTiY8w7fRZ3fUDyqQ_F0f_5dLbSWeYLplAiwhP2kvsEqKUlVQ1wl4oUQNLES4S-lSqG0a5ExY3GXMqWlUohQlPf8FtyZ5uJ173ZjtKV9MGe8=w400" alt="Under Armour Polos">
         <div class="product-title">Under Armour Polos</div>
         <div class="product-price">$45</div>
-        <button class="add-cart-btn">Add to Cart</button>
+        <button class="add-cart-btn view-btn" data-img="https://lh6.googleusercontent.com/NuwtahzNFTcplUkZwUDer2p7y3lQIO28SrND-tBrPaJ_Bdh5cciuEPwCeTiY8w7fRZ3fUDyqQ_F0f_5dLbSWeYLplAiwhP2kvsEqKUlVQ1wl4oUQNLES4S-lSqG0a5ExY3GXMqWlUohQlPf8FtyZ5uJ173ZjtKV9MGe8=w400">View</button>
       </div>
       
       <div class="product-card">
         <img src="https://lh3.googleusercontent.com/dUe2ejmjUWXB2fWhHwQ-MfbX-pu0XNI5NKmxp3aM8pGCWgjB66y6hcg91viOk7qa3s4CJbr_wsbuZfjSbtCNJNWHIBAOX45N0ULCFIkDPqEq1Ij9AgbjeMSOZ366yCXfYM33glBRtFBEnevb4u4AwNk6lHoEAEvjruyJ=w400" alt="Nike Polos">
         <div class="product-title">Nike Polos</div>
         <div class="product-price">$50</div>
-        <button class="add-cart-btn">Add to Cart</button>
+        <button class="add-cart-btn view-btn" data-img="https://lh3.googleusercontent.com/dUe2ejmjUWXB2fWhHwQ-MfbX-pu0XNI5NKmxp3aM8pGCWgjB66y6hcg91viOk7qa3s4CJbr_wsbuZfjSbtCNJNWHIBAOX45N0ULCFIkDPqEq1Ij9AgbjeMSOZ366yCXfYM33glBRtFBEnevb4u4AwNk6lHoEAEvjruyJ=w400">View</button>
       </div>
       
       <div class="product-card">
         <img src="https://lh3.googleusercontent.com/BLR55PJf1ggEqRoro1G3nykHTO31O7jdtLdujdXRscUUYEGRom75LjJA0otxCrFSPowL_NgbIx9-J7aisg2KxgdvQWvdi_rCHUKhG_YpyaYKJmDnvwNco-LUpxUWTaQ9kpcusYnrdTh2dn44fkKBT9uYF0AfjHhX5D3453kK21PY65lT2d0pNQ=w400" alt="Spartan Umbrellas">
         <div class="product-title">Spartan Umbrellas</div>
         <div class="product-price">$15</div>
-        <button class="add-cart-btn">Add to Cart</button>
+        <button class="add-cart-btn view-btn" data-img="https://lh3.googleusercontent.com/BLR55PJf1ggEqRoro1G3nykHTO31O7jdtLdujdXRscUUYEGRom75LjJA0otxCrFSPowL_NgbIx9-J7aisg2KxgdvQWvdi_rCHUKhG_YpyaYKJmDnvwNco-LUpxUWTaQ9kpcusYnrdTh2dn44fkKBT9uYF0AfjHhX5D3453kK21PY65lT2d0pNQ=w400">View</button>
       </div>
       
       <div class="product-card">
         <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%23667eea'/%3E%3Ctext x='100' y='100' text-anchor='middle' dy='.3em' fill='white' font-size='16' font-weight='bold'%3EBixby Blankets%3C/text%3E%3C/svg%3E" alt="Bixby Blankets">
         <div class="product-title">Bixby Blankets</div>
         <div class="product-price">$20</div>
-        <button class="add-cart-btn">Add to Cart</button>
+        <button class="add-cart-btn view-btn" data-img="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%23667eea'/%3E%3Ctext x='100' y='100' text-anchor='middle' dy='.3em' fill='white' font-size='16' font-weight='bold'%3EBixby Blankets%3C/text%3E%3C/svg%3E">View</button>
       </div>
       
       <div class="product-card">
@@ -622,38 +681,46 @@
         <div class="product-title">Clock Tower Shirts</div>
         <div class="product-price">$20</div>
         <div style="font-size: 0.9em; color: #667eea; font-style: italic;">Students & Alumni</div>
-        <button class="add-cart-btn">Add to Cart</button>
+        <button class="add-cart-btn view-btn" data-img="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%23fbbf24'/%3E%3Ctext x='100' y='90' text-anchor='middle' dy='.3em' fill='white' font-size='14' font-weight='bold'%3EClock Tower%3C/text%3E%3Ctext x='100' y='110' text-anchor='middle' dy='.3em' fill='white' font-size='14' font-weight='bold'%3EShirts%3C/text%3E%3C/svg%3E">View</button>
       </div>
       
       <div class="product-card">
         <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%23764ba2'/%3E%3Ctext x='100' y='90' text-anchor='middle' dy='.3em' fill='white' font-size='14' font-weight='bold'%3EQuarter Zip%3C/text%3E%3Ctext x='100' y='110' text-anchor='middle' dy='.3em' fill='white' font-size='14' font-weight='bold'%3ETops%3C/text%3E%3C/svg%3E" alt="Quarter Zip Tops">
         <div class="product-title">Quarter Zip Tops</div>
         <div class="product-price">$10</div>
-        <button class="add-cart-btn">Add to Cart</button>
+        <button class="add-cart-btn view-btn" data-img="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%23764ba2'/%3E%3Ctext x='100' y='90' text-anchor='middle' dy='.3em' fill='white' font-size='14' font-weight='bold'%3EQuarter Zip%3C/text%3E%3Ctext x='100' y='110' text-anchor='middle' dy='.3em' fill='white' font-size='14' font-weight='bold'%3ETops%3C/text%3E%3C/svg%3E">View</button>
       </div>
     </section>
   </main>
 
   <footer class="store-footer">
     <div class="footer-links">
-      <a href="#" onclick="openModal('aboutModal'); return false;">About The Armory</a>
+      <a href="#" onclick="openModal('aboutModal'); return false;">About The Spirit Store</a>
       <a href="#" onclick="openModal('contactModal'); return false;">Contact Us</a>
       <a href="#" onclick="openModal('hoursModal'); return false;">Store Hours</a>
     </div>
     
     <div class="footer-content">
       <div style="margin-top: 32px; color: #999; font-size: 0.95em;">
-        &copy; 2025 Spartan Armory • Bixby Public Schools • All rights reserved
+        &copy; 2025 Spartan Spirit Store • Bixby Public Schools • All rights reserved
       </div>
     </div>
   </footer>
+
+  <!-- Image Modal -->
+  <div id="imageModal">
+    <div class="modal-img-content">
+      <span class="close" onclick="closeImageModal()">&times;</span>
+      <img id="modalImg" src="" alt="Product Image">
+    </div>
+  </div>
 
   <!-- About Modal -->
   <div id="aboutModal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="closeModal('aboutModal')">&times;</span>
-      <h2>🎓 About The Armory</h2>
-      <p>The Spartan Armory is a <strong>student-led, school-based enterprise</strong> that has been serving the Bixby community since <strong>2008</strong>.</p>
+      <h2>🎓 About The Spartan Spirit Store</h2>
+      <p>The Spartan Spirit Store is a <strong>student-led, school-based enterprise</strong> that has been serving the Bixby community since <strong>2008</strong>.</p>
       
       <p>This innovative program provides our students with invaluable hands-on experience in:</p>
       <ul style="margin-left: 20px; margin-bottom: 16px;">
@@ -664,7 +731,7 @@
         <li><strong>Career Awareness</strong> - Exploring business and retail career paths</li>
       </ul>
       
-      <p>Our students gain real-world business experience while proudly serving the Bixby Spartan community. The Armory operates as both an educational tool and a community service, helping students develop essential life skills while providing quality merchandise to our school and local community.</p>
+      <p>Our students gain real-world business experience while proudly serving the Bixby Spartan community. The Spartan Spirit Store operates as both an educational tool and a community service, helping students develop essential life skills while providing quality merchandise to our school and local community.</p>
       
       <div style="background: #f3f4f6; padding: 16px; border-radius: 8px; margin-top: 20px;">
         <strong>💝 Community Impact:</strong> $2 from every shirt sold goes directly to the American Cancer Society, teaching students about corporate social responsibility.
@@ -768,36 +835,47 @@
             closeModal(modalId);
           }
         });
+        closeImageModal();
       }
     });
     
-    // Simple cart functionality (for demonstration)
-    let cartCount = 0;
-    const cartIcon = document.querySelector('.cart-icon');
-    const addToCartButtons = document.querySelectorAll('.add-cart-btn');
-    
-    addToCartButtons.forEach(button => {
-      button.addEventListener('click', function() {
-        cartCount++;
-        cartIcon.textContent = cartCount > 0 ? `🛒 ${cartCount}` : '🛒';
-        
-        // Visual feedback
-        this.style.background = '#22c55e';
-        this.textContent = 'Added!';
-        
-        setTimeout(() => {
-          this.style.background = '#1e40af';
-          this.textContent = 'Add to Cart';
-        }, 1500);
-      });
+    // View button functionality for product images
+    document.addEventListener('click', function(e) {
+      if (e.target.classList.contains('view-btn')) {
+        e.stopPropagation();
+        const imgSrc = e.target.getAttribute('data-img');
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImg');
+        modalImg.src = imgSrc;
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      }
     });
-    
+
+    function closeImageModal() {
+      document.getElementById('imageModal').style.display = 'none';
+      document.body.style.overflow = '';
+    }
+
+    // Close image modal when clicking outside image
+    document.getElementById('imageModal').addEventListener('click', function(e) {
+      if (e.target === this) closeImageModal();
+    });
+
+    // Close image modal on ESC key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === "Escape") {
+        closeImageModal();
+        // ...existing modal close code...
+      }
+    });
+
     // Smooth scrolling for navigation links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
-        e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
         if (target) {
+          e.preventDefault();
           target.scrollIntoView({
             behavior: 'smooth',
             block: 'start'
@@ -807,3 +885,4 @@
     });
   </script>
 </body>
+</html>
