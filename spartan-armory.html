@@ -64,14 +64,11 @@
       transition: transform 0.2s;
     }
     
-    .navbar-logo:hover {
-      transform: scale(1.05);
-    }
-    
-    .navbar-logo::before {
-      content: "🛡️";
-      font-size: 2em;
-      color: #1e40af;
+    .navbar-logo img {
+      height: 40px;
+      width: auto;
+      display: inline-block;
+      vertical-align: middle;
     }
     
     .navbar-links {
@@ -113,6 +110,17 @@
       background: #d97706;
       transform: translateY(-2px);
       box-shadow: 0 4px 16px rgba(30, 64, 175, 0.4);
+    }
+    
+    /* Hamburger menu styles */
+    .navbar-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 2em;
+      color: #1e40af;
+      cursor: pointer;
+      margin-left: 12px;
     }
     
     .hero-section {
@@ -426,22 +434,48 @@
     @media (max-width: 700px) {
       .navbar {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: stretch;
         padding: 0 8px;
         height: auto;
       }
       .navbar-logo {
         font-size: 1.1em;
         margin-bottom: 8px;
+        justify-content: flex-start;
+      }
+      .navbar-logo img {
+        height: 32px;
       }
       .navbar-links {
-        gap: 8px;
-        font-size: 0.95em;
+        flex-direction: column;
+        gap: 0;
+        width: 100%;
+        display: none;
         margin-bottom: 8px;
       }
+      .navbar-links.active {
+        display: flex;
+      }
+      .navbar-links a {
+        font-size: 1em;
+        padding: 12px 0;
+        border-radius: 0;
+        border-bottom: 1px solid #e5e7eb;
+        width: 100%;
+        text-align: left;
+      }
       .spartan-studio-btn {
-        padding: 10px 16px;
-        font-size: 0.95em;
+        width: 100%;
+        margin-top: 8px;
+        padding: 14px 0;
+        font-size: 1.1em;
+      }
+      .navbar-toggle {
+        display: block;
+        position: absolute;
+        right: 16px;
+        top: 16px;
+        z-index: 101;
       }
       .hero-section {
         margin-top: 24px;
@@ -545,14 +579,12 @@
   </style>
 </head>
 <body>
-  <div class="dev-banner">
-    🚧 Student-Led Enterprise Since 2008 - Supporting Education & Community 🚧
-  </div>
-  
   <nav class="navbar">
     <a href="#" class="navbar-logo">
+      <img src="bixby-academic-mentors-logo.png" alt="Bixby Academic Mentors Logo">
       Spartan Spirit Store
     </a>
+    <button class="navbar-toggle" aria-label="Toggle navigation" onclick="toggleNavbarMenu()">&#9776;</button>
     <div class="navbar-links">
       <a href="#products">Shop</a>
       <a href="#about">About</a>
@@ -883,6 +915,12 @@
         }
       });
     });
+    
+    // Hamburger menu toggle
+    function toggleNavbarMenu() {
+      var links = document.querySelector('.navbar-links');
+      links.classList.toggle('active');
+    }
   </script>
 </body>
 </html>
