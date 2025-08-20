@@ -1,473 +1,702 @@
-<script type="text/javascript">
-        var gk_isXlsx = false;
-        var gk_xlsxFileLookup = {};
-        var gk_fileData = {};
-        function filledCell(cell) {
-          return cell !== '' && cell != null;
-        }
-        function loadFileData(filename) {
-        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
-            try {
-                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
-                var firstSheetName = workbook.SheetNames[0];
-                var worksheet = workbook.Sheets[firstSheetName];
-
-                // Convert sheet to JSON to filter blank rows
-                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
-                // Filter out blank rows (rows where all cells are empty, null, or undefined)
-                var filteredData = jsonData.filter(row => row.some(filledCell));
-
-                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
-                var headerRowIndex = filteredData.findIndex((row, index) =>
-                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
-                );
-                // Fallback
-                if (headerRowIndex === -1 || headerRowIndex > 25) {
-                  headerRowIndex = 0;
-                }
-
-                // Convert filtered JSON back to CSV
-                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
-                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
-                return csv;
-            } catch (e) {
-                console.error(e);
-                return "";
-            }
-        }
-        return gk_fileData[filename] || "";
-        }
-        </script><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <title>Spartan Hub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9939115771782027"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.0/math.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      color: #333;
+      line-height: 1.6;
+    }
 
-<-- Adsense BS-->
-        
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5278524441199683"
-     crossorigin="anonymous"></script>
+    /* Error Handling Styles */
+    .error-banner {
+      background: #fee2e2;
+      color: #dc2626;
+      padding: 12px 20px;
+      text-align: center;
+      font-weight: 500;
+      border-bottom: 1px solid #fca5a5;
+      display: none;
+    }
+    
+    .error-banner.show {
+      display: block;
+      animation: slideDown 0.3s ease-out;
+    }
+    
+    @keyframes slideDown {
+      from { transform: translateY(-100%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    
+    .loading-spinner {
+      border: 3px solid #f3f4f6;
+      border-top: 3px solid #3b82f6;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      animation: spin 1s linear infinite;
+      display: none;
+      margin: 0 auto;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
 
+    /* Development Banner */
+    .dev-banner {
+      background: linear-gradient(90deg, #fbbf24, #f59e0b);
+      color: #92400e;
+      text-align: center;
+      padding: 14px 20px;
+      font-weight: 600;
+      font-size: 1.05em;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      position: relative;
+      z-index: 1000;
+    }
 
-        
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mindful Game Hub</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    /* Header Banner */
+    .header-banner {
+      background: linear-gradient(135deg, #1e3a8a 0%, #3730a3 25%, #7c3aed 50%, #be185d 75%, #dc2626 100%);
+      background-size: 400% 400%;
+      animation: gradientShift 8s ease infinite;
+      height: 320px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
+    .header-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.2);
+      z-index: 1;
+    }
+    
+    .header-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      color: white;
+      max-width: 800px;
+      padding: 0 20px;
+    }
+    
+    .spartan-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+    
+    .logo-icon {
+      font-size: 3em;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+    }
+    
+    .logo-text {
+      font-size: 2.5em;
+      font-weight: 900;
+      letter-spacing: 3px;
+      text-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+    
+    .header-title {
+      font-size: 3em;
+      font-weight: 700;
+      margin-bottom: 15px;
+      text-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+    
+    .header-subtitle {
+      font-size: 1.3em;
+      font-weight: 400;
+      opacity: 0.9;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-            min-height: 100vh;
-            position: relative;
-            overflow-x: hidden;
-        }
+    /* Blue Bar */
+    .blue-bar {
+      background: linear-gradient(90deg, #3b82f6, #1d4ed8);
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      font-size: 1.2em;
+      font-weight: 500;
+      box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+    }
 
-        .background-animation {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-        }
+    /* Main Content */
+    .main-content {
+      background: #f8fafc;
+      min-height: calc(100vh - 320px);
+      padding: 60px 20px;
+    }
+    
+    .topics-section {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .section-title {
+      text-align: center;
+      font-size: 2.2em;
+      font-weight: 700;
+      color: #1f2937;
+      margin-bottom: 50px;
+      position: relative;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+      border-radius: 2px;
+    }
+    
+    .topics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+    
+    .topic-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 30px 20px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .topic-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      transition: left 0.5s ease;
+    }
+    
+    .topic-card:hover::before {
+      left: 100%;
+    }
+    
+    .topic-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+    }
+    
+    .topic-card.available {
+      border: 2px solid #10b981;
+    }
+    
+    .topic-card.coming-soon {
+      border: 2px dashed #d1d5db;
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+    
+    .topic-icon {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 50%;
+      width: 80px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 2.5em;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+    
+    .topic-card:hover .topic-icon {
+      transform: scale(1.1) rotate(5deg);
+    }
+    
+    .topic-name {
+      font-size: 1.3em;
+      font-weight: 600;
+      color: #1f2937;
+      margin-bottom: 10px;
+    }
+    
+    .topic-description {
+      color: #6b7280;
+      font-size: 0.95em;
+      line-height: 1.5;
+    }
+    
+    .status-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-size: 0.8em;
+      font-weight: 500;
+    }
+    
+    .status-available {
+      background: #d1fae5;
+      color: #065f46;
+    }
+    
+    .status-coming-soon {
+      background: #f3f4f6;
+      color: #6b7280;
+    }
 
-        .particle {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%; /* fixed typo */
-            animation: float 15s infinite linear;
-        }
+    /* Chatbot Styles */
+    .chatbot-container {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 9999;
+    }
+    
+    .chatbot-toggle {
+      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 70px;
+      height: 70px;
+      font-size: 2.2em;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .chatbot-toggle:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 30px rgba(59, 130, 246, 0.6);
+    }
+    
+    .chatbot-iframe {
+      position: absolute;
+      bottom: 85px;
+      right: 0;
+      width: 420px;
+      height: 650px;
+      border: none;
+      border-radius: 20px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.2);
+      background: #fff;
+      transform: scale(0.8) translateY(20px);
+      opacity: 0;
+      transition: all 0.3s ease;
+      pointer-events: none;
+    }
+    
+    .chatbot-iframe.active {
+      transform: scale(1) translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
 
-        @keyframes float {
-            0% {
-                transform: translateY(100vh) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100px) rotate(360deg);
-                opacity: 0;
-            }
-        }
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .header-banner {
+        height: 280px;
+      }
+      
+      .spartan-logo {
+        margin-bottom: 20px;
+      }
+      
+      .logo-icon {
+        font-size: 2.5em;
+      }
+      
+      .logo-text {
+        font-size: 1.8em;
+        letter-spacing: 2px;
+      }
+      
+      .header-title {
+        font-size: 2.2em;
+      }
+      
+      .header-subtitle {
+        font-size: 1.1em;
+      }
+      
+      .main-content {
+        min-height: calc(100vh - 280px);
+      }
+      
+      .topics-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      
+      .topic-card {
+        padding: 25px 15px;
+      }
+      
+      .topic-icon {
+        width: 70px;
+        height: 70px;
+        font-size: 2em;
+      }
+      
+      .chatbot-iframe {
+        width: 95vw;
+        height: 80vh;
+        right: 2.5vw;
+      }
+    }
 
-        .container {
-            position: relative;
-            z-index: 1;
-            max-width: 1200px; /* fixed typo */
-            margin: 0 auto;
-            padding: 60px 20px;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .main-title {
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            font-weight: 300;
-            color: white;
-            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            margin-bottom: 20px;
-            letter-spacing: 2px;
-            animation: titleGlow 3s ease-in-out infinite alternate;
-        }
-
-        @keyframes titleGlow {
-            from {
-                text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            }
-            to {
-                text-shadow: 0 4px 30px rgba(255, 255, 255, 0.4);
-            }
-        }
-
-        .subtitle {
-            font-size: 1.2rem;
-            color: rgba(255, 255, 255, 0.9);
-            font-weight: 300;
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.6;
-        }
-
-        .games-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-
-        .game-card {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 20px;
-            padding: 30px 25px;
-            text-align: center;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .game-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 1), transparent);
-            transform: rotate(45deg);
-            transition: all 0.6s;
-            opacity: 0;
-        }
-
-        .game-card:hover::before {
-            animation: shimmer 0.8s ease-out;
-        }
-
-        @keyframes shimmer {
-            0% {
-                transform: translateX(-100%) translateY(-100%) rotate(45deg);
-                opacity: 0;
-            }
-            50% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateX(100%) translateY(100%) rotate(45deg);
-                opacity: 0;
-            }
-        }
-
-        .game-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-            background: rgba(255, 255, 255, 0.25);
-        }
-
-        .game-icon {
-            width: 60px;
-            height: 60px;
-            margin: 0 auto 20px;
-            background: linear-gradient(135deg, #ff9a9e, #fecfef);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            color: white;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-        }
-
-        .game-card:nth-child(2) .game-icon {
-            background: linear-gradient(135deg, #a8edea, #fed6e3);
-        }
-
-        .game-card:nth-child(3) .game-icon {
-            background: linear-gradient(135deg, #ffecd2, #fcb69f);
-        }
-
-        .game-card:nth-child(4) .game-icon {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-        }
-
-        .game-card:nth-child(5) .game-icon {
-            background: linear-gradient(135deg, #b3ffab, #12fff7);
-        }
-
-        .game-card:nth-child(6) .game-icon {
-            background: linear-gradient(135deg, #ffafbd, #ffc3a0);
-        }
-
-        .game-card:nth-child(7) .game-icon {
-            background: linear-gradient(135deg, #a1ffce, #faffd1);
-        }
-
-        .game-title {
-            font-size: 1.4rem;
-            font-weight: 600;
-            color: white;
-            margin-bottom: 15px;
-            text-decoration: none;
-            display: block;
-        }
-
-        .game-title:hover {
-            color: rgba(255, 255, 255, 0.9);
-        }
-
-        .game-description {
-            font-size: 0.95rem;
-            color: rgba(255, 255, 255, 0.8);
-            line-height: 1.5;
-            font-weight: 300;
-        }
-
-        .floating-elements {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .floating-shape {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.05);
-            animation: floatShape 20s infinite ease-in-out;
-        }
-
-        .floating-shape:nth-child(1) {
-            width: 100px;
-            height: 100px;
-            top: 10%;
-            left: 10%;
-            animation-delay: 0s;
-        }
-
-        .floating-shape:nth-child(2) {
-            width: 60px;
-            height: 60px;
-            top: 70%;
-            right: 15%;
-            animation-delay: -5s;
-        }
-
-        .floating-shape:nth-child(3) {
-            width: 80px;
-            height: 80px;
-            bottom: 20%;
-            left: 5%;
-            animation-delay: -10s;
-        }
-
-        @keyframes floatShape {
-            0%, 100% {
-                transform: translateY(0px) rotate(0deg);
-            }
-            50% {
-                transform: translateY(-30px) rotate(180deg);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 40px 15px;
-            }
-            
-            .games-grid {
-                gap: 20px;
-            }
-            
-            .game-card {
-                padding: 25px 20px;
-            }
-        }
-
-        .page-loader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: opacity 0.5s ease-out;
-        }
-
-        .loader-spinner {
-            width: 50px;
-            height: 50px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            border-top: 3px solid white;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-    </style>
+    /* Accessibility */
+    .topic-card:focus {
+      outline: 3px solid #3b82f6;
+      outline-offset: 2px;
+    }
+    
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+  </style>
 </head>
 <body>
-    <div class="page-loader" id="pageLoader">
-        <div class="loader-spinner"></div>
+  <!-- Error Banner -->
+  <div id="error-banner" class="error-banner" role="alert" aria-live="polite">
+    <span id="error-message"></span>
+    <button onclick="hideError()" style="background: none; border: none; color: inherit; float: right; cursor: pointer; font-size: 1.2em;">&times;</button>
+  </div>
+
+  <!-- Development Banner -->
+  <div class="dev-banner">
+    🚧 This website is still under development. Some features may change. 🚧
+  </div>
+
+  <!-- New Header Banner -->
+  <div class="header-banner">
+    <div class="header-overlay"></div>
+    <div class="header-content">
+      <div class="spartan-logo">
+        <span class="logo-icon">🛡️</span>
+        <span class="logo-text">SPARTAN HUB</span>
+      </div>
+      <h1 class="header-title">How can we help you?</h1>
+      <p class="header-subtitle">Your gateway to academic success and personal growth</p>
     </div>
-
-    <div class="background-animation" id="backgroundAnimation"></div>
-    
-    <div class="floating-elements">
-        <div class="floating-shape"></div>
-        <div class="floating-shape"></div>
-        <div class="floating-shape"></div>
-    </div>
-
-    <div class="container">
-        <header class="header">
-            <h1 class="main-title">Mindful Game Hub</h1>
-            <p class="subtitle">Discover tranquil experiences designed to nurture your inner peace and promote mindful living</p>
-        </header>
-
-        <div class="games-grid">
-            <a href="harmony-puzzle.html" class="game-card">
-                <div class="game-icon">🧩</div>
-                <span class="game-title">Harmony Puzzle</span>
-                <p class="game-description">Create perfect balance by arranging symbols in a soothing, meditative grid experience</p>
-            </a>
-            
-            <a href="collect-serenity.html" class="game-card">
-                <div class="game-icon">🌸</div>
-                <span class="game-title">Collect Serenity</span>
-                <p class="game-description">Guide your spirit along peaceful paths to gather precious moments of pure tranquility</p>
-            </a>
-            
-            <a href="mindful-breathing.html" class="game-card">
-                <div class="game-icon">🫁</div>
-                <span class="game-title">Mindful Breathing</span>
-                <p class="game-description">Follow gentle rhythms and visual guides to center yourself and find inner calm</p>
-            </a>
-            
-            <a href="positive-bubbles.html" class="game-card">
-                <div class="game-icon">💫</div>
-                <span class="game-title">Positive Bubbles</span>
-                <p class="game-description">Pop floating bubbles filled with uplifting affirmations and healing energy</p>
-            </a>
-
-            <a href="gratitude-garden.html" class="game-card">
-                <div class="game-icon">🌱</div>
-                <span class="game-title">Gratitude Garden</span>
-                <p class="game-description">Nurture a garden of gratitude by planting seeds of thankful thoughts</p>
-            </a>
-
-            <a href="mindful-maze.html" class="game-card">
-                <div class="game-icon">🌀</div>
-                <span class="game-title">Mindful Maze</span>
-                <p class="game-description">Navigate serene paths with calming prompts to stay present and relaxed</p>
-            </a>
-
-            <a href="calm-collage.html" class="game-card">
-                <div class="game-icon">🎨</div>
-                <span class="game-title">Calm Collage</span>
-                <p class="game-description">Create a soothing vision board with uplifting images and words</p>
-            </a>
+  </div>
+  
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="topics-section">
+      <h2 class="section-title">Explore Our Services</h2>
+      
+      <div class="topics-grid">
+        <!-- Academic Help -->
+        <div class="topic-card available" onclick="window.location.href='BAM index.html'" tabindex="0" role="button" aria-label="Academic Help - Available">
+          <div class="status-badge status-available">Available</div>
+          <div class="topic-icon">
+            <span>📚</span>
+          </div>
+          <div class="topic-name">Academic Help</div>
+          <div class="topic-description">Get personalized tutoring and study support across all subjects</div>
         </div>
+
+        <!-- College Search -->
+        <div class="topic-card available" onclick="window.location.href='college index.html'" tabindex="0" role="button" aria-label="College Search Help - Available">
+          <div class="status-badge status-available">Available</div>
+          <div class="topic-icon">
+            <span>🎓</span>
+          </div>
+          <div class="topic-name">College Search Help</div>
+          <div class="topic-description">Find the perfect college match with our comprehensive guidance</div>
+        </div>
+
+        <!-- Mental Health Support -->
+        <div class="topic-card available" onclick="window.location.href='teenhelp index.html'" tabindex="0" role="button" aria-label="Mental Health Support - Available">
+          <div class="status-badge status-available">Available</div>
+          <div class="topic-icon">
+            <span>💚</span>
+          </div>
+          <div class="topic-name">Mental Health Support</div>
+          <div class="topic-description">Access resources and support for your mental wellbeing</div>
+        </div>
+
+        <!-- Spartan Armory -->
+        <div class="topic-card available" onclick="window.location.href='spartan-armory.html'" tabindex="0" role="button" aria-label="Spartan Armory - Available">
+          <div class="status-badge status-available">Available</div>
+          <div class="topic-icon">
+            <span>👕</span>
+          </div>
+          <div class="topic-name">Spartan Armory</div>
+          <div class="topic-description">Shop official Spartan merchandise and gear</div>
+        </div>
+
+        <!-- Coming Soon Items -->
+        <div class="topic-card coming-soon" tabindex="0" role="button" aria-label="Connect with the World - Coming Soon">
+          <div class="status-badge status-coming-soon">Coming Soon</div>
+          <div class="topic-icon">
+            <span>🌍</span>
+          </div>
+          <div class="topic-name">Connect with the World</div>
+          <div class="topic-description">Build global connections and cultural awareness</div>
+        </div>
+
+        <div class="topic-card coming-soon" tabindex="0" role="button" aria-label="General Support - Coming Soon">
+          <div class="status-badge status-coming-soon">Coming Soon</div>
+          <div class="topic-icon">
+            <span>🤝</span>
+          </div>
+          <div class="topic-name">General Support</div>
+          <div class="topic-description">Get help with everyday challenges and questions</div>
+        </div>
+
+        <div class="topic-card coming-soon" tabindex="0" role="button" aria-label="Career Guidance - Coming Soon">
+          <div class="status-badge status-coming-soon">Coming Soon</div>
+          <div class="topic-icon">
+            <span>💼</span>
+          </div>
+          <div class="topic-name">Career Guidance</div>
+          <div class="topic-description">Explore career paths and professional development</div>
+        </div>
+
+        <div class="topic-card coming-soon" tabindex="0" role="button" aria-label="Driving Help - Coming Soon">
+          <div class="status-badge status-coming-soon">Coming Soon</div>
+          <div class="topic-icon">
+            <span>🚗</span>
+          </div>
+          <div class="topic-name">Driving Help</div>
+          <div class="topic-description">Learn safe driving practices and get your license</div>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <script>
-        function createParticles() {
-            const container = document.getElementById('backgroundAnimation');
-            const particleCount = 20;
-            
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.width = particle.style.height = Math.random() * 10 + 5 + 'px';
-                particle.style.animationDelay = Math.random() * 15 + 's';
-                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
-                container.appendChild(particle);
-            }
+  <!-- Chatbot -->
+  <div class="chatbot-container">
+    <button class="chatbot-toggle" id="chatbot-toggle" title="Chat with Happy Helper" aria-label="Open chatbot">
+      🤖
+    </button>
+    <iframe 
+      class="chatbot-iframe"
+      id="chatbot-iframe"
+      src="https://happyhelper.zapier.app"
+      allow="clipboard-write"
+      title="Happy Helper Chatbot"
+      loading="lazy"
+    ></iframe>
+  </div>
+
+  <!-- Loading Spinner -->
+  <div id="loading-spinner" class="loading-spinner"></div>
+
+  <script>
+    // Error Handling System
+    function showError(message) {
+      const banner = document.getElementById('error-banner');
+      const messageEl = document.getElementById('error-message');
+      messageEl.textContent = message;
+      banner.classList.add('show');
+      
+      // Auto-hide after 5 seconds
+      setTimeout(() => {
+        hideError();
+      }, 5000);
+    }
+
+    function hideError() {
+      const banner = document.getElementById('error-banner');
+      banner.classList.remove('show');
+    }
+
+    // Navigation with Error Handling
+    function handleNavigation(url) {
+      try {
+        // Show loading state
+        document.getElementById('loading-spinner').style.display = 'block';
+        
+        // Simulate network delay and potential error
+        setTimeout(() => {
+          document.getElementById('loading-spinner').style.display = 'none';
+          
+          // For demo purposes, randomly show an error
+          if (Math.random() > 0.8) {
+            showError('Unable to navigate to page. Please try again.');
+            return;
+          }
+          
+          // In a real app, you'd navigate here
+          console.log('Navigating to:', url);
+          // window.location.href = url;
+        }, 1000);
+      } catch (error) {
+        document.getElementById('loading-spinner').style.display = 'none';
+        showError('An unexpected error occurred. Please refresh the page.');
+        console.error('Navigation error:', error);
+      }
+    }
+
+    // Card Click Handler with Error Handling
+    function handleCardClick(url) {
+      const card = event.currentTarget;
+      
+      // Check if card is available
+      if (card.classList.contains('coming-soon')) {
+        showError('This feature is coming soon! Stay tuned for updates.');
+        return;
+      }
+      
+      // Add click animation
+      card.style.transform = 'scale(0.95)';
+      setTimeout(() => {
+        card.style.transform = '';
+      }, 150);
+      
+      handleNavigation(url);
+    }
+
+    // Remove the broken dynamic header code
+    // Header now uses CSS animations instead of JavaScript
+
+    // Chatbot Functionality with Error Handling
+    const chatbotToggle = document.getElementById('chatbot-toggle');
+    const chatbotIframe = document.getElementById('chatbot-iframe');
+    let hideTimeout;
+    let chatbotLoaded = false;
+
+    function showChatbot() {
+      clearTimeout(hideTimeout);
+      chatbotIframe.classList.add('active');
+      
+      // Load iframe content on first show
+      if (!chatbotLoaded) {
+        chatbotLoaded = true;
+        chatbotIframe.onload = function() {
+          console.log('Chatbot loaded successfully');
+        };
+        chatbotIframe.onerror = function() {
+          showError('Unable to load chatbot. Please try again later.');
+        };
+      }
+    }
+
+    function hideChatbot() {
+      hideTimeout = setTimeout(() => {
+        chatbotIframe.classList.remove('active');
+      }, 300);
+    }
+
+    // Event listeners
+    chatbotToggle.addEventListener('mouseenter', showChatbot);
+    chatbotToggle.addEventListener('click', showChatbot);
+    chatbotToggle.addEventListener('mouseleave', hideChatbot);
+    chatbotIframe.addEventListener('mouseenter', () => clearTimeout(hideTimeout));
+    chatbotIframe.addEventListener('mouseleave', hideChatbot);
+
+    // Keyboard navigation
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && chatbotIframe.classList.contains('active')) {
+        chatbotIframe.classList.remove('active');
+      }
+    });
+
+    // Global error handler
+    window.addEventListener('error', function(e) {
+      console.error('Global error:', e.error);
+      showError('Something went wrong. Please refresh the page if the issue persists.');
+    });
+
+    // Handle offline/online status
+    window.addEventListener('offline', function() {
+      showError('You are currently offline. Some features may not work properly.');
+    });
+
+    window.addEventListener('online', function() {
+      showError('Connection restored!');
+    });
+
+    // Intersection Observer for animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
         }
+      });
+    }, observerOptions);
 
-        window.addEventListener('load', function() {
-            createParticles();
-            
-            setTimeout(() => {
-                const loader = document.getElementById('pageLoader');
-                loader.style.opacity = '0';
-                setTimeout(() => {
-                    loader.style.display = 'none';
-                }, 500);
-            }, 1000);
-        });
+    // Observe all topic cards
+    document.querySelectorAll('.topic-card').forEach(card => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(20px)';
+      card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(card);
+    });
 
-        document.addEventListener('mousemove', (e) => {
-            const shapes = document.querySelectorAll('.floating-shape');
-            const mouseX = e.clientX / window.innerWidth;
-            const mouseY = e.clientY / window.innerHeight;
-            
-            shapes.forEach((shape, index) => {
-                const speed = (index + 1) * 0.5;
-                const x = (mouseX - 0.5) * speed * 50;
-                const y = (mouseY - 0.5) * speed * 50;
-                shape.style.transform = `translate(${x}px, ${y}px)`;
-            });
-        });
-
-        document.querySelectorAll('.game-card').forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-10px) scale(1.02)';
-            });
-            
-            card.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0) scale(1)';
-            });
-        });
-    </script>
+    // Add focus management for accessibility
+    document.querySelectorAll('.topic-card').forEach(card => {
+      card.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          this.click();
+        }
+      });
+    });
+  </script>
 </body>
 </html>
