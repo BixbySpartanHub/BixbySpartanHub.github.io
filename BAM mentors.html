@@ -37,10 +37,11 @@
     </div>
   </header>
 
-  <!-- Filters -->
+  <!-- Main Content -->
   <main class="max-w-5xl mx-auto px-4">
     <h2 class="text-3xl font-bold text-blue-700 mb-6 text-center">Meet the Mentors</h2>
 
+    <!-- Filters -->
     <div class="mb-6 flex flex-col sm:flex-row gap-4 justify-between">
       <input id="mentorSearch" type="text" placeholder="Search by name or subject..." class="w-full sm:w-1/2 px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"/>
       <div class="flex flex-wrap gap-2">
@@ -52,47 +53,48 @@
       </div>
     </div>
 
- <!-- Mentors Grid -->
-    
-<div class="mentor-card bg-white rounded-lg shadow p-6 flex flex-col items-center transition transform hover:scale-105 duration-300 animate-fadeIn"
-    data-name="Cade Rainwater" data-subjects="Biology, Science" data-availability="Available">
- <img src="Cade.jpg" alt="Cade Rainwater" class="h-32 w-32 object-cover rounded-full mb-4 border-2 border-blue-200">
- <h3 class="text-xl font-semibold text-blue-700">Cade Rainwater</h3>
+    <!-- Mentors Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
-  <div class="mentor-card bg-white rounded-lg shadow p-6 flex flex-col items-center transition transform hover:scale-105 duration-300 animate-fadeIn"
-    data-name="Teja Mathukumalli" data-subjects="Biology, Science" data-availability="Available">
- <img src="Cade.jpg" alt="Cade Rainwater" class="h-32 w-32 object-cover rounded-full mb-4 border-2 border-blue-200">
- <h3 class="text-xl font-semibold text-blue-700">Teja Mathukumalli</h3>
-    
- <!-- Bullet point list for topics -->
- <ul class="text-gray-600 text-sm list-disc text-left max-w-48 mx-auto mb-3">
-   <li>Algebra & Functions</li>
-   <li>Geometry & Proofs</li>
-   <li>Precalculus & Trigonometry</li>
-   <li>Calculus & Statistics</li>
-   <li>SAT/ACT Prep</li>
- </ul>
- <span class="text-green-500 text-sm mt-1">Available</span>
- <button onclick="openModal('Cade Rainwater', 'Biology, Science', 'Expert tutor in Algebra 1 & 2, covering equations, functions, and quadratics. Proficient in Geometry, including proofs, triangles, and circles. Skilled in Pre-Calculus, specializing in trigonometry and complex numbers; teaching assistant for AP Precalculus. Experienced with Calculus AB/BC, tackling limits, derivatives, integrals, series, and parametric/polar functions. Provides ACT/SAT math prep with a focus on time-saving strategies and core concepts. Offers support in introductory Statistics, including probability, data analysis, and statistical inference.')"
-   class="mt-3 text-blue-600 hover:underline text-sm">More Info</button>
- <a href="https://yourform.com" class="mt-2 inline-block text-sm text-white bg-blue-600 px-4 py-1 rounded hover:bg-blue-700">Request Mentor</a>
-</div>
+      <!-- Mentor 1 -->
+      <div class="mentor-card bg-white rounded-lg shadow p-6 flex flex-col items-center transition transform hover:scale-105 duration-300 animate-fadeIn"
+        data-name="Cade Rainwater" data-subjects="Biology, Science" data-availability="Available">
+        <img src="Cade.jpg" alt="Cade Rainwater" class="h-32 w-32 object-cover rounded-full mb-4 border-2 border-blue-200">
+        <h3 class="text-xl font-semibold text-blue-700">Cade Rainwater</h3>
+        <ul class="text-gray-600 text-sm list-disc text-left max-w-48 mx-auto mb-3">
+          <li>Algebra & Functions</li>
+          <li>Geometry & Proofs</li>
+          <li>Precalculus & Trigonometry</li>
+          <li>Calculus & Statistics</li>
+          <li>SAT/ACT Prep</li>
+        </ul>
+        <span class="text-green-500 text-sm mt-1">Available</span>
+        <button onclick="openModal('Cade Rainwater', 'Biology, Science', 'Expert tutor in Algebra 1 & 2, covering equations, functions, and quadratics. Proficient in Geometry, including proofs, triangles, and circles. Skilled in Pre-Calculus, specializing in trigonometry and complex numbers; teaching assistant for AP Precalculus. Experienced with Calculus AB/BC, tackling limits, derivatives, integrals, series, and parametric/polar functions. Provides ACT/SAT math prep with a focus on time-saving strategies and core concepts. Offers support in introductory Statistics, including probability, data analysis, and statistical inference.')"
+          class="mt-3 text-blue-600 hover:underline text-sm">More Info</button>
+        <a href="https://yourform.com" class="mt-2 inline-block text-sm text-white bg-blue-600 px-4 py-1 rounded hover:bg-blue-700">Request Mentor</a>
+      </div>
 
- <ul class="text-gray-600 text-sm list-disc text-left max-w-48 mx-auto mb-3">
-   <li>Algebra & Functions</li>
-   <li>Geometry & Proofs</li>
-   <li>Precalculus & Trigonometry</li>
-   <li>Calculus & Statistics</li>
-   <li>SAT/ACT Prep</li>
- </ul>
- <span class="text-green-500 text-sm mt-1">Available</span>
- <button onclick="openModal('Cade Rainwater', 'Biology, Science', 'Expert tutor in Algebra 1 & 2, covering equations, functions, and quadratics. Proficient in Geometry, including proofs, triangles, and circles. Skilled in Pre-Calculus, specializing in trigonometry and complex numbers; teaching assistant for AP Precalculus. Experienced with Calculus AB/BC, tackling limits, derivatives, integrals, series, and parametric/polar functions. Provides ACT/SAT math prep with a focus on time-saving strategies and core concepts. Offers support in introductory Statistics, including probability, data analysis, and statistical inference.')"
-   class="mt-3 text-blue-600 hover:underline text-sm">More Info</button>
- <a href="https://yourform.com" class="mt-2 inline-block text-sm text-white bg-blue-600 px-4 py-1 rounded hover:bg-blue-700">Request Mentor</a>
-</div>
+      <!-- Mentor 2 -->
+      <div class="mentor-card bg-white rounded-lg shadow p-6 flex flex-col items-center transition transform hover:scale-105 duration-300 animate-fadeIn"
+        data-name="Teja Mathukumalli" data-subjects="Biology, Science" data-availability="Available">
+        <img src="Teja.jpg" alt="Teja Mathukumalli" class="h-32 w-32 object-cover rounded-full mb-4 border-2 border-blue-200">
+        <h3 class="text-xl font-semibold text-blue-700">Teja Mathukumalli</h3>
+        <ul class="text-gray-600 text-sm list-disc text-left max-w-48 mx-auto mb-3">
+          <li>Algebra & Functions</li>
+          <li>Geometry & Proofs</li>
+          <li>Precalculus & Trigonometry</li>
+          <li>Calculus & Statistics</li>
+          <li>SAT/ACT Prep</li>
+        </ul>
+        <span class="text-green-500 text-sm mt-1">Available</span>
+        <button onclick="openModal('Teja Mathukumalli', 'Biology, Science', 'Expert tutor in Algebra 1 & 2, covering equations, functions, and quadratics. Proficient in Geometry, including proofs, triangles, and circles. Skilled in Pre-Calculus, specializing in trigonometry and complex numbers; teaching assistant for AP Precalculus. Experienced with Calculus AB/BC, tackling limits, derivatives, integrals, series, and parametric/polar functions. Provides ACT/SAT math prep with a focus on time-saving strategies and core concepts. Offers support in introductory Statistics, including probability, data analysis, and statistical inference.')"
+          class="mt-3 text-blue-600 hover:underline text-sm">More Info</button>
+        <a href="https://yourform.com" class="mt-2 inline-block text-sm text-white bg-blue-600 px-4 py-1 rounded hover:bg-blue-700">Request Mentor</a>
+      </div>
 
-      <!-- Duplicate and customize more mentor cards here -->
-</div>
+      <!-- Add more mentors here -->
+
+    </div>
   </main>
 
   <!-- Modal -->
@@ -153,4 +155,3 @@
   </script>
 </body>
 </html>
-
