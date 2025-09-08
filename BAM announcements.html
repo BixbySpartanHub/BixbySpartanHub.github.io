@@ -5,6 +5,55 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Announcements | Bixby Academic Mentors</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Mobile-specific styles */
+    @media (max-width: 1024px) {
+      header {
+        padding: 1rem !important;
+      }
+      
+      header .max-w-7xl {
+        padding: 0.5rem 1rem !important;
+      }
+      
+      header .bg-blue-600 {
+        display: none !important;
+      }
+      
+      header .flex.justify-between.items-center {
+        justify-content: center !important;
+      }
+      
+      header .text-2xl.font-bold.text-blue-600 {
+        font-size: 1.2rem !important;
+      }
+      
+      header .h-10 {
+        height: 1.75rem !important;
+        width: auto !important;
+      }
+      
+      .mobile-back-button {
+        display: block !important;
+      }
+    }
+    
+    @media (max-width: 640px) {
+      header .text-2xl.font-bold.text-blue-600 {
+        font-size: 1rem !important;
+      }
+      
+      header .h-10 {
+        height: 1.5rem !important;
+      }
+    }
+    
+    @media (min-width: 1025px) {
+      .mobile-back-button {
+        display: none !important;
+      }
+    }
+  </style>
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans leading-relaxed">
 
@@ -59,6 +108,11 @@
   <footer class="bg-white mt-16 py-6 text-center text-sm text-gray-500">
     <p>&copy; 2025 Bixby High School NHS | BAM Program</p>
   </footer>
+
+  <!-- Mobile Back Button -->
+  <div class="mobile-back-button bg-white border-t py-4 text-center" style="display: none;">
+    <a href="BAM index.html" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition font-medium">Back to Home</a>
+  </div>
 
   <!-- Mentor Signup Popup Modal -->
   <div id="mentor-popup" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
