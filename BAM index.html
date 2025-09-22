@@ -82,9 +82,25 @@
       header .text-2xl.font-bold.text-blue-600 {
         font-size: 1rem !important;
       }
-      
+
       header .h-10 {
         height: 1.5rem !important;
+      }
+
+      /* Change Learn More button to Sign up for tutoring on phones */
+      #learn-more-btn {
+        color: transparent !important;
+        position: relative;
+      }
+
+      #learn-more-btn::after {
+        content: "Sign up for tutoring";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        z-index: 1;
       }
     }
   </style>
