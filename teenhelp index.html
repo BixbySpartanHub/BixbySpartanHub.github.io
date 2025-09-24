@@ -280,6 +280,571 @@
       margin: 2em 0 0 0;
       padding: 1em 0 0 0;
     }
+
+    /* Crisis Banner Styles */
+    .crisis-banner {
+      background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+      color: white;
+      padding: 0.75em 1em;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+    }
+    .crisis-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1em;
+    }
+    .crisis-text {
+      font-weight: 600;
+      font-size: 0.95em;
+    }
+    .crisis-buttons {
+      display: flex;
+      gap: 0.5em;
+      align-items: center;
+    }
+    .crisis-btn {
+      padding: 0.4em 0.8em;
+      border: none;
+      border-radius: 20px;
+      font-size: 0.85em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3em;
+    }
+    .crisis-btn.primary {
+      background: #fff;
+      color: #ee5a24;
+    }
+    .crisis-btn.primary:hover {
+      background: #f0f0f0;
+      transform: translateY(-1px);
+    }
+    .crisis-btn.secondary {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    .crisis-btn.secondary:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+    .crisis-btn.exit {
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      font-size: 1.2em;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+    }
+    .crisis-btn.exit:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Confidentiality Notice */
+    .confidentiality-notice {
+      background: #e8f5e8;
+      border: 1px solid #43cea2;
+      border-radius: var(--radius);
+      padding: 1em 1.5em;
+      margin: 1.5em 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 1em;
+    }
+    .confidentiality-notice.lock-icon {
+      font-size: 1.5em;
+      flex-shrink: 0;
+    }
+    .confidentiality-notice h4 {
+      margin: 0 0 0.5em 0;
+      color: #2574eb;
+      font-size: 1.1em;
+    }
+    .confidentiality-notice p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95em;
+      line-height: 1.5;
+    }
+
+    /* About Section Styles */
+    .about-section {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.5em;
+    }
+    .about-section h3 {
+      color: var(--primary-dark);
+      margin-top: 0;
+      font-size: 1.3em;
+      letter-spacing: 1px;
+    }
+    .about-content p {
+      color: var(--muted);
+      font-size: 1.05em;
+      line-height: 1.6;
+      margin-bottom: 1.5em;
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5em;
+      margin-top: 1.5em;
+    }
+    .about-card {
+      background: var(--bg);
+      border-radius: var(--radius);
+      padding: 1.2em;
+      border-left: 4px solid var(--primary);
+    }
+    .about-card h4 {
+      color: var(--primary-dark);
+      margin: 0 0 0.8em 0;
+      font-size: 1.1em;
+    }
+    .about-card p {
+      color: var(--muted);
+      margin: 0;
+      font-size: 0.95em;
+      line-height: 1.5;
+    }
+
+    /* Stories Section Styles */
+    .stories-section {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.5em;
+    }
+    .stories-section h3 {
+      color: var(--primary-dark);
+      margin-top: 0;
+      font-size: 1.3em;
+      letter-spacing: 1px;
+    }
+    .stories-section > p {
+      color: var(--muted);
+      font-size: 1.05em;
+      line-height: 1.6;
+      margin-bottom: 2em;
+    }
+    .stories-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5em;
+      margin-bottom: 2em;
+    }
+    .story-card {
+      background: var(--bg);
+      border-radius: var(--radius);
+      padding: 1.2em;
+      border-left: 4px solid var(--accent);
+    }
+    .story-card h4 {
+      color: var(--primary-dark);
+      margin: 0 0 0.8em 0;
+      font-size: 1.05em;
+    }
+    .story-card p {
+      color: var(--muted);
+      margin: 0;
+      font-size: 0.95em;
+      line-height: 1.5;
+      font-style: italic;
+    }
+    .affirmations-box {
+      background: linear-gradient(120deg, #e0eafc 0%, #b6e388 20%);
+      border-radius: var(--radius);
+      padding: 1.5em;
+      text-align: center;
+    }
+    .affirmations-box h4 {
+      color: var(--primary-dark);
+      margin: 0 0 1em 0;
+      font-size: 1.2em;
+    }
+    .affirmations-list p {
+      color: var(--primary-dark);
+      margin: 0.5em 0;
+      font-size: 1em;
+      font-weight: 500;
+    }
+
+    /* Help Friend Section Styles */
+    .help-friend-section {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.5em;
+    }
+    .help-friend-section h3 {
+      color: var(--primary-dark);
+      margin-top: 0;
+      font-size: 1.3em;
+      letter-spacing: 1px;
+    }
+    .help-friend-section > p {
+      color: var(--muted);
+      font-size: 1.05em;
+      line-height: 1.6;
+      margin-bottom: 2em;
+    }
+    .help-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5em;
+    }
+    .help-card {
+      background: var(--bg);
+      border-radius: var(--radius);
+      padding: 1.2em;
+      border-left: 4px solid var(--primary);
+    }
+    .help-card h4 {
+      color: var(--primary-dark);
+      margin: 0 0 1em 0;
+      font-size: 1.1em;
+    }
+    .help-card ul {
+      color: var(--muted);
+      margin: 0;
+      padding-left: 1.2em;
+      line-height: 1.6;
+    }
+    .help-card li {
+      margin-bottom: 0.5em;
+    }
+    .help-card p {
+      color: var(--muted);
+      margin: 0 0 1em 0;
+      line-height: 1.5;
+    }
+    .dos-donts {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1em;
+    }
+    .dos, .donts {
+      background: var(--bg);
+      border-radius: var(--radius);
+      padding: 1em;
+    }
+    .dos {
+      border-left: 4px solid #43cea2;
+    }
+    .donts {
+      border-left: 4px solid #ff6b6b;
+    }
+    .dos h5, .donts h5 {
+      margin: 0 0 0.8em 0;
+      font-size: 1em;
+      color: var(--primary-dark);
+    }
+    .dos ul, .donts ul {
+      margin: 0;
+      padding-left: 1em;
+    }
+
+    /* FAQ Section Styles */
+    .faq-section {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.5em;
+    }
+    .faq-section h3 {
+      color: var(--primary-dark);
+      margin-top: 0;
+      font-size: 1.3em;
+      letter-spacing: 1px;
+    }
+    .faq-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5em;
+    }
+    .faq-item {
+      background: var(--bg);
+      border-radius: var(--radius);
+      padding: 1.2em;
+      border-left: 4px solid var(--primary);
+    }
+    .faq-item h4 {
+      color: var(--primary-dark);
+      margin: 0 0 0.8em 0;
+      font-size: 1.05em;
+    }
+    .faq-item p {
+      color: var(--muted);
+      margin: 0;
+      font-size: 0.95em;
+      line-height: 1.5;
+    }
+
+    /* Enhanced Resource Styles */
+    .resource-intro {
+      color: var(--muted);
+      font-size: 1.05em;
+      line-height: 1.6;
+      margin-bottom: 2.5em;
+      text-align: center;
+      font-style: italic;
+    }
+
+    .resource-categories {
+      display: flex;
+      flex-direction: column;
+      gap: 3em;
+      margin-bottom: 3em;
+    }
+
+    .resource-category h4 {
+      color: var(--primary-dark);
+      font-size: 1.2em;
+      margin-bottom: 1.5em;
+      padding-bottom: 0.5em;
+      border-bottom: 2px solid var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+    }
+
+    .resource-category .resource-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 1.5em;
+    }
+
+    .resource-card.expandable {
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .resource-card.expandable:hover {
+      transform: translateY(-2px);
+    }
+
+    .resource-card h5 {
+      color: var(--primary-dark);
+      font-size: 1.1em;
+      margin: 0 0 0.8em 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+    }
+
+    .resource-details {
+      display: none;
+      margin-top: 1em;
+      padding-top: 1em;
+      border-top: 1px solid var(--border);
+      animation: fadeIn 0.3s ease;
+    }
+
+    .resource-details.show {
+      display: block;
+    }
+
+    .resource-details h6 {
+      color: var(--primary-dark);
+      font-size: 1em;
+      margin: 1em 0 0.5em 0;
+      font-weight: 600;
+    }
+
+    .resource-details ul {
+      margin: 0.5em 0;
+      padding-left: 1.2em;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .resource-details li {
+      margin-bottom: 0.4em;
+    }
+
+    .expand-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 20px;
+      padding: 0.5em 1em;
+      font-size: 0.9em;
+      font-weight: 500;
+      cursor: pointer;
+      margin-top: 1em;
+      transition: all 0.2s;
+    }
+
+    .expand-btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    .expand-btn.expanded {
+      background: var(--muted);
+    }
+
+    /* Self-Care Section */
+    .self-care-section {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 2em;
+      margin-top: 2em;
+    }
+
+    .self-care-section h4 {
+      color: var(--primary-dark);
+      font-size: 1.3em;
+      margin: 0 0 1.5em 0;
+      text-align: center;
+    }
+
+    .self-care-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5em;
+    }
+
+    .self-care-card {
+      background: var(--bg);
+      border-radius: var(--radius);
+      padding: 1.2em;
+      border-left: 4px solid var(--accent);
+      transition: transform 0.2s;
+    }
+
+    .self-care-card:hover {
+      transform: translateY(-2px);
+    }
+
+    .self-care-card h5 {
+      color: var(--primary-dark);
+      font-size: 1.1em;
+      margin: 0 0 1em 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+    }
+
+    .self-care-card ul {
+      color: var(--muted);
+      margin: 0;
+      padding-left: 1.2em;
+      line-height: 1.6;
+    }
+
+    .self-care-card li {
+      margin-bottom: 0.5em;
+    }
+
+    /* Crisis Banner Animation */
+    .crisis-banner {
+      transition: transform 0.3s ease;
+    }
+
+    /* Fade-in animation */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Additional Mobile Responsiveness */
+    @media (max-width: 768px) {
+      .resource-category .resource-cards {
+        grid-template-columns: 1fr;
+      }
+      
+      .self-care-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .crisis-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5em;
+      }
+
+      .dos-donts {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .resource-categories {
+        gap: 2em;
+      }
+
+      .crisis-buttons {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+    }
+
+    /* Enhanced Low Light Mode for New Elements */
+    body.low-light .resource-category,
+    body.low-light .self-care-section,
+    body.low-light .about-section,
+    body.low-light .stories-section,
+    body.low-light .help-friend-section,
+    body.low-light .faq-section {
+      background: #23272f !important;
+      color: #eaf6ff !important;
+    }
+
+    body.low-light .resource-card.expandable,
+    body.low-light .self-care-card,
+    body.low-light .about-card,
+    body.low-light .story-card,
+    body.low-light .help-card,
+    body.low-light .faq-item,
+    body.low-light .dos,
+    body.low-light .donts {
+      background: #1a1d23 !important;
+      color: #eaf6ff !important;
+    }
+
+    body.low-light .expand-btn {
+      background: #43cea2 !important;
+      color: #1a1d23 !important;
+    }
+
+    body.low-light .expand-btn:hover {
+      background: #2574eb !important;
+    }
+
+    body.low-light .confidentiality-notice {
+      background: #1a1d23 !important;
+      border-color: #43cea2 !important;
+    }
+
+    body.low-light .affirmations-box {
+      background: linear-gradient(120deg, #1a1d23 0%, #23272f 20%) !important;
+    }
+
     @media (max-width: 900px) {
       .site-wrapper {
         flex-direction: column;
@@ -327,6 +892,18 @@
   </style>
 </head>
 <body>
+  <!-- Crisis Hotline Banner -->
+  <div class="crisis-banner" id="crisis-banner">
+    <div class="crisis-content">
+      <span class="crisis-text">🚨 Need help right now?</span>
+      <div class="crisis-buttons">
+        <a href="tel:988" class="crisis-btn primary">Call 988</a>
+        <button class="crisis-btn secondary" id="chatButton">💬 Live Chat</button>
+        <button class="crisis-btn exit" id="quickExit" aria-label="Quick exit">❌</button>
+      </div>
+    </div>
+  </div>
+
   <div class="site-wrapper">
     <aside class="sidebar">
       <h3>💬 Affirmations</h3>
@@ -339,6 +916,10 @@
       <div class="quick-links">
         <h4>Quick Links</h4>
         <a href="#resources">Resources</a>
+        <a href="#about">About Us</a>
+        <a href="#stories">Stories & Positivity</a>
+        <a href="#help-friend">Help a Friend</a>
+        <a href="#faq">FAQ</a>
         <a href="#how-it-works">How It Works</a>
       </div>
     </aside>
@@ -355,6 +936,16 @@
           <h2>You’re not alone.</h2>
           <p>Let’s figure this out together. We’re here when you need us — no pressure.</p>
         </section>
+
+        <!-- Confidentiality Notice -->
+        <div class="confidentiality-notice">
+          <span class="lock-icon">🔒</span>
+          <div>
+            <h4>Your Privacy Matters</h4>
+            <p>Everything you share with us is completely confidential. We only break confidentiality if there's an immediate risk of harm to yourself or others. You're in control of your story, and we're here to listen without judgment.</p>
+          </div>
+        </div>
+
         <!-- Action Navigation -->
         <nav class="main-actions" aria-label="Main support options">
           <button class="action-btn" id="talkButton">Talk to Someone</button>
@@ -378,27 +969,389 @@
             <span style="margin-top:0.5em; color:#2574eb; font-size:1em;">Open hands under a calm sky</span>
           </div>
         </section>
-        <!-- Featured Resources Section -->
-        <section class="resources" id="resources">
-          <h3>🌱 Featured Resources</h3>
-          <div class="resource-cards">
-            <div class="resource-card">
-              <h4>Managing Stress</h4>
-              <p>Gentle tips for handling tough days and finding calm.</p>
-              <a href="#">Read More</a>
-            </div>
-            <div class="resource-card">
-              <h4>Finding Support</h4>
-              <p>How to reach out and connect with someone who cares.</p>
-              <a href="#">Read More</a>
-            </div>
-            <div class="resource-card">
-              <h4>Self-Care Ideas</h4>
-              <p>Simple ways to take care of your mind and body.</p>
-              <a href="#">Read More</a>
+        <!-- About Section -->
+        <section class="about-section" id="about">
+          <h3>👋 About Teen Help Line</h3>
+          <div class="about-content">
+            <p><strong>We're here for you, 24/7.</strong> Teen Help Line is a safe, judgment-free space created by people who understand what it's like to be a teenager today. Our trained volunteers and counselors are ready to listen, support, and help you navigate whatever you're going through.</p>
+            <div class="about-grid">
+              <div class="about-card">
+                <h4>🎯 Our Mission</h4>
+                <p>To provide immediate, confidential support to teens when they need it most. We believe every young person deserves to feel heard, valued, and supported.</p>
+              </div>
+              <div class="about-card">
+                <h4>🤝 What to Expect</h4>
+                <p>When you reach out, you'll talk to someone who cares. No judgments, no pressure — just genuine support and helpful resources tailored to your situation.</p>
+              </div>
+              <div class="about-card">
+                <h4>💪 Who We Help</h4>
+                <p>Teens dealing with stress, relationships, family issues, school pressure, identity questions, bullying, depression, or just feeling overwhelmed. You're not alone.</p>
+              </div>
             </div>
           </div>
         </section>
+
+        <!-- Featured Resources Section -->
+        <section class="resources" id="resources">
+          <h3>🌱 Help Topics & Resources</h3>
+          <p class="resource-intro">Whatever you're going through, you don't have to face it alone. Explore these topics to find support and practical tips.</p>
+          
+          <div class="resource-categories">
+            <div class="resource-category">
+              <h4>💭 Mental Health</h4>
+              <div class="resource-cards">
+                <div class="resource-card expandable" data-category="anxiety">
+                  <h5>😰 Anxiety & Panic</h5>
+                  <p>Learn breathing techniques, grounding exercises, and when to seek help for overwhelming worry.</p>
+                  <div class="resource-details">
+                    <h6>Quick Help:</h6>
+                    <ul>
+                      <li><strong>4-7-8 Breathing:</strong> Breathe in for 4, hold for 7, out for 8</li>
+                      <li><strong>5-4-3-2-1 Grounding:</strong> Name 5 things you see, 4 you can touch, 3 you hear, 2 you smell, 1 you taste</li>
+                      <li><strong>Progressive Muscle Relaxation:</strong> Tense and release muscle groups from toes to head</li>
+                    </ul>
+                    <p><strong>When to get help:</strong> If anxiety interferes with school, relationships, or daily activities for more than 2 weeks.</p>
+                  </div>
+                  <button class="expand-btn">Learn More</button>
+                </div>
+
+                <div class="resource-card expandable" data-category="depression">
+                  <h5>😔 Depression & Low Mood</h5>
+                  <p>Understanding depression, building coping skills, and finding hope during difficult times.</p>
+                  <div class="resource-details">
+                    <h6>Signs to Watch For:</h6>
+                    <ul>
+                      <li>Persistent sadness or emptiness</li>
+                      <li>Loss of interest in activities you used to enjoy</li>
+                      <li>Changes in sleep or appetite</li>
+                      <li>Feeling worthless or hopeless</li>
+                    </ul>
+                    <h6>Small Steps That Help:</h6>
+                    <ul>
+                      <li>Set one tiny goal each day (make your bed, take a shower)</li>
+                      <li>Get sunlight for 10-15 minutes daily</li>
+                      <li>Connect with one person, even briefly</li>
+                    </ul>
+                  </div>
+                  <button class="expand-btn">Learn More</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="resource-category">
+              <h4>👫 Relationships & Social</h4>
+              <div class="resource-cards">
+                <div class="resource-card expandable" data-category="bullying">
+                  <h5>😡 Bullying & Harassment</h5>
+                  <p>Strategies for dealing with bullies, reporting options, and rebuilding confidence.</p>
+                  <div class="resource-details">
+                    <h6>Types of Bullying:</h6>
+                    <ul>
+                      <li><strong>Physical:</strong> Hitting, pushing, damaging property</li>
+                      <li><strong>Verbal:</strong> Name-calling, threats, insults</li>
+                      <li><strong>Social:</strong> Exclusion, spreading rumors, humiliation</li>
+                      <li><strong>Cyberbullying:</strong> Online harassment, sharing private info</li>
+                    </ul>
+                    <h6>What You Can Do:</h6>
+                    <ul>
+                      <li>Document incidents (dates, witnesses, screenshots)</li>
+                      <li>Report to trusted adults or authorities</li>
+                      <li>Block/unfriend on social media</li>
+                      <li>Travel with friends when possible</li>
+                    </ul>
+                  </div>
+                  <button class="expand-btn">Learn More</button>
+                </div>
+
+                <div class="resource-card expandable" data-category="relationships">
+                  <h5>💕 Dating & Relationships</h5>
+                  <p>Healthy relationships, setting boundaries, and navigating breakups with self-respect.</p>
+                  <div class="resource-details">
+                    <h6>Signs of a Healthy Relationship:</h6>
+                    <ul>
+                      <li>Mutual respect and trust</li>
+                      <li>Open, honest communication</li>
+                      <li>Support for each other's goals and friendships</li>
+                      <li>Feeling comfortable being yourself</li>
+                    </ul>
+                    <h6>Red Flags to Watch:</h6>
+                    <ul>
+                      <li>Controlling behavior or extreme jealousy</li>
+                      <li>Pressuring you sexually or otherwise</li>
+                      <li>Isolating you from friends/family</li>
+                      <li>Any form of abuse (physical, emotional, sexual)</li>
+                    </ul>
+                  </div>
+                  <button class="expand-btn">Learn More</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="resource-category">
+              <h4>🏠 Family & Identity</h4>
+              <div class="resource-cards">
+                <div class="resource-card expandable" data-category="family">
+                  <h5>👨‍👩‍👧‍👦 Family Problems</h5>
+                  <p>Dealing with family conflict, divorce, abuse, and improving communication at home.</p>
+                  <div class="resource-details">
+                    <h6>Common Family Issues:</h6>
+                    <ul>
+                      <li>Parents' divorce or separation</li>
+                      <li>Sibling conflicts</li>
+                      <li>Different values or expectations</li>
+                      <li>Financial stress affecting the family</li>
+                    </ul>
+                    <h6>Coping Strategies:</h6>
+                    <ul>
+                      <li>Use "I feel" statements instead of "You always..."</li>
+                      <li>Find a calm moment to talk, not during arguments</li>
+                      <li>Seek mediation from a neutral family member</li>
+                      <li>Remember: You can't control others, only your responses</li>
+                    </ul>
+                  </div>
+                  <button class="expand-btn">Learn More</button>
+                </div>
+
+                <div class="resource-card expandable" data-category="identity">
+                  <h5>🌈 LGBTQ+ Support</h5>
+                  <p>Identity exploration, coming out, finding community, and dealing with discrimination.</p>
+                  <div class="resource-details">
+                    <h6>You Are Not Alone:</h6>
+                    <p>Questioning your identity is normal and healthy. There's no rush to label yourself, and your feelings are valid.</p>
+                    <h6>Safe Resources:</h6>
+                    <ul>
+                      <li><strong>The Trevor Project:</strong> 1-866-488-7386 (24/7 crisis support)</li>
+                      <li><strong>PFLAG:</strong> Support for families and allies</li>
+                      <li><strong>LGBT Youth Hotline:</strong> 1-800-246-7743</li>
+                      <li><strong>Trans Lifeline:</strong> 877-565-8860</li>
+                    </ul>
+                    <h6>Coming Out Tips:</h6>
+                    <ul>
+                      <li>Come out to yourself first - take your time</li>
+                      <li>Start with someone you trust completely</li>
+                      <li>Choose a safe, private setting</li>
+                      <li>Have support resources ready to share</li>
+                    </ul>
+                  </div>
+                  <button class="expand-btn">Learn More</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="resource-category">
+              <h4>📚 School & Life</h4>
+              <div class="resource-cards">
+                <div class="resource-card expandable" data-category="school">
+                  <h5>📖 Academic Pressure</h5>
+                  <p>Managing stress about grades, college prep, and finding balance in your academic life.</p>
+                  <div class="resource-details">
+                    <h6>Study Smart, Not Hard:</h6>
+                    <ul>
+                      <li>Use the Pomodoro Technique (25 min work, 5 min break)</li>
+                      <li>Create a dedicated study space</li>
+                      <li>Break big projects into smaller tasks</li>
+                      <li>Form study groups with classmates</li>
+                    </ul>
+                    <h6>Managing Test Anxiety:</h6>
+                    <ul>
+                      <li>Arrive early and bring everything you need</li>
+                      <li>Read all instructions carefully</li>
+                      <li>Start with easier questions to build confidence</li>
+                      <li>Use relaxation techniques if you feel overwhelmed</li>
+                    </ul>
+                  </div>
+                  <button class="expand-btn">Learn More</button>
+                </div>
+
+                <div class="resource-card expandable" data-category="substances">
+                  <h5>🍺 Substance Use & Peer Pressure</h5>
+                  <p>Making informed decisions about alcohol and drugs, resisting peer pressure.</p>
+                  <div class="resource-details">
+                    <h6>Saying No Without Losing Friends:</h6>
+                    <ul>
+                      <li>"I'm the designated driver tonight"</li>
+                      <li>"I'm on medication that doesn't mix well"</li>
+                      <li>"I want to remember tonight"</li>
+                      <li>"I'm good with what I have"</li>
+                    </ul>
+                    <h6>Warning Signs of Problem Use:</h6>
+                    <ul>
+                      <li>Using substances to cope with problems</li>
+                      <li>Neglecting responsibilities or relationships</li>
+                      <li>Risky behavior while under the influence</li>
+                      <li>Inability to have fun without substances</li>
+                    </ul>
+                    <h6>Getting Help:</h6>
+                    <p>SAMHSA National Helpline: 1-800-662-4357 (free, confidential, 24/7)</p>
+                  </div>
+                  <button class="expand-btn">Learn More</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="self-care-section">
+            <h4>🌸 Self-Care Toolkit</h4>
+            <div class="self-care-grid">
+              <div class="self-care-card">
+                <h5>🧘‍♀️ Mindfulness & Relaxation</h5>
+                <ul>
+                  <li>Meditation apps: Headspace, Calm, Insight Timer</li>
+                  <li>Yoga videos on YouTube</li>
+                  <li>Nature walks or outdoor time</li>
+                  <li>Journaling or creative expression</li>
+                </ul>
+              </div>
+              <div class="self-care-card">
+                <h5>🏃‍♀️ Physical Wellness</h5>
+                <ul>
+                  <li>Regular sleep schedule (8-9 hours for teens)</li>
+                  <li>Nutritious meals and snacks</li>
+                  <li>Any physical activity you enjoy</li>
+                  <li>Limit screen time before bed</li>
+                </ul>
+              </div>
+              <div class="self-care-card">
+                <h5>❤️ Emotional Care</h5>
+                <ul>
+                  <li>Connect with supportive friends/family</li>
+                  <li>Practice gratitude (3 things daily)</li>
+                  <li>Set healthy boundaries</li>
+                  <li>Allow yourself to feel emotions</li>
+                </ul>
+              </div>
+              <div class="self-care-card">
+                <h5>🎨 Fun & Creativity</h5>
+                <ul>
+                  <li>Pursue hobbies you love</li>
+                  <li>Listen to uplifting music</li>
+                  <li>Watch comfort movies/shows</li>
+                  <li>Try something new and creative</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Stories & Positivity Section -->
+        <section class="stories-section" id="stories">
+          <h3>💭 Stories & Positivity</h3>
+          <p>You're not alone in your journey. Here are some anonymous stories from teens who've been where you are, plus daily affirmations to remind you of your strength.</p>
+
+          <div class="stories-grid">
+            <div class="story-card">
+              <h4>"I thought I was the only one..."</h4>
+              <p>"When I was struggling with anxiety, I felt completely alone. Reaching out to the help line was the first step toward feeling like myself again. The counselor helped me find coping strategies that actually work for me." - Anonymous, 16</p>
+            </div>
+            <div class="story-card">
+              <h4>"It gets better"</h4>
+              <p>"Dealing with bullying made me want to give up, but talking to someone who understood changed everything. I'm now helping other kids who are going through the same thing." - Anonymous, 17</p>
+            </div>
+            <div class="story-card">
+              <h4>"Finding my voice"</h4>
+              <p>"I was scared to talk about my family problems, but the help line gave me the courage to speak up. Now I know it's okay to ask for help when things get tough." - Anonymous, 15</p>
+            </div>
+          </div>
+
+          <div class="affirmations-box">
+            <h4>🌟 Daily Affirmations</h4>
+            <div class="affirmations-list">
+              <p>✨ "I am worthy of love and support."</p>
+              <p>💪 "My feelings are valid and important."</p>
+              <p>🌈 "I have the strength to overcome challenges."</p>
+              <p>🎯 "It's okay to ask for help when I need it."</p>
+              <p>❤️ "I am deserving of kindness and understanding."</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Help a Friend Section -->
+        <section class="help-friend-section" id="help-friend">
+          <h3>🤝 How to Help a Friend</h3>
+          <p>Sometimes the best way to help yourself is by helping someone else. Here's how to support a friend who might be struggling.</p>
+
+          <div class="help-content">
+            <div class="help-card">
+              <h4>🚨 Signs Your Friend Might Need Help</h4>
+              <ul>
+                <li>Withdrawing from friends and activities they used to enjoy</li>
+                <li>Sudden changes in mood, sleep, or eating habits</li>
+                <li>Talking about feeling hopeless or worthless</li>
+                <li>Increased irritability or anger</li>
+                <li>Declining academic performance</li>
+                <li>Self-harm or risky behaviors</li>
+              </ul>
+            </div>
+
+            <div class="help-card">
+              <h4>💬 What to Say (and What NOT to Say)</h4>
+              <div class="dos-donts">
+                <div class="dos">
+                  <h5>✅ Do Say:</h5>
+                  <ul>
+                    <li>"I've noticed you've seemed down lately. Want to talk about it?"</li>
+                    <li>"I'm here for you, no matter what."</li>
+                    <li>"You don't have to go through this alone."</li>
+                    <li>"Your feelings are important to me."</li>
+                  </ul>
+                </div>
+                <div class="donts">
+                  <h5>❌ Don't Say:</h5>
+                  <ul>
+                    <li>"Just get over it."</li>
+                    <li>"Everyone feels like this sometimes."</li>
+                    <li>"You're being dramatic."</li>
+                    <li>"I don't know how to help you."</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="help-card">
+              <h4>📞 When to Get Adult Help</h4>
+              <p><strong>Get immediate help if your friend:</strong></p>
+              <ul>
+                <li>Talks about harming themselves or others</li>
+                <li>Shows signs of serious depression or anxiety</li>
+                <li>Is using drugs or alcohol to cope</li>
+                <li>Is being abused or bullied severely</li>
+              </ul>
+              <p>Remember: It's better to overreact than to underreact. You could save a life.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq-section" id="faq">
+          <h3>❓ Frequently Asked Questions</h3>
+          <div class="faq-content">
+            <div class="faq-item">
+              <h4>Is it really anonymous?</h4>
+              <p>Yes! We take your privacy seriously. Unless there's an immediate safety concern, everything you share stays between you and our counselors. No names, no tracking, no judgment.</p>
+            </div>
+            <div class="faq-item">
+              <h4>What happens if I call or chat?</h4>
+              <p>You'll be connected with a trained counselor who will listen without judgment. They'll ask gentle questions to understand your situation and offer support and resources. You control the conversation.</p>
+            </div>
+            <div class="faq-item">
+              <h4>What if I don't know what to say?</h4>
+              <p>That's completely normal! You can start with something simple like "I'm feeling overwhelmed" or "I just need someone to listen." Our counselors are trained to help guide the conversation.</p>
+            </div>
+            <div class="faq-item">
+              <h4>Is there a cost?</h4>
+              <p>No, all our services are completely free. We're here to help, not to make money.</p>
+            </div>
+            <div class="faq-item">
+              <h4>Can I text instead of calling?</h4>
+              <p>Absolutely! Many teens prefer texting. You can use our live chat feature or text "HOME" to 741741 for the Crisis Text Line.</p>
+            </div>
+            <div class="faq-item">
+              <h4>What ages do you help?</h4>
+              <p>We primarily support teens ages 13-19, but if you're outside this range and need help, we'll connect you with appropriate resources.</p>
+            </div>
+          </div>
+        </section>
+
         <!-- How It Works Section -->
         <section class="how-it-works" id="how-it-works">
           <h3>✨ How It Works</h3>
@@ -421,6 +1374,159 @@
       const pressed = this.getAttribute('aria-pressed') === 'true';
       this.setAttribute('aria-pressed', !pressed);
       document.body.classList.toggle('low-light', !pressed);
+    });
+
+    // Quick Exit Button
+    const quickExit = document.getElementById('quickExit');
+    quickExit.addEventListener('click', function() {
+      // Redirect to a safe site like Google or YouTube
+      window.location.href = 'https://www.google.com';
+    });
+
+    // Live Chat Button
+    const chatButton = document.getElementById('chatButton');
+    chatButton.addEventListener('click', function() {
+      // For now, show an alert. In a real implementation, this would open a chat widget
+      alert('Live chat feature coming soon! For immediate help, please call 988 or text HOME to 741741.');
+    });
+
+    // Action Buttons
+    const talkButton = document.getElementById('talkButton');
+    const exploreButton = document.getElementById('exploreButton');
+    const startHereButton = document.getElementById('startHereButton');
+
+    talkButton.addEventListener('click', function() {
+      // Scroll to FAQ section or show contact options
+      document.getElementById('faq').scrollIntoView({ behavior: 'smooth' });
+    });
+
+    exploreButton.addEventListener('click', function() {
+      // Scroll to resources section
+      document.getElementById('resources').scrollIntoView({ behavior: 'smooth' });
+    });
+
+    startHereButton.addEventListener('click', function() {
+      // Scroll to about section
+      document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
+    });
+
+    // Smooth scrolling for sidebar links
+    document.querySelectorAll('.quick-links a').forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href').substring(1);
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {
+          targetElement.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+
+    // Crisis banner visibility based on scroll
+    const crisisBanner = document.getElementById('crisis-banner');
+    let lastScrollTop = 0;
+
+    window.addEventListener('scroll', function() {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+      // Hide banner when scrolling down, show when scrolling up
+      if (scrollTop > lastScrollTop && scrollTop > 100) {
+        crisisBanner.style.transform = 'translateY(-100%)';
+      } else {
+        crisisBanner.style.transform = 'translateY(0)';
+      }
+
+      lastScrollTop = scrollTop;
+    });
+
+    // Add keyboard navigation support
+    document.addEventListener('keydown', function(e) {
+      // ESC key to quick exit
+      if (e.key === 'Escape') {
+        window.location.href = 'https://www.google.com';
+      }
+    });
+
+    // Add focus management for accessibility
+    const focusableElements = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+    const modal = null; // No modal in this implementation
+
+    function trapFocus(e) {
+      if (modal) {
+        const focusableContent = modal.querySelectorAll(focusableElements);
+        const firstFocusableElement = focusableContent[0];
+        const lastFocusableElement = focusableContent[focusableContent.length - 1];
+
+        if (e.key === 'Tab') {
+          if (e.shiftKey) {
+            if (document.activeElement === firstFocusableElement) {
+              lastFocusableElement.focus();
+              e.preventDefault();
+            }
+          } else {
+            if (document.activeElement === lastFocusableElement) {
+              firstFocusableElement.focus();
+              e.preventDefault();
+            }
+          }
+        }
+      }
+    }
+
+    document.addEventListener('keydown', trapFocus);
+
+    // Expandable Resource Cards
+    document.querySelectorAll('.expand-btn').forEach(button => {
+      button.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const card = this.closest('.resource-card');
+        const details = card.querySelector('.resource-details');
+        
+        if (details.classList.contains('show')) {
+          details.classList.remove('show');
+          this.textContent = 'Learn More';
+          this.classList.remove('expanded');
+        } else {
+          details.classList.add('show');
+          this.textContent = 'Show Less';
+          this.classList.add('expanded');
+        }
+      });
+    });
+
+    // Make entire expandable cards clickable
+    document.querySelectorAll('.resource-card.expandable').forEach(card => {
+      card.addEventListener('click', function(e) {
+        if (e.target.classList.contains('expand-btn')) return; // Don't double-trigger
+        const button = this.querySelector('.expand-btn');
+        if (button) {
+          button.click();
+        }
+      });
+    });
+
+    // Smooth scroll with offset for fixed header
+    function smoothScrollWithOffset(targetId) {
+      const target = document.getElementById(targetId);
+      if (target) {
+        const headerHeight = 120; // Approximate height of sticky elements
+        const targetPosition = target.offsetTop - headerHeight;
+        window.scrollTo({
+          top: targetPosition,
+          behavior: 'smooth'
+        });
+      }
+    }
+
+    // Update existing scroll functions to use offset
+    document.querySelectorAll('.quick-links a, .action-btn').forEach(element => {
+      element.addEventListener('click', function(e) {
+        if (this.getAttribute('href') && this.getAttribute('href').startsWith('#')) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href').substring(1);
+          smoothScrollWithOffset(targetId);
+        }
+      });
     });
   </script>
   <style>
