@@ -2,16 +2,44 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Spartan Hub - Your Gateway to Academic Success & Personal Growth</title>
   <meta name="description" content="Spartan Hub helps students with tutoring, college guidance, mental health support, and spiritual merchandise. A student-led initiative by Bixby High School.">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.0/math.min.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-  <style>
-    /* Liquid Glass Apple Theme */
 
-    /* Modern SF Pro inspired typography */
+  <style>
+    /* Rotating Text Animation */
+    .rotating-words::after {
+      content: '';
+      animation: rotate 8s linear infinite;
+    }
+
+    @keyframes rotate {
+      0% { content: 'tutoring'; }
+      25% { content: 'college search'; }
+      50% { content: 'mental health'; }
+      75% { content: 'career guidance'; }
+      100% { content: 'school spirit'; }
+    }
+
+    /* Falling Icons Animation */
+    .falling-icon {
+      position: absolute;
+      font-size: 24px;
+      opacity: 0.6;
+      animation: fall 5s linear infinite;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-10px) rotate(0deg); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 0.6; }
+      100% { transform: translateY(calc(100vh + 10px)) rotate(360deg); opacity: 0; }
+    }
+
+    /* SF Pro Typography */
     @import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700;800;900&display=swap');
 
     html, body {
@@ -25,162 +53,8 @@
       line-height: 1.4;
     }
 
-    /* Liquid animations */
-    @keyframes liquidMorph {
-      0%, 100% { border-radius: 16px; transform: scale(1); }
-      25% { border-radius: 24px; transform: scale(1.02); }
-      50% { border-radius: 12px; transform: scale(0.98); }
-      75% { border-radius: 20px; transform: scale(1.01); }
-    }
-
-    @keyframes glassPulse {
-      0%, 100% { box-shadow: 0 8px 32px rgba(31, 31, 31, 0.37); }
-      50% { box-shadow: 0 8px 32px rgba(31, 31, 31, 0.67); }
-    }
-
-    @keyframes liquidFlow {
-      0% { transform: translateX(-100%); }
-      100% { transform: translateX(100%); }
-    }
-
-    /* Glass morphism effects */
-    .glass-nav {
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 24px;
-    }
-
-    .glass-card {
-      background: rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 24px;
-      animation: glassPulse 3s ease-in-out infinite;
-    }
-
-    .liquid-btn {
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.05) 100%);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 16px;
-      transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-      animation: liquidMorph 4s ease-in-out infinite;
-    }
-
-    .liquid-btn:hover {
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.1) 100%);
-      transform: translateY(-2px) scale(1.02);
-      box-shadow: 0 12px 40px rgba(255, 255, 255, 0.15);
-    }
-
-    /* Apple-style typography */
-    .apple-heading {
-      font-weight: 700;
-      font-size: clamp(2rem, 5vw, 3.5rem);
-      letter-spacing: -0.02em;
-      line-height: 1.1;
-      color: #ffffff;
-      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-    }
-
-    .apple-subheading {
-      font-weight: 400;
-      font-size: clamp(1rem, 3vw, 1.5rem);
-      letter-spacing: -0.01em;
-      line-height: 1.4;
-      color: rgba(255, 255, 255, 0.8);
-    }
-
-    .apple-body {
-      font-weight: 400;
-      font-size: 1rem;
-      line-height: 1.6;
-      color: rgba(255, 255, 255, 0.7);
-    }
-
-    /* Liquid gradient backgrounds */
-    .liquid-gradient {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%);
-      background-size: 400% 400%;
-      animation: liquidFlow 8s ease infinite;
-    }
-
-    /* Apple-inspired color scheme */
-    .apple-blue {
-      color: #007AFF;
-    }
-
-    .apple-white {
-      color: #FFFFFF;
-    }
-
-    .apple-gray {
-      color: rgba(255, 255, 255, 0.6);
-    }
-
-    /* Smooth transitions */
-    * {
-      transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-    }
-
-    /* Responsive design */
-    @media (max-width: 768px) {
-      .apple-heading {
-        font-size: clamp(1.5rem, 8vw, 2.5rem);
-      }
-      .apple-subheading {
-        font-size: clamp(0.9rem, 4vw, 1.2rem);
-      }
-    }
-
-    /* Enhanced glass effects on hover */
-    .glass-card:hover {
-      background: rgba(255, 255, 255, 0.12);
-      transform: translateY(-4px);
-      box-shadow: 0 20px 64px rgba(31, 31, 31, 0.67);
-    }
-
-    /* Liquid loader */
-    .liquid-loader {
-      position: relative;
-      width: 40px;
-      height: 40px;
-      display: inline-block;
-    }
-
-    .liquid-loader::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 32px;
-      height: 32px;
-      margin: -16px 0 0 -16px;
-      border: 2px solid rgba(255, 255, 255, 0.1);
-      border-top: 2px solid rgba(255, 255, 255, 0.6);
-      border-radius: 50%;
-      animation: liquidSpin 1s linear infinite;
-    }
-
-    @keyframes liquidSpin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
     /* Easter Egg Animations */
-    .logo-easter {
-      transition: all 0.3s ease;
-      cursor: pointer;
-    }
-
-    .logo-easter:hover {
-      transform: scale(1.05);
-    }
-
+    .logo-easter:hover { transform: scale(1.05); }
     .logo-easter.clicked {
       animation: appleEaster 2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     }
@@ -211,79 +85,107 @@
     }
 
     @keyframes particleBurst {
-      0% {
-        opacity: 1;
-        transform: translate(0, 0) scale(1);
-      }
-      100% {
-        opacity: 0;
-        transform: translate(var(--dx), var(--dy)) scale(0);
-      }
+      0% { opacity: 1; transform: translate(0, 0) scale(1); }
+      100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(0); }
     }
   </style>
 </head>
+
 <body class="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-blue-900">
-  <!-- Navigation Header -->
-  <nav class="bg-white/10 backdrop-blur-lg border-b border-white/20 sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between items-center h-16">
-        <div class="flex items-center space-x-3">
-          <img src="bixby-academic-mentors-logo.png" alt="Spartan Hub Logo" class="h-10 w-10 rounded-full border-2 border-white/30" onclick="triggerEasterEgg(this)" style="cursor: pointer;">
-          <span class="text-white font-bold text-xl tracking-wide">Spartan Hub</span>
+  <!-- Creative Floating Navigation Sphere -->
+  <div id="floating-nav" class="fixed top-6 right-6 z-50">
+    <div id="nav-sphere" class="w-16 h-16 bg-gradient-to-br from-blue-500 via-purple-500 to-indigo-600 rounded-full backdrop-blur-sm border border-white/20 shadow-2xl cursor-pointer flex items-center justify-center transition-all duration-500 group hover:scale-125 hover:shadow-[0_0_50px_rgba(139,92,246,0.5)]" onclick="toggleSphereNav()">
+      <!-- Logo inside sphere (desktop) -->
+      <img src="bixby-academic-mentors-logo.png" alt="Spartan Hub Logo" class="w-8 h-8 rounded-full border border-white/40 logo-easter hidden md:block" onclick="triggerEasterEgg(event, this)">
+      <!-- Mobile hamburger/menu indicator -->
+      <div class="md:hidden">
+        <i class="fas fa-bars text-white text-lg"></i>
+      </div>
+      <!-- Desktop morphing menu indicator -->
+      <div id="menu-indicator" class="hidden md:flex absolute inset-0 items-center justify-center">
+        <div class="w-6 h-4 flex flex-col justify-center space-y-0.5 transition-all duration-300">
+          <div class="h-0.5 bg-white rounded-full transform transition-all duration-300 origin-center menu-line-1"></div>
+          <div class="h-0.5 bg-white rounded-full transform transition-all duration-300 origin-center opacity-100 menu-line-2"></div>
+          <div class="h-0.5 bg-white rounded-full transform transition-all duration-300 origin-center menu-line-3"></div>
         </div>
-        <div class="hidden md:flex space-x-8">
-          <a href="#services" class="text-white/90 hover:text-white transition-colors duration-200">Services</a>
-          <a href="#about" class="text-white/90 hover:text-white transition-colors duration-200">About</a>
-          <a href="#contact" class="text-white/90 hover:text-white transition-colors duration-200">Contact</a>
-        </div>
-        <div class="md:hidden">
-          <button onclick="toggleMobileMenu()" class="text-white hover:text-white/80 transition-colors duration-200">
-            <i class="fas fa-bars text-xl"></i>
+      </div>
+    </div>
+    <!-- Dynamic orbit ring for desktop -->
+    <div id="orbit-ring" class="absolute inset-0 rounded-full border-2 border-white/30 transform scale-90 transition-all duration-500 opacity-0 group-hover:opacity-100 group-hover:scale-100 group-hover:rotate-180 hidden md:block"></div>
+  </div>
+
+  <!-- Expandable Navigation Orbits (Desktop Only) -->
+  <div id="nav-orbits" class="fixed top-6 right-6 z-40 pointer-events-none hidden md:block">
+    <!-- Services Orbit -->
+    <div class="nav-orbit orbit-services absolute w-12 h-12 bg-gradient-to-br from-green-400 to-blue-500 rounded-full flex items-center justify-center opacity-0 scale-0 transition-all duration-500 delay-100 -top-2 -right-14 hover:scale-110" onclick="navigateTo('#services')" title="Services">
+      <i class="fas fa-concierge-bell text-white text-lg"></i>
+    </div>
+    <!-- About Orbit -->
+    <div class="nav-orbit orbit-about absolute w-12 h-12 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full flex items-center justify-center opacity-0 scale-0 transition-all duration-500 delay-200 -top-14 -right-2 hover:scale-110" onclick="navigateTo('#about')" title="About">
+      <i class="fas fa-info-circle text-white text-lg"></i>
+    </div>
+    <!-- Contact Orbit -->
+    <div class="nav-orbit orbit-contact absolute w-12 h-12 bg-gradient-to-br from-orange-400 to-red-500 rounded-full flex items-center justify-center opacity-0 scale-0 transition-all duration-500 delay-300 -top-14 right-10 hover:scale-110" onclick="navigateTo('#contact')" title="Contact">
+      <i class="fas fa-envelope text-white text-lg"></i>
+    </div>
+  </div>
+
+  <!-- Mobile Navigation Menu -->
+  <div id="mobile-nav-menu" class="fixed top-20 right-6 z-40 bg-white/95 backdrop-blur-md rounded-lg shadow-lg border border-white/20 transform translate-x-full transition-transform duration-300 md:hidden max-w-xs w-48">
+    <div class="p-4">
+      <div class="space-y-3">
+        <a href="#services" onclick="closeMobileNav()" class="flex items-center text-gray-800 hover:text-blue-600 transition-colors duration-200">
+          <i class="fas fa-concierge-bell mr-3 w-5 text-center"></i> Services
+        </a>
+        <a href="#about" onclick="closeMobileNav()" class="flex items-center text-gray-800 hover:text-blue-600 transition-colors duration-200">
+          <i class="fas fa-info-circle mr-3 w-5 text-center"></i> About
+        </a>
+        <a href="#contact" onclick="closeMobileNav()" class="flex items-center text-gray-800 hover:text-blue-600 transition-colors duration-200">
+          <i class="fas fa-envelope mr-3 w-5 text-center"></i> Contact
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Home Button (Mobile) -->
+  <div class="fixed top-6 left-6 z-50 md:hidden">
+    <div class="w-12 h-12 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 shadow-lg flex items-center justify-center cursor-pointer hover:bg-white/20 transition-all duration-300" onclick="navigateTo('index.html')" title="Home">
+      <i class="fas fa-home text-white"></i>
+    </div>
+  </div>
+
+  <!-- Creative Mobile-Friendly Banner -->
+  <div class="relative bg-gradient-to-r from-indigo-900 via-purple-900 to-blue-900 py-12 px-4">
+    <div class="max-w-4xl mx-auto text-center">
+      <div class="flex items-center justify-center mb-6">
+        <img src="bixby-academic-mentors-logo.png" alt="Spartan Hub Logo" class="w-16 h-16 rounded-full border-2 border-white/50 mr-4 hover:scale-110 transition-transform duration-300 logo-easter hidden md:block" onclick="triggerEasterEgg(this)">
+        <span class="text-white font-black text-2xl md:text-3xl md:text-5xl tracking-wider bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">SPARTAN HUB</span>
+      </div>
+
+      <div class="text-white text-lg md:text-xl font-light mb-8">
+        We help you with <span class="rotating-words font-semibold text-blue-300"></span>
+      </div>
+
+      <!-- Mobile-Optimized CTA Section -->
+      <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-6 md:p-8 inline-block shadow-2xl border border-white/20">
+        <p class="text-white text-base md:text-lg mb-6 leading-relaxed">
+          <i class="fas fa-chalkboard-teacher text-blue-300 mr-2"></i>
+          Student-powered resources for academic success, personal growth, and community support.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-3 justify-center">
+          <button onclick="smoothScroll('#services')" class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg">
+            <i class="fas fa-rocket mr-2"></i>Explore Services
+          </button>
+          <button onclick="smoothScroll('#about')" class="border-2 border-white/50 hover:border-white text-white font-semibold py-3 px-6 rounded-full transition-all duration-300 hover:bg-white hover:text-indigo-900">
+            Learn More
           </button>
         </div>
       </div>
-      <!-- Mobile Menu -->
-      <div id="mobile-menu" class="md:hidden hidden pb-4">
-        <div class="flex flex-col space-y-4">
-          <a href="#services" class="text-white/90 hover:text-white transition-colors duration-200">Services</a>
-          <a href="#about" class="text-white/90 hover:text-white transition-colors duration-200">About</a>
-          <a href="#contact" class="text-white/90 hover:text-white transition-colors duration-200">Contact</a>
-        </div>
-      </div>
-    </div>
-  </nav>
 
-
-  <!-- Hero Section -->
-  <section class="relative min-h-screen flex items-center justify-center px-4">
-    <div class="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-black/60"></div>
-    <div class="relative z-10 text-center text-white max-w-4xl mx-auto">
-      <div class="flex items-center justify-center mb-8">
-        <img src="bixby-academic-mentors-logo.png" alt="Spartan Hub Logo" class="w-16 h-16 rounded-full border-4 border-white/30 mr-4 hover:scale-110 transition-transform duration-300 cursor-pointer" onclick="triggerEasterEgg(this)">
-        <h1 class="text-5xl md:text-7xl font-black tracking-wider">SPARTAN HUB</h1>
-      </div>
-      <h2 class="text-3xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">How can we help you?</h2>
-      <p class="text-xl md:text-2xl text-gray-200 font-light mb-12 max-w-3xl mx-auto leading-relaxed">
-        Your gateway to academic success, personal growth, and community support.
-        Powered by students, for students at Bixby High School.
-      </p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="#services" class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg">
-          Explore Services
-        </a>
-        <a href="#about" class="border-2 border-white/30 hover:border-white text-white font-semibold py-4 px-8 rounded-lg transition-all duration-300 hover:bg-white/10">
-          Learn More
-        </a>
-      </div>
+      <!-- Animated Background Elements -->
+      <div id="falling-icons" class="absolute inset-0 pointer-events-none overflow-hidden"></div>
     </div>
-
-    <!-- Animated Background Elements -->
-    <div class="absolute inset-0 overflow-hidden pointer-events-none">
-      <div class="absolute top-20 left-10 w-72 h-72 bg-blue-500/10 rounded-full blur-xl animate-pulse"></div>
-      <div class="absolute bottom-20 right-10 w-96 h-96 bg-purple-500/10 rounded-full blur-xl animate-pulse delay-1000"></div>
-      <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-full blur-2xl animate-pulse delay-500"></div>
-    </div>
-  </section>
+  </div>
 
   <!-- Services Section -->
   <section id="services" class="py-20 bg-white">
@@ -383,9 +285,7 @@
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
         <div>
           <h3 class="text-4xl md:text-5xl font-bold text-gray-900 mb-8">Our Mission</h3>
-          <p class="text-xl text-gray-600 mb-8 leading-relaxed">
-            Spartan Hub is a student-led initiative at Bixby High School, created to empower our community with resources, support, and opportunities for growth. We're passionate about building a supportive environment where every student can thrive.
-          </p>
+          <p class="text-xl text-gray-600 mb-8 leading-relaxed">Spartan Hub is a student-led initiative at Bixby High School, created to empower our community with resources, support, and opportunities for growth. We're passionate about building a supportive environment where every student can thrive.</p>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div class="bg-white p-6 rounded-xl shadow-lg">
               <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center mb-4">
@@ -439,12 +339,8 @@
       <h3 class="text-4xl md:text-5xl font-bold text-white mb-8">Ready to Get Started?</h3>
       <p class="text-xl text-blue-100 mb-12">Join thousands of students who have found support, guidance, and success through Spartan Hub.</p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="#contact" class="bg-white text-blue-600 font-semibold py-4 px-8 rounded-lg hover:bg-gray-100 transition-colors duration-300">
-          Get in Touch
-        </a>
-        <a href="BAM index.html" class="border-2 border-white text-white font-semibold py-4 px-8 rounded-lg hover:bg-white hover:text-blue-600 transition-all duration-300">
-          Explore Academic Help
-        </a>
+        <a href="#contact" class="bg-white text-blue-600 font-semibold py-4 px-8 rounded-lg hover:bg-gray-100 transition-colors duration-300">Get in Touch</a>
+        <a href="BAM index.html" class="border-2 border-white text-white font-semibold py-4 px-8 rounded-lg hover:bg-white hover:text-blue-600 transition-all duration-300">Explore Academic Help</a>
       </div>
     </div>
   </section>
@@ -501,11 +397,36 @@
     </span>
   </div>
 
-
-  <!-- Loading Spinner -->
-  <div id="loading-spinner" class="loading-spinner"></div>
-
   <script>
+    // Initialize falling icons
+    document.addEventListener('DOMContentLoaded', function() {
+      createFallingIcons();
+      setInterval(createFallingIcons, 3000);
+    });
+
+    // Create falling icons for banner
+    function createFallingIcons() {
+      const icons = ['📚', '🎓', '🌟', '✈️', '🚀', '💡', '🎯', '🎨'];
+      const container = document.getElementById('falling-icons');
+
+      for (let i = 0; i < 3; i++) {
+        setTimeout(() => {
+          const icon = document.createElement('div');
+          icon.className = 'falling-icon';
+          icon.textContent = icons[Math.floor(Math.random() * icons.length)];
+          icon.style.left = Math.random() * 100 + '%';
+          icon.style.animationDelay = Math.random() * 2 + 's';
+          container.appendChild(icon);
+
+          setTimeout(() => {
+            if (icon.parentNode) {
+              icon.parentNode.removeChild(icon);
+            }
+          }, 5000);
+        }, i * 1000);
+      }
+    }
+
     // Smooth scroll function
     function smoothScroll(target) {
       const element = document.querySelector(target);
@@ -517,199 +438,119 @@
       }
     }
 
-    // Mobile menu toggle
-    function toggleMobileMenu() {
-      const menu = document.getElementById('mobile-menu');
-      menu.classList.toggle('hidden');
+    // Floating Navigation Sphere Toggle
+    function toggleSphereNav() {
+      const orbService = document.querySelector('.orbit-services');
+      const orbAbout = document.querySelector('.orbit-about');
+      const orbContact = document.querySelector('.orbit-contact');
+
+      if (window.innerWidth >= 768) { // Desktop
+        if (orbService.classList.contains('opacity-0')) {
+          // Show orbits
+          orbService.classList.remove('opacity-0', 'scale-0');
+          orbAbout.classList.remove('opacity-0', 'scale-0');
+          orbContact.classList.remove('opacity-0', 'scale-0');
+        } else {
+          // Hide orbits
+          orbService.classList.add('opacity-0', 'scale-0');
+          orbAbout.classList.add('opacity-0', 'scale-0');
+          orbContact.classList.add('opacity-0', 'scale-0');
+        }
+      } else { // Mobile
+        toggleMobileNav();
+      }
+    }
+
+    // Navigate to section
+    function navigateTo(section) {
+      smoothScroll(section);
+      // Hide orbits on desktop
+      if (window.innerWidth >= 768) {
+        toggleSphereNav();
+      } else {
+        closeMobileNav();
+      }
+    }
+
+    // Mobile Navigation Menu Toggle
+    function toggleMobileNav() {
+      const menu = document.getElementById('mobile-nav-menu');
+      if (menu.classList.contains('translate-x-full')) {
+        menu.classList.remove('translate-x-full');
+        menu.classList.add('translate-x-0');
+      } else {
+        menu.classList.add('translate-x-full');
+        menu.classList.remove('translate-x-0');
+      }
+    }
+
+    // Close Mobile Nav
+    function closeMobileNav() {
+      const menu = document.getElementById('mobile-nav-menu');
+      menu.classList.add('translate-x-full');
+      menu.classList.remove('translate-x-0');
     }
 
     // Easter Egg Function
-    function triggerEasterEgg(logoElement) {
-      // Prevent multiple triggers
+    function triggerEasterEgg(event, logoElement) {
+      event.stopPropagation(); // Prevent sphere toggle
       if (logoElement.classList.contains('clicked')) return;
-      
-      // Add the animation class
+
       logoElement.classList.add('clicked');
-      
-      // Create paper airplane that orbits the logo
-      createOrbitingAirplane(logoElement);
-      
-      // Create particle explosion
       createParticleExplosion(logoElement);
-      
-      // Play a fun sound effect (if you want to add audio later)
       console.log('🎉 SPARTAN EASTER EGG ACTIVATED! ✈️ 🌍 🎉');
-      
-      // Remove the class after animation completes
+
       setTimeout(() => {
         logoElement.classList.remove('clicked');
       }, 2000);
     }
-    
-    function createOrbitingAirplane(logoElement) {
-      const airplane = document.createElement('div');
-      airplane.className = 'paper-airplane';
-      airplane.innerHTML = '✈️';
-      
-      // Position airplane relative to logo
-      const rect = logoElement.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-      
-      airplane.style.left = centerX + 'px';
-      airplane.style.top = centerY + 'px';
-      airplane.style.transformOrigin = '0 0';
-      
-      document.body.appendChild(airplane);
-      
-      // Trigger the orbit animation
-      setTimeout(() => {
-        airplane.classList.add('active');
-      }, 100);
-      
-      // Remove airplane after animation completes
-      setTimeout(() => {
-        if (airplane.parentNode) {
-          airplane.parentNode.removeChild(airplane);
-        }
-      }, 2200);
-    }
-    
+
+    // Particle explosion for easter egg
     function createParticleExplosion(element) {
       const rect = element.getBoundingClientRect();
       const centerX = rect.left + rect.width / 2;
       const centerY = rect.top + rect.height / 2;
-      
-      // Create 20 particles
+
       for (let i = 0; i < 20; i++) {
         const particle = document.createElement('div');
         particle.className = 'particle';
-        
-        // Random direction and distance
+
         const angle = (Math.PI * 2 * i) / 20;
         const distance = 100 + Math.random() * 100;
         const dx = Math.cos(angle) * distance;
         const dy = Math.sin(angle) * distance;
-        
-        // Set CSS custom properties for animation
+
         particle.style.setProperty('--dx', dx + 'px');
         particle.style.setProperty('--dy', dy + 'px');
-        
-        // Position particle at logo center
         particle.style.left = centerX + 'px';
         particle.style.top = centerY + 'px';
-        
-        // Add random colors
+
         const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#ffeaa7', '#dda0dd', '#98d8c8'];
         const randomColor = colors[Math.floor(Math.random() * colors.length)];
         particle.style.background = `radial-gradient(circle, ${randomColor}, ${randomColor}aa)`;
-        
+
         document.body.appendChild(particle);
-        
-        // Remove particle after animation
-        setTimeout(() => {
-          if (particle.parentNode) {
-            particle.parentNode.removeChild(particle);
-          }
-        }, 1000);
+        setTimeout(() => { if (particle.parentNode) particle.parentNode.removeChild(particle); }, 1000);
       }
     }
 
-    // Error Handling System
-    function showError(message) {
-      const banner = document.getElementById('error-banner');
-      const messageEl = document.getElementById('error-message');
-      messageEl.textContent = message;
-      banner.classList.add('show');
-      
-      // Auto-hide after 5 seconds
-      setTimeout(() => {
-        hideError();
-      }, 5000);
-    }
-
-
-
-    // Navigation Functions
+    // Handle card clicks
     function handleCardClick(url) {
       const card = event.currentTarget;
-      
-      // Add click animation
       card.style.transform = 'scale(0.95)';
-      setTimeout(() => {
-        card.style.transform = '';
-      }, 150);
-      
-      // Navigate to the page
+      setTimeout(() => { card.style.transform = ''; }, 150);
+
       try {
         window.location.href = url;
       } catch (error) {
-        showError('Unable to navigate to page. Please try again.');
         console.error('Navigation error:', error);
       }
     }
 
-
-
-
-
-    // Keyboard navigation
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') {
-        // Let Jotform handle escape key if chatbot is open
-        console.log('Escape pressed');
-      }
-    });
-
-    // Card animations on scroll
-    function animateCards() {
-      const cards = document.querySelectorAll('.topic-card');
-      cards.forEach((card, index) => {
-        setTimeout(() => {
-          card.classList.add('animate');
-        }, index * 100);
-      });
+    // Coming soon alert
+    function handleComingSoon() {
+      alert('🚧 Coming Soon! This service is currently in development. Stay tuned for updates! ⚡');
     }
-
-    // Intersection Observer for animations
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting && !entry.target.classList.contains('animate')) {
-          entry.target.classList.add('animate');
-        }
-      });
-    }, observerOptions);
-
-
-    document.addEventListener('DOMContentLoaded', function() {
-   
-      document.querySelectorAll('.topic-card').forEach(card => {
-        observer.observe(card);
-      });
-
-      // Add keyboard support for cards
-      document.querySelectorAll('.topic-card').forEach(card => {
-        card.addEventListener('keydown', function(e) {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            this.click();
-          }
-        });
-      });
-    });
-
-
-    window.addEventListener('online', function() {
-      hideError();
-      setTimeout(() => {
-        showError('Connection restored!');
-      }, 100);
-    });
   </script>
 </body>
 </html>
