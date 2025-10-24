@@ -2,794 +2,527 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Spartan Hub</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Spartan Hub - Your Gateway to Academic Success & Personal Growth</title>
+  <meta name="description" content="Spartan Hub helps students with tutoring, college guidance, mental health support, and spiritual merchandise. A student-led initiative by Bixby High School.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.0/math.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
   <style>
-    /* Larger header for tablets and computers */
-    @media (min-width: 769px) {
-      .header-banner {
-        height: 500px;
-        padding: 0 80px;
-      }
-      .header-content {
-        padding: 0 60px;
-      }
-      .spartan-logo {
-        margin-bottom: 60px;
-        gap: 40px;
-      }
-      .logo-image {
-        width: 120px;
-        height: 120px;
-        border: 4px solid rgba(255, 255, 255, 0.4);
-      }
-      .logo-text {
-        font-size: 5em;
-        letter-spacing: 8px;
-      }
-      .header-title {
-        font-size: 4.5em;
-        margin-bottom: 40px;
-      }
-      .header-subtitle {
-        font-size: 2.2em;
-      }
-      .main-content {
-        min-height: calc(100vh - 500px);
-      }
-    }
+    /* Liquid Glass Apple Theme */
 
-    /* Medium screens (tablets) */
-    @media (min-width: 481px) and (max-width: 768px) {
-      .header-banner {
-        height: 350px;
-        padding: 0 40px;
-      }
-      .header-content {
-        padding: 0 30px;
-      }
-      .spartan-logo {
-        margin-bottom: 30px;
-        gap: 20px;
-      }
-      .logo-image {
-        width: 80px;
-        height: 80px;
-        border: 3px solid rgba(255, 255, 255, 0.35);
-      }
-      .logo-text {
-        font-size: 2.8em;
-        letter-spacing: 4px;
-      }
-      .header-title {
-        font-size: 2.5em;
-        margin-bottom: 20px;
-      }
-      .header-subtitle {
-        font-size: 1.4em;
-      }
-      .main-content {
-        min-height: calc(100vh - 350px);
-        min-height: calc(100dvh - 350px);
-      }
-    }
-    
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    
+    /* Modern SF Pro inspired typography */
+    @import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700;800;900&display=swap');
+
     html, body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      height: 100%;
-      min-height: 100vh;
-      min-height: -webkit-fill-available;
-      color: #333;
-      line-height: 1.6;
+      font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
       margin: 0;
       padding: 0;
+      min-height: 100vh;
+      background: #000000;
+      color: #ffffff;
       overflow-x: hidden;
+      line-height: 1.4;
     }
 
-    /* Error Handling Styles */
-    .error-banner {
-      background: #fee2e2;
-      color: #dc2626;
-      padding: 12px 20px;
-      text-align: center;
-      font-weight: 500;
-      border-bottom: 1px solid #fca5a5;
-      display: none;
+    /* Liquid animations */
+    @keyframes liquidMorph {
+      0%, 100% { border-radius: 16px; transform: scale(1); }
+      25% { border-radius: 24px; transform: scale(1.02); }
+      50% { border-radius: 12px; transform: scale(0.98); }
+      75% { border-radius: 20px; transform: scale(1.01); }
+    }
+
+    @keyframes glassPulse {
+      0%, 100% { box-shadow: 0 8px 32px rgba(31, 31, 31, 0.37); }
+      50% { box-shadow: 0 8px 32px rgba(31, 31, 31, 0.67); }
+    }
+
+    @keyframes liquidFlow {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    /* Glass morphism effects */
+    .glass-nav {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 24px;
+      animation: glassPulse 3s ease-in-out infinite;
+    }
+
+    .liquid-btn {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.05) 100%);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 16px;
+      transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+      animation: liquidMorph 4s ease-in-out infinite;
+    }
+
+    .liquid-btn:hover {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.1) 100%);
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 12px 40px rgba(255, 255, 255, 0.15);
+    }
+
+    /* Apple-style typography */
+    .apple-heading {
+      font-weight: 700;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      color: #ffffff;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .apple-subheading {
+      font-weight: 400;
+      font-size: clamp(1rem, 3vw, 1.5rem);
+      letter-spacing: -0.01em;
+      line-height: 1.4;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .apple-body {
+      font-weight: 400;
+      font-size: 1rem;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    /* Liquid gradient backgrounds */
+    .liquid-gradient {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%);
+      background-size: 400% 400%;
+      animation: liquidFlow 8s ease infinite;
+    }
+
+    /* Apple-inspired color scheme */
+    .apple-blue {
+      color: #007AFF;
+    }
+
+    .apple-white {
+      color: #FFFFFF;
+    }
+
+    .apple-gray {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    /* Smooth transitions */
+    * {
+      transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+      .apple-heading {
+        font-size: clamp(1.5rem, 8vw, 2.5rem);
+      }
+      .apple-subheading {
+        font-size: clamp(0.9rem, 4vw, 1.2rem);
+      }
+    }
+
+    /* Enhanced glass effects on hover */
+    .glass-card:hover {
+      background: rgba(255, 255, 255, 0.12);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 64px rgba(31, 31, 31, 0.67);
+    }
+
+    /* Liquid loader */
+    .liquid-loader {
       position: relative;
+      width: 40px;
+      height: 40px;
+      display: inline-block;
     }
-    
-    .error-banner.show {
-      display: block;
-      animation: slideDown 0.3s ease-out;
-    }
-    
-    .error-close {
-      background: none;
-      border: none;
-      color: inherit;
+
+    .liquid-loader::before {
+      content: '';
       position: absolute;
-      right: 20px;
       top: 50%;
-      transform: translateY(-50%);
-      cursor: pointer;
-      font-size: 1.2em;
-      padding: 0;
-      width: 24px;
-      height: 24px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    @keyframes slideDown {
-      from { transform: translateY(-100%); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-    
-    .loading-spinner {
-      border: 3px solid #f3f4f6;
-      border-top: 3px solid #3b82f6;
+      left: 50%;
+      width: 32px;
+      height: 32px;
+      margin: -16px 0 0 -16px;
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      border-top: 2px solid rgba(255, 255, 255, 0.6);
       border-radius: 50%;
-      width: 24px;
-      height: 24px;
-      animation: spin 1s linear infinite;
-      display: none;
-      margin: 20px auto;
+      animation: liquidSpin 1s linear infinite;
     }
-    
-    @keyframes spin {
+
+    @keyframes liquidSpin {
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     }
 
-    /* Development Banner */
-    .dev-banner {
-      background: linear-gradient(90deg, #fbbf24, #f59e0b);
-      color: #92400e;
-      text-align: center;
-      padding: 14px 20px;
-      font-weight: 600;
-      font-size: 1.05em;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      position: relative;
-      z-index: 1000;
+    /* Easter Egg Animations */
+    .logo-easter {
+      transition: all 0.3s ease;
+      cursor: pointer;
     }
 
-    /* Header Banner */
-    .header-banner {
-      background: linear-gradient(135deg, #1e3a8a 0%, #3730a3 25%, #7c3aed 50%, #be185d 75%, #dc2626 100%);
-      background-size: 400% 400%;
-      animation: gradientShift 8s ease infinite;
-      height: 280px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      overflow: hidden;
-      padding: 0 20px;
+    .logo-easter:hover {
+      transform: scale(1.05);
     }
-    
-    @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+
+    .logo-easter.clicked {
+      animation: appleEaster 2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     }
-    
-    .header-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.2);
-      z-index: 1;
+
+    @keyframes appleEaster {
+      0% { transform: scale(1) rotate(0deg); }
+      15% { transform: scale(1.3) rotate(180deg); }
+      25% { transform: scale(1.6) rotate(360deg); }
+      35% { transform: scale(1.8) rotate(540deg); }
+      45% { transform: scale(1.4) rotate(720deg); }
+      55% { transform: scale(1.9) rotate(900deg); }
+      65% { transform: scale(1.3) rotate(1080deg); }
+      75% { transform: scale(1.7) rotate(1260deg); }
+      85% { transform: scale(1.5) rotate(1440deg); }
+      95% { transform: scale(1.1) rotate(1620deg); }
+      100% { transform: scale(1) rotate(1800deg); }
     }
-    
-    .header-content {
-      position: relative;
-      z-index: 2;
-      text-align: center;
-      color: white;
-      max-width: 800px;
-      padding: 0 10px;
-    }
-    
-    .spartan-logo {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 15px;
-      margin-bottom: 25px;
-    }
-    
-    .logo-image {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      object-fit: cover;
-      object-position: center;
-      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
-      transition: transform 0.3s ease;
-      border: 3px solid rgba(255, 255, 255, 0.3);
-      background: rgba(255, 255, 255, 0.1);
-    }
-    
-    .logo-image:hover {
-      transform: scale(1.05) rotate(5deg);
-    }
-    
-    .logo-image.clicked {
-      animation: logoEasterEgg 2s ease-in-out;
-      position: relative;
-      z-index: 2000;
-    }
-    
-    @keyframes logoEasterEgg {
-      0% { 
-        transform: scale(1) rotate(0deg) translateZ(0px); 
-        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-      }
-      15% { 
-        transform: scale(1.5) rotate(180deg) translateZ(50px); 
-        box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-      }
-      25% { 
-        transform: scale(2) rotate(360deg) translateZ(100px); 
-        box-shadow: 0 40px 80px rgba(0,0,0,0.5);
-      }
-      35% { 
-        transform: scale(2.2) rotate(540deg) translateZ(120px); 
-        box-shadow: 0 50px 100px rgba(0,0,0,0.6);
-      }
-      45% { 
-        transform: scale(1.8) rotate(720deg) translateZ(100px); 
-        filter: hue-rotate(180deg) saturate(2);
-        box-shadow: 0 40px 80px rgba(0,0,0,0.5);
-      }
-      55% { 
-        transform: scale(2.5) rotate(900deg) translateZ(150px); 
-        filter: hue-rotate(360deg) saturate(1.5);
-        box-shadow: 0 60px 120px rgba(0,0,0,0.7);
-      }
-      65% { 
-        transform: scale(1.7) rotate(1080deg) translateZ(100px); 
-        filter: hue-rotate(540deg) saturate(2.5);
-        box-shadow: 0 40px 80px rgba(0,0,0,0.5);
-      }
-      75% { 
-        transform: scale(2.3) rotate(1260deg) translateZ(130px); 
-        filter: hue-rotate(720deg) saturate(1);
-        box-shadow: 0 55px 110px rgba(0,0,0,0.6);
-      }
-      85% { 
-        transform: scale(1.9) rotate(1440deg) translateZ(80px); 
-        filter: hue-rotate(0deg) saturate(1);
-        box-shadow: 0 30px 60px rgba(0,0,0,0.4);
-      }
-      95% { 
-        transform: scale(1.1) rotate(1620deg) translateZ(20px); 
-        box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-      }
-      100% { 
-        transform: scale(1) rotate(1800deg) translateZ(0px); 
-        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-      }
-    }
-    
-    /* Paper airplane orbiting animation */
-    .paper-airplane {
-      position: absolute;
-      font-size: 24px;
-      pointer-events: none;
-      z-index: 1999;
-      opacity: 0;
-    }
-    
-    .paper-airplane.active {
-      opacity: 1;
-      animation: orbitGlobe 2s ease-in-out;
-    }
-    
-    @keyframes orbitGlobe {
-      0% {
-        transform: rotate(0deg) translateX(80px) rotate(0deg) scale(0.5);
-        opacity: 0;
-      }
-      10% {
-        opacity: 1;
-        transform: rotate(36deg) translateX(100px) rotate(-36deg) scale(0.8);
-      }
-      20% {
-        transform: rotate(72deg) translateX(120px) rotate(-72deg) scale(1);
-      }
-      30% {
-        transform: rotate(108deg) translateX(140px) rotate(-108deg) scale(1.2);
-      }
-      40% {
-        transform: rotate(144deg) translateX(160px) rotate(-144deg) scale(1);
-      }
-      50% {
-        transform: rotate(180deg) translateX(180px) rotate(-180deg) scale(1.3);
-      }
-      60% {
-        transform: rotate(216deg) translateX(160px) rotate(-216deg) scale(1);
-      }
-      70% {
-        transform: rotate(252deg) translateX(140px) rotate(-252deg) scale(1.1);
-      }
-      80% {
-        transform: rotate(288deg) translateX(120px) rotate(-288deg) scale(0.9);
-      }
-      90% {
-        transform: rotate(324deg) translateX(100px) rotate(-324deg) scale(0.7);
-      }
-      100% {
-        transform: rotate(360deg) translateX(80px) rotate(-360deg) scale(0.5);
-        opacity: 0;
-      }
-    }
-    
-    /* Enhanced 3D perspective */
-    .spartan-logo {
-      perspective: 1000px;
-      transform-style: preserve-3d;
-    }
-    
-    /* Easter egg particles */
-    @keyframes particle {
-      0% { 
-        opacity: 1; 
-        transform: translate(0, 0) scale(1); 
-      }
-      100% { 
-        opacity: 0; 
-        transform: translate(var(--dx), var(--dy)) scale(0); 
-      }
-    }
-    
+
     .particle {
       position: absolute;
       width: 6px;
       height: 6px;
-      background: radial-gradient(circle, #ffd700, #ff6b6b);
+      background: radial-gradient(circle, rgba(255, 119, 198, 0.8), rgba(255, 87, 108, 0.4));
       border-radius: 50%;
       pointer-events: none;
-      animation: particle 1s ease-out forwards;
+      animation: particleBurst 1s ease-out forwards;
       z-index: 1000;
     }
-    
-    .logo-text {
-      font-size: 2em;
-      font-weight: 900;
-      letter-spacing: 3px;
-      text-shadow: 0 4px 8px rgba(0,0,0,0.3);
-    }
-    
-    .header-title {
-      font-size: 2em;
-      font-weight: 700;
-      margin-bottom: 15px;
-      text-shadow: 0 4px 8px rgba(0,0,0,0.3);
-    }
-    
-    .header-subtitle {
-      font-size: 1.2em;
-      font-weight: 400;
-      opacity: 0.9;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-    }
 
-    /* Main Content */
-    .main-content {
-      background: #f8fafc;
-      min-height: calc(100vh - 280px);
-      min-height: calc(100dvh - 280px);
-      height: auto;
-      padding: 60px 20px;
-      flex: 1;
-    }
-    
-    .topics-section {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    
-    .section-title {
-      text-align: center;
-      font-size: 2.2em;
-      font-weight: 700;
-      color: #1f2937;
-      margin-bottom: 50px;
-      position: relative;
-    }
-    
-    .section-title::after {
-      content: '';
-      position: absolute;
-      bottom: -10px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80px;
-      height: 4px;
-      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
-      border-radius: 2px;
-    }
-    
-    .topics-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 30px;
-      margin-top: 40px;
-    }
-    
-    .topic-card {
-      background: #fff;
-      border-radius: 16px;
-      padding: 30px 20px;
-      text-align: center;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-      transition: all 0.3s ease;
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    
-    .topic-card.animate {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    
-    .topic-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-      transition: left 0.5s ease;
-    }
-    
-    .topic-card:hover::before {
-      left: 100%;
-    }
-    
-    .topic-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 12px 40px rgba(0,0,0,0.15);
-    }
-    
-    .topic-card.available {
-      border: 2px solid #10b981;
-    }
-    
-    .topic-card.coming-soon {
-      border: 2px dashed #d1d5db;
-      opacity: 0.7;
-      cursor: not-allowed;
-    }
-    
-    .topic-card.coming-soon:hover {
-      transform: none;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-    }
-    
-    .topic-icon {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      border-radius: 50%;
-      width: 80px;
-      height: 80px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 20px;
-      font-size: 2.5em;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease;
-    }
-    
-    .topic-card:hover .topic-icon {
-      transform: scale(1.1) rotate(5deg);
-    }
-    
-    .topic-card.coming-soon:hover .topic-icon {
-      transform: none;
-    }
-    
-    .topic-name {
-      font-size: 1.3em;
-      font-weight: 600;
-      color: #1f2937;
-      margin-bottom: 10px;
-    }
-    
-    .topic-description {
-      color: #6b7280;
-      font-size: 0.95em;
-      line-height: 1.5;
-    }
-    
-    .status-badge {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      padding: 4px 8px;
-      border-radius: 12px;
-      font-size: 0.8em;
-      font-weight: 500;
-    }
-    
-    .status-available {
-      background: #d1fae5;
-      color: #065f46;
-    }
-    
-    .status-coming-soon {
-      background: #f3f4f6;
-      color: #6b7280;
-    }
-
-    /* Responsive Design */
-    @media (max-width: 480px) {
-      .header-banner {
-        height: 200px;
-        padding: 0 15px;
+    @keyframes particleBurst {
+      0% {
+        opacity: 1;
+        transform: translate(0, 0) scale(1);
       }
-      .header-content {
-        padding: 0 10px;
-      }
-      .spartan-logo {
-        margin-bottom: 15px;
-        gap: 8px;
-      }
-      .logo-image {
-        width: 40px;
-        height: 40px;
-        border: 2px solid rgba(255, 255, 255, 0.3);
-      }
-      .logo-text {
-        font-size: 1.3em;
-        letter-spacing: 1px;
-      }
-      .header-title {
-        font-size: 1.4em;
-        margin-bottom: 8px;
-        line-height: 1.3;
-      }
-      .header-subtitle {
-        font-size: 0.9em;
-        line-height: 1.4;
-      }
-      .main-content {
-        min-height: calc(100vh - 200px);
-        min-height: calc(100dvh - 200px);
-        padding: 40px 15px;
-      }
-      .section-title {
-        font-size: 1.8em;
-        margin-bottom: 30px;
-      }
-      .topics-grid {
-        gap: 20px;
-      }
-      .topic-card {
-        padding: 25px 15px;
-      }
-    }
-
-    /* Accessibility */
-    .topic-card:focus {
-      outline: 3px solid #3b82f6;
-      outline-offset: 2px;
-    }
-    
-    .sr-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-      border: 0;
-    }
-
-    /* Ad Placement Styles */
-    .ad-container {
-      text-align: center;
-      margin: 40px 0;
-      padding: 20px;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 12px;
-      backdrop-filter: blur(10px);
-    }
-    
-    .ad-label {
-      font-size: 0.8em;
-      color: #6b7280;
-      margin-bottom: 10px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-    
-    .footer-ad {
-      background: #f8fafc;
-      padding: 40px 20px;
-      border-top: 1px solid #e5e7eb;
-    }
-
-    .privacy-bar {
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 3000;
-  background: linear-gradient(90deg,#7c3aed,#764ba2 70%);
-  color: #fff;
-  text-align: center;
-  padding: 16px 10px 14px 10px;
-  font-size: 1em;
-  box-shadow: 0 -2px 14px rgba(44,44,44,0.10);
-  letter-spacing: 0.03em;
-  font-weight: 500;
-}
-.privacy-bar .privacy-link {
-  color: #ffd700;
-  text-decoration: underline;
-  margin-left: 4px;
-  font-weight: 600;
-  transition: color 0.2s;
-}
-.privacy-bar .privacy-link:hover {
-  color: #fff200;
-  text-decoration: underline wavy;
-}
-@media (max-width: 600px) {
-  .privacy-bar {
-    font-size: 0.92em;
-    padding: 13px 4px 11px 4px;
-  }
-}
-    
-    /* Responsive ad containers */
-    @media (max-width: 768px) {
-      .ad-container {
-        margin: 20px 0;
-        padding: 15px;
+      100% {
+        opacity: 0;
+        transform: translate(var(--dx), var(--dy)) scale(0);
       }
     }
   </style>
 </head>
-<body>
-  <!-- Error Banner -->
-  <div id="error-banner" class="error-banner" role="alert" aria-live="polite">
-    <span id="error-message"></span>
-    <button class="error-close" onclick="hideError()" aria-label="Close error message">&times;</button>
-  </div>
-
-  <!-- Header Banner -->
-  <div class="header-banner">
-    <div class="header-overlay"></div>
-    <div class="header-content">
-      <div class="spartan-logo">
-        <img src="https://lh3.googleusercontent.com/a/ACg8ocLM6F0zNHRdLCJQwy2zhRQd0rjITYBgHXFt87gzh1dZphpRTaQ=s288-c-no" alt="Spartan Hub Logo" class="logo-image" onclick="triggerEasterEgg(this)" style="cursor: pointer;">
-        <span class="logo-text">SPARTAN HUB</span>
+<body class="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-blue-900">
+  <!-- Navigation Header -->
+  <nav class="bg-white/10 backdrop-blur-lg border-b border-white/20 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <div class="flex items-center space-x-3">
+          <img src="bixby-academic-mentors-logo.png" alt="Spartan Hub Logo" class="h-10 w-10 rounded-full border-2 border-white/30" onclick="triggerEasterEgg(this)" style="cursor: pointer;">
+          <span class="text-white font-bold text-xl tracking-wide">Spartan Hub</span>
+        </div>
+        <div class="hidden md:flex space-x-8">
+          <a href="#services" class="text-white/90 hover:text-white transition-colors duration-200">Services</a>
+          <a href="#about" class="text-white/90 hover:text-white transition-colors duration-200">About</a>
+          <a href="#contact" class="text-white/90 hover:text-white transition-colors duration-200">Contact</a>
+        </div>
+        <div class="md:hidden">
+          <button onclick="toggleMobileMenu()" class="text-white hover:text-white/80 transition-colors duration-200">
+            <i class="fas fa-bars text-xl"></i>
+          </button>
+        </div>
       </div>
-      <h1 class="header-title">How can we help you?</h1>
-      <p class="header-subtitle">Your gateway to academic success and personal growth</p>
+      <!-- Mobile Menu -->
+      <div id="mobile-menu" class="md:hidden hidden pb-4">
+        <div class="flex flex-col space-y-4">
+          <a href="#services" class="text-white/90 hover:text-white transition-colors duration-200">Services</a>
+          <a href="#about" class="text-white/90 hover:text-white transition-colors duration-200">About</a>
+          <a href="#contact" class="text-white/90 hover:text-white transition-colors duration-200">Contact</a>
+        </div>
+      </div>
     </div>
-  </div>
+  </nav>
 
-  <!-- Privacy Policy Bar -->
-<div class="privacy-bar">
-  <span>
-    Read our 
-    <a href="Privacy Policy.html" target="_blank" rel="noopener" class="privacy-link">Privacy Policy</a>
-  </span>
-</div>
-  
-  <!-- Main Content -->
-  <div class="main-content">
-    <div class="topics-section">
-      <h2 class="section-title">Explore Our Services</h2>
-      
-      <div class="topics-grid">
+
+  <!-- Hero Section -->
+  <section class="relative min-h-screen flex items-center justify-center px-4">
+    <div class="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-black/60"></div>
+    <div class="relative z-10 text-center text-white max-w-4xl mx-auto">
+      <div class="flex items-center justify-center mb-8">
+        <img src="bixby-academic-mentors-logo.png" alt="Spartan Hub Logo" class="w-16 h-16 rounded-full border-4 border-white/30 mr-4 hover:scale-110 transition-transform duration-300 cursor-pointer" onclick="triggerEasterEgg(this)">
+        <h1 class="text-5xl md:text-7xl font-black tracking-wider">SPARTAN HUB</h1>
+      </div>
+      <h2 class="text-3xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">How can we help you?</h2>
+      <p class="text-xl md:text-2xl text-gray-200 font-light mb-12 max-w-3xl mx-auto leading-relaxed">
+        Your gateway to academic success, personal growth, and community support.
+        Powered by students, for students at Bixby High School.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="#services" class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg">
+          Explore Services
+        </a>
+        <a href="#about" class="border-2 border-white/30 hover:border-white text-white font-semibold py-4 px-8 rounded-lg transition-all duration-300 hover:bg-white/10">
+          Learn More
+        </a>
+      </div>
+    </div>
+
+    <!-- Animated Background Elements -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+      <div class="absolute top-20 left-10 w-72 h-72 bg-blue-500/10 rounded-full blur-xl animate-pulse"></div>
+      <div class="absolute bottom-20 right-10 w-96 h-96 bg-purple-500/10 rounded-full blur-xl animate-pulse delay-1000"></div>
+      <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-full blur-2xl animate-pulse delay-500"></div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section id="services" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h3 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Explore Our Services</h3>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">Discover a range of student-led services designed to support your academic journey, personal development, and community engagement.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <!-- Academic Help -->
-        <div class="topic-card available" onclick="handleCardClick('BAM index.html')" tabindex="0" role="button" aria-label="Academic Help - Available">
-          <div class="status-badge status-available">Available</div>
-          <div class="topic-icon">
-            <span>📚</span>
+        <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer group" onclick="handleCardClick('BAM index.html')">
+          <div class="bg-green-500 text-white text-sm font-semibold px-3 py-1 rounded-full inline-block mb-4">Available Now</div>
+          <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+            <i class="fas fa-book-open text-3xl text-white"></i>
           </div>
-          <div class="topic-name">Academic Help</div>
-          <div class="topic-description">Get personalized tutoring and study support across all subjects</div>
+          <h4 class="text-2xl font-bold text-gray-900 mb-4">Academic Help</h4>
+          <p class="text-gray-600 leading-relaxed">Get personalized tutoring and study support across all subjects from fellow students and NHS members.</p>
         </div>
 
         <!-- College Search -->
-        <div class="topic-card available" onclick="handleCardClick('college index.html')" tabindex="0" role="button" aria-label="College Search Help - Available">
-          <div class="status-badge status-available">Available</div>
-          <div class="topic-icon">
-            <span>🎓</span>
+        <div class="bg-gradient-to-br from-green-50 to-emerald-50 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer group" onclick="handleCardClick('college index.html')">
+          <div class="bg-green-500 text-white text-sm font-semibold px-3 py-1 rounded-full inline-block mb-4">Available Now</div>
+          <div class="w-20 h-20 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+            <i class="fas fa-graduation-cap text-3xl text-white"></i>
           </div>
-          <div class="topic-name">College Search Help</div>
-          <div class="topic-description">Find the perfect college match with our comprehensive guidance</div>
+          <h4 class="text-2xl font-bold text-gray-900 mb-4">College Search Help</h4>
+          <p class="text-gray-600 leading-relaxed">Find your perfect college match with comprehensive guidance, application support, and personalized advice.</p>
         </div>
 
         <!-- Mental Health Support -->
-        <div class="topic-card coming-soon" onclick="handleComingSoon()" tabindex="0" role="button" aria-label="Mental Health Support - Coming Soon">
-          <div class="status-badge status-coming-soon">Coming Soon</div>
-          <div class="topic-icon">
-            <span>💚</span>
+        <div class="bg-gradient-to-br from-purple-50 to-pink-50 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer group opacity-75" onclick="handleComingSoon()">
+          <div class="bg-gray-400 text-white text-sm font-semibold px-3 py-1 rounded-full inline-block mb-4">Coming Soon</div>
+          <div class="w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-600 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+            <i class="fas fa-heart text-3xl text-white"></i>
           </div>
-          <div class="topic-name">Mental Health Support</div>
-          <div class="topic-description">Access resources and support for your mental wellbeing</div>
+          <h4 class="text-2xl font-bold text-gray-900 mb-4">Mental Health Support</h4>
+          <p class="text-gray-600 leading-relaxed">Access confidential resources and support for your mental wellbeing from trained peer counselors.</p>
         </div>
 
-        <!-- Spartan Armory -->
-        <div class="topic-card available" onclick="handleCardClick('spartan-armory.html')" tabindex="0" role="button" aria-label="Spartan Armory - Available">
-          <div class="status-badge status-available">Available</div>
-          <div class="topic-icon">
-            <span>👕</span>
+        <!-- Spartan Spirit Store -->
+        <div class="bg-gradient-to-br from-orange-50 to-yellow-50 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer group" onclick="handleCardClick('spartan-armory.html')">
+          <div class="bg-green-500 text-white text-sm font-semibold px-3 py-1 rounded-full inline-block mb-4">Available Now</div>
+          <div class="w-20 h-20 bg-gradient-to-br from-orange-500 to-yellow-600 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+            <i class="fas fa-shopping-bag text-3xl text-white"></i>
           </div>
-          <div class="topic-name">Spartan Spirit Store</div>
-          <div class="topic-description">Shop official Spartan merchandise and gear</div>
+          <h4 class="text-2xl font-bold text-gray-900 mb-4">Spartan Spirit Store</h4>
+          <p class="text-gray-600 leading-relaxed">Shop official Spartan merchandise and gear with proceeds supporting school programs.</p>
         </div>
 
-        <!-- Coming Soon Items -->
-        <div class="topic-card coming-soon" onclick="handleComingSoon()" tabindex="0" role="button" aria-label="Connect with the World - Coming Soon">
-          <div class="status-badge status-coming-soon">Coming Soon</div>
-          <div class="topic-icon">
-            <span>🌍</span>
+        <!-- Connect with the World -->
+        <div class="bg-gradient-to-br from-teal-50 to-cyan-50 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer group opacity-75" onclick="handleComingSoon()">
+          <div class="bg-gray-400 text-white text-sm font-semibold px-3 py-1 rounded-full inline-block mb-4">Coming Soon</div>
+          <div class="w-20 h-20 bg-gradient-to-br from-teal-500 to-cyan-600 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+            <i class="fas fa-globe text-3xl text-white"></i>
           </div>
-          <div class="topic-name">Connect with the World</div>
-          <div class="topic-description">Build global connections and cultural awareness</div>
+          <h4 class="text-2xl font-bold text-gray-900 mb-4">Connect with the World</h4>
+          <p class="text-gray-600 leading-relaxed">Build global connections and cultural awareness through international exchange programs.</p>
         </div>
 
-        <div class="topic-card coming-soon" onclick="handleComingSoon()" tabindex="0" role="button" aria-label="General Support - Coming Soon">
-          <div class="status-badge status-coming-soon">Coming Soon</div>
-          <div class="topic-icon">
-            <span>🤝</span>
+        <!-- General Support -->
+        <div class="bg-gradient-to-br from-red-50 to-pink-50 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer group opacity-75" onclick="handleComingSoon()">
+          <div class="bg-gray-400 text-white text-sm font-semibold px-3 py-1 rounded-full inline-block mb-4">Coming Soon</div>
+          <div class="w-20 h-20 bg-gradient-to-br from-red-500 to-pink-600 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+            <i class="fas fa-hands-helping text-3xl text-white"></i>
           </div>
-          <div class="topic-name">General Support</div>
-          <div class="topic-description">Get help with everyday challenges and questions</div>
+          <h4 class="text-2xl font-bold text-gray-900 mb-4">General Support</h4>
+          <p class="text-gray-600 leading-relaxed">Get help with everyday challenges, questions, and guidance from experienced peer mentors.</p>
         </div>
 
-        <div class="topic-card coming-soon" onclick="handleComingSoon()" tabindex="0" role="button" aria-label="Career Guidance - Coming Soon">
-          <div class="status-badge status-coming-soon">Coming Soon</div>
-          <div class="topic-icon">
-            <span>💼</span>
+        <!-- Career Guidance -->
+        <div class="bg-gradient-to-br from-indigo-50 to-blue-50 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer group opacity-75" onclick="handleComingSoon()">
+          <div class="bg-gray-400 text-white text-sm font-semibold px-3 py-1 rounded-full inline-block mb-4">Coming Soon</div>
+          <div class="w-20 h-20 bg-gradient-to-br from-indigo-500 to-blue-600 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+            <i class="fas fa-briefcase text-3xl text-white"></i>
           </div>
-          <div class="topic-name">Career Guidance</div>
-          <div class="topic-description">Explore career paths and professional development</div>
+          <h4 class="text-2xl font-bold text-gray-900 mb-4">Career Guidance</h4>
+          <p class="text-gray-600 leading-relaxed">Explore career paths, internships, and professional development opportunities.</p>
         </div>
 
-        <div class="topic-card coming-soon" onclick="handleComingSoon()" tabindex="0" role="button" aria-label="Driving Help - Coming Soon">
-          <div class="status-badge status-coming-soon">Coming Soon</div>
-          <div class="topic-icon">
-            <span>🚗</span>
+        <!-- Driving Help -->
+        <div class="bg-gradient-to-br from-gray-50 to-slate-50 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer group opacity-75" onclick="handleComingSoon()">
+          <div class="bg-gray-400 text-white text-sm font-semibold px-3 py-1 rounded-full inline-block mb-4">Coming Soon</div>
+          <div class="w-20 h-20 bg-gradient-to-br from-gray-500 to-slate-600 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+            <i class="fas fa-car text-3xl text-white"></i>
           </div>
-          <div class="topic-name">Driving Help</div>
-          <div class="topic-description">Learn safe driving practices and get your license</div>
+          <h4 class="text-2xl font-bold text-gray-900 mb-4">Driving Help</h4>
+          <p class="text-gray-600 leading-relaxed">Learn safe driving practices, get driving tips, and prepare for your driver's license.</p>
         </div>
       </div>
     </div>
-  </div>  
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="py-20 bg-gradient-to-br from-gray-50 to-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div>
+          <h3 class="text-4xl md:text-5xl font-bold text-gray-900 mb-8">Our Mission</h3>
+          <p class="text-xl text-gray-600 mb-8 leading-relaxed">
+            Spartan Hub is a student-led initiative at Bixby High School, created to empower our community with resources, support, and opportunities for growth. We're passionate about building a supportive environment where every student can thrive.
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-white p-6 rounded-xl shadow-lg">
+              <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center mb-4">
+                <i class="fas fa-users text-white"></i>
+              </div>
+              <h4 class="text-lg font-semibold text-gray-900 mb-2">Student-Led</h4>
+              <p class="text-gray-600">All services are managed and provided by students for students.</p>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-lg">
+              <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center mb-4">
+                <i class="fas fa-heart text-white"></i>
+              </div>
+              <h4 class="text-lg font-semibold text-gray-900 mb-2">Community Focused</h4>
+              <p class="text-gray-600">Supporting local causes and promoting school spirit.</p>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-lg">
+              <div class="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center mb-4">
+                <i class="fas fa-graduation-cap text-white"></i>
+              </div>
+              <h4 class="text-lg font-semibold text-gray-900 mb-2">Academic Excellence</h4>
+              <p class="text-gray-600">Committed to helping every student succeed academically.</p>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-lg">
+              <div class="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center mb-4">
+                <i class="fas fa-handshake text-white"></i>
+              </div>
+              <h4 class="text-lg font-semibold text-gray-900 mb-2">Peer Support</h4>
+              <p class="text-gray-600">Learning from and supporting each other in our community.</p>
+            </div>
+          </div>
+        </div>
+        <div class="relative">
+          <img src="bixby-academic-mentors-logo.png" alt="Bixby Academic Mentors" class="w-full max-w-md mx-auto rounded-2xl shadow-xl">
+          <div class="absolute -bottom-6 -left-6 bg-white p-6 rounded-xl shadow-lg">
+            <div class="flex items-center">
+              <i class="fas fa-school text-2xl text-blue-600 mr-3"></i>
+              <div>
+                <div class="font-semibold text-gray-900">Bixby High School</div>
+                <div class="text-gray-600">National Honor Society</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-20 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600">
+    <div class="max-w-4xl mx-auto text-center px-4">
+      <h3 class="text-4xl md:text-5xl font-bold text-white mb-8">Ready to Get Started?</h3>
+      <p class="text-xl text-blue-100 mb-12">Join thousands of students who have found support, guidance, and success through Spartan Hub.</p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="#contact" class="bg-white text-blue-600 font-semibold py-4 px-8 rounded-lg hover:bg-gray-100 transition-colors duration-300">
+          Get in Touch
+        </a>
+        <a href="BAM index.html" class="border-2 border-white text-white font-semibold py-4 px-8 rounded-lg hover:bg-white hover:text-blue-600 transition-all duration-300">
+          Explore Academic Help
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="contact" class="bg-gray-900 text-white py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+        <div>
+          <div class="flex items-center mb-6">
+            <img src="bixby-academic-mentors-logo.png" alt="Logo" class="w-12 h-12 rounded-full border-2 border-white/30 mr-4">
+            <span class="text-2xl font-bold">Spartan Hub</span>
+          </div>
+          <p class="text-gray-400 mb-6">Empowering students through community, support, and academic excellence at Bixby High School.</p>
+          <div class="flex space-x-4">
+            <a href="#" class="text-gray-400 hover:text-white transition-colors duration-200"><i class="fab fa-instagram text-xl"></i></a>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors duration-200"><i class="fab fa-facebook text-xl"></i></a>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors duration-200"><i class="fab fa-twitter text-xl"></i></a>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="text-lg font-semibold mb-6">Quick Links</h4>
+          <ul class="space-y-3">
+            <li><a href="BAM index.html" class="text-gray-400 hover:text-white transition-colors duration-200">Academic Tutoring</a></li>
+            <li><a href="college index.html" class="text-gray-400 hover:text-white transition-colors duration-200">College Search</a></li>
+            <li><a href="spartan-armory.html" class="text-gray-400 hover:text-white transition-colors duration-200">Spirit Store</a></li>
+            <li><a href="Privacy Policy.html" class="text-gray-400 hover:text-white transition-colors duration-200">Privacy Policy</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-lg font-semibold mb-6">Contact Info</h4>
+          <ul class="space-y-3 text-gray-400">
+            <li><strong class="text-white">Location:</strong> Bixby High School</li>
+            <li><strong class="text-white">Email:</strong> info@spartanhub.com</li>
+            <li><strong class="text-white">Phone:</strong> (918) XXX-XXXX</li>
+            <li><strong class="text-white">Follow Us:</strong> @spartan.hub</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="border-t border-gray-800 pt-8 text-center">
+        <p class="text-gray-400">&copy; 2025 Spartan Hub. Created by students for students. All rights reserved.</p>
+        <p class="text-gray-400 mt-2">Affiliated with the National Honor Society at Bixby High School.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Privacy Policy Bar -->
+  <div class="fixed bottom-0 left-0 right-0 bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-center py-3 px-4 z-40 shadow-lg">
+    <span class="text-sm">
+      Read our <a href="Privacy Policy.html" target="_blank" rel="noopener" class="underline hover:text-yellow-300 transition-colors duration-200">Privacy Policy</a> • Built with ❤️ by Bixby students
+    </span>
+  </div>
 
 
   <!-- Loading Spinner -->
   <div id="loading-spinner" class="loading-spinner"></div>
 
   <script>
+    // Smooth scroll function
+    function smoothScroll(target) {
+      const element = document.querySelector(target);
+      if (element) {
+        element.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    }
+
+    // Mobile menu toggle
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    }
+
     // Easter Egg Function
     function triggerEasterEgg(logoElement) {
       // Prevent multiple triggers
@@ -895,10 +628,7 @@
       }, 5000);
     }
 
-    function hideError() {
-      const banner = document.getElementById('error-banner');
-      banner.classList.remove('show');
-    }
+
 
     // Navigation Functions
     function handleCardClick(url) {
@@ -919,9 +649,7 @@
       }
     }
 
-    function handleComingSoon() {
-      showError('This feature is coming soon! Stay tuned for updates.');
-    }
+
 
 
 
