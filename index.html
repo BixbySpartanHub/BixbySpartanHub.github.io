@@ -24,20 +24,7 @@
       100% { content: 'school spirit'; }
     }
 
-    /* Falling Icons Animation */
-    .falling-icon {
-      position: absolute;
-      font-size: 24px;
-      opacity: 0.6;
-      animation: fall 5s linear infinite;
-    }
 
-    @keyframes fall {
-      0% { transform: translateY(-10px) rotate(0deg); opacity: 0; }
-      10% { opacity: 1; }
-      90% { opacity: 0.6; }
-      100% { transform: translateY(calc(100vh + 10px)) rotate(360deg); opacity: 0; }
-    }
 
     /* SF Pro Typography */
     @import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700;800;900&display=swap');
@@ -91,101 +78,7 @@
   </style>
 </head>
 
-<body class="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-blue-900">
-  <!-- Creative Floating Navigation Sphere -->
-  <div id="floating-nav" class="fixed top-6 right-6 z-50">
-    <div id="nav-sphere" class="w-16 h-16 bg-gradient-to-br from-blue-500 via-purple-500 to-indigo-600 rounded-full backdrop-blur-sm border border-white/20 shadow-2xl cursor-pointer flex items-center justify-center transition-all duration-500 group hover:scale-125 hover:shadow-[0_0_50px_rgba(139,92,246,0.5)]" onclick="toggleSphereNav()">
-      <!-- Logo inside sphere (desktop) -->
-      <img src="bixby-academic-mentors-logo.png" alt="Spartan Hub Logo" class="w-8 h-8 rounded-full border border-white/40 logo-easter hidden md:block" onclick="triggerEasterEgg(event, this)">
-      <!-- Mobile hamburger/menu indicator -->
-      <div class="md:hidden">
-        <i class="fas fa-bars text-white text-lg"></i>
-      </div>
-      <!-- Desktop morphing menu indicator -->
-      <div id="menu-indicator" class="hidden md:flex absolute inset-0 items-center justify-center">
-        <div class="w-6 h-4 flex flex-col justify-center space-y-0.5 transition-all duration-300">
-          <div class="h-0.5 bg-white rounded-full transform transition-all duration-300 origin-center menu-line-1"></div>
-          <div class="h-0.5 bg-white rounded-full transform transition-all duration-300 origin-center opacity-100 menu-line-2"></div>
-          <div class="h-0.5 bg-white rounded-full transform transition-all duration-300 origin-center menu-line-3"></div>
-        </div>
-      </div>
-    </div>
-    <!-- Dynamic orbit ring for desktop -->
-    <div id="orbit-ring" class="absolute inset-0 rounded-full border-2 border-white/30 transform scale-90 transition-all duration-500 opacity-0 group-hover:opacity-100 group-hover:scale-100 group-hover:rotate-180 hidden md:block"></div>
-  </div>
-
-  <!-- Expandable Navigation Orbits (Desktop Only) -->
-  <div id="nav-orbits" class="fixed top-6 right-6 z-40 pointer-events-none hidden md:block">
-    <!-- Services Orbit -->
-    <div class="nav-orbit orbit-services absolute w-12 h-12 bg-gradient-to-br from-green-400 to-blue-500 rounded-full flex items-center justify-center opacity-0 scale-0 transition-all duration-500 delay-100 -top-2 -right-14 hover:scale-110" onclick="navigateTo('#services')" title="Services">
-      <i class="fas fa-concierge-bell text-white text-lg"></i>
-    </div>
-    <!-- About Orbit -->
-    <div class="nav-orbit orbit-about absolute w-12 h-12 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full flex items-center justify-center opacity-0 scale-0 transition-all duration-500 delay-200 -top-14 -right-2 hover:scale-110" onclick="navigateTo('#about')" title="About">
-      <i class="fas fa-info-circle text-white text-lg"></i>
-    </div>
-    <!-- Contact Orbit -->
-    <div class="nav-orbit orbit-contact absolute w-12 h-12 bg-gradient-to-br from-orange-400 to-red-500 rounded-full flex items-center justify-center opacity-0 scale-0 transition-all duration-500 delay-300 -top-14 right-10 hover:scale-110" onclick="navigateTo('#contact')" title="Contact">
-      <i class="fas fa-envelope text-white text-lg"></i>
-    </div>
-  </div>
-
-  <!-- Mobile Navigation Menu -->
-  <div id="mobile-nav-menu" class="fixed top-20 right-6 z-40 bg-white/95 backdrop-blur-md rounded-lg shadow-lg border border-white/20 transform translate-x-full transition-transform duration-300 md:hidden max-w-xs w-48">
-    <div class="p-4">
-      <div class="space-y-3">
-        <a href="#services" onclick="closeMobileNav()" class="flex items-center text-gray-800 hover:text-blue-600 transition-colors duration-200">
-          <i class="fas fa-concierge-bell mr-3 w-5 text-center"></i> Services
-        </a>
-        <a href="#about" onclick="closeMobileNav()" class="flex items-center text-gray-800 hover:text-blue-600 transition-colors duration-200">
-          <i class="fas fa-info-circle mr-3 w-5 text-center"></i> About
-        </a>
-        <a href="#contact" onclick="closeMobileNav()" class="flex items-center text-gray-800 hover:text-blue-600 transition-colors duration-200">
-          <i class="fas fa-envelope mr-3 w-5 text-center"></i> Contact
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Floating Home Button (Mobile) -->
-  <div class="fixed top-6 left-6 z-50 md:hidden">
-    <div class="w-12 h-12 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 shadow-lg flex items-center justify-center cursor-pointer hover:bg-white/20 transition-all duration-300" onclick="navigateTo('index.html')" title="Home">
-      <i class="fas fa-home text-white"></i>
-    </div>
-  </div>
-
-  <!-- Creative Mobile-Friendly Banner -->
-  <div class="relative bg-gradient-to-r from-indigo-900 via-purple-900 to-blue-900 py-12 px-4">
-    <div class="max-w-4xl mx-auto text-center">
-      <div class="flex items-center justify-center mb-6">
-        <img src="bixby-academic-mentors-logo.png" alt="Spartan Hub Logo" class="w-16 h-16 rounded-full border-2 border-white/50 mr-4 hover:scale-110 transition-transform duration-300 logo-easter hidden md:block" onclick="triggerEasterEgg(this)">
-        <span class="text-white font-black text-2xl md:text-3xl md:text-5xl tracking-wider bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">SPARTAN HUB</span>
-      </div>
-
-      <div class="text-white text-lg md:text-xl font-light mb-8">
-        We help you with <span class="rotating-words font-semibold text-blue-300"></span>
-      </div>
-
-      <!-- Mobile-Optimized CTA Section -->
-      <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-6 md:p-8 inline-block shadow-2xl border border-white/20">
-        <p class="text-white text-base md:text-lg mb-6 leading-relaxed">
-          <i class="fas fa-chalkboard-teacher text-blue-300 mr-2"></i>
-          Student-powered resources for academic success, personal growth, and community support.
-        </p>
-        <div class="flex flex-col sm:flex-row gap-3 justify-center">
-          <button onclick="smoothScroll('#services')" class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg">
-            <i class="fas fa-rocket mr-2"></i>Explore Services
-          </button>
-          <button onclick="smoothScroll('#about')" class="border-2 border-white/50 hover:border-white text-white font-semibold py-3 px-6 rounded-full transition-all duration-300 hover:bg-white hover:text-indigo-900">
-            Learn More
-          </button>
-        </div>
-      </div>
-
-      <!-- Animated Background Elements -->
-      <div id="falling-icons" class="absolute inset-0 pointer-events-none overflow-hidden"></div>
-    </div>
-  </div>
+<body class="bg-white">
 
   <!-- Services Section -->
   <section id="services" class="py-20 bg-white">
@@ -339,7 +232,7 @@
       <h3 class="text-4xl md:text-5xl font-bold text-white mb-8">Ready to Get Started?</h3>
       <p class="text-xl text-blue-100 mb-12">Join thousands of students who have found support, guidance, and success through Spartan Hub.</p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="#contact" class="bg-white text-blue-600 font-semibold py-4 px-8 rounded-lg hover:bg-gray-100 transition-colors duration-300">Get in Touch</a>
+        <a href="#about" class="bg-white text-blue-600 font-semibold py-4 px-8 rounded-lg hover:bg-gray-100 transition-colors duration-300">Learn More</a>
         <a href="BAM index.html" class="border-2 border-white text-white font-semibold py-4 px-8 rounded-lg hover:bg-white hover:text-blue-600 transition-all duration-300">Explore Academic Help</a>
       </div>
     </div>
@@ -348,7 +241,7 @@
   <!-- Footer -->
   <footer id="contact" class="bg-gray-900 text-white py-16">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
         <div>
           <div class="flex items-center mb-6">
             <img src="bixby-academic-mentors-logo.png" alt="Logo" class="w-12 h-12 rounded-full border-2 border-white/30 mr-4">
@@ -372,15 +265,7 @@
           </ul>
         </div>
 
-        <div>
-          <h4 class="text-lg font-semibold mb-6">Contact Info</h4>
-          <ul class="space-y-3 text-gray-400">
-            <li><strong class="text-white">Location:</strong> Bixby High School</li>
-            <li><strong class="text-white">Email:</strong> info@spartanhub.com</li>
-            <li><strong class="text-white">Phone:</strong> (918) XXX-XXXX</li>
-            <li><strong class="text-white">Follow Us:</strong> @spartan.hub</li>
-          </ul>
-        </div>
+
       </div>
 
       <div class="border-t border-gray-800 pt-8 text-center">
@@ -398,34 +283,7 @@
   </div>
 
   <script>
-    // Initialize falling icons
-    document.addEventListener('DOMContentLoaded', function() {
-      createFallingIcons();
-      setInterval(createFallingIcons, 3000);
-    });
 
-    // Create falling icons for banner
-    function createFallingIcons() {
-      const icons = ['📚', '🎓', '🌟', '✈️', '🚀', '💡', '🎯', '🎨'];
-      const container = document.getElementById('falling-icons');
-
-      for (let i = 0; i < 3; i++) {
-        setTimeout(() => {
-          const icon = document.createElement('div');
-          icon.className = 'falling-icon';
-          icon.textContent = icons[Math.floor(Math.random() * icons.length)];
-          icon.style.left = Math.random() * 100 + '%';
-          icon.style.animationDelay = Math.random() * 2 + 's';
-          container.appendChild(icon);
-
-          setTimeout(() => {
-            if (icon.parentNode) {
-              icon.parentNode.removeChild(icon);
-            }
-          }, 5000);
-        }, i * 1000);
-      }
-    }
 
     // Smooth scroll function
     function smoothScroll(target) {
@@ -547,10 +405,7 @@
       }
     }
 
-    // Coming soon alert
-    function handleComingSoon() {
-      alert('🚧 Coming Soon! This service is currently in development. Stay tuned for updates! ⚡');
-    }
+   
   </script>
 </body>
 </html>
