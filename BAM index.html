@@ -440,8 +440,19 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   }
+
+  // Smooth scroll for FAQ button
+  const faqBtn = document.querySelector('a[href="#faq"]');
+  if (faqBtn) {
+    faqBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.getElementById('faq');
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  }
 });
   </script>
 </body>
 </html>
-
