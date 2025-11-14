@@ -526,6 +526,46 @@
     #imageModal .close:hover {
       color: #d97706;
     }
+
+    /* Universal Navigation Arrows */
+    .nav-arrows {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 1000;
+    }
+
+    .nav-arrow {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: 2px solid #1e40af;
+      background: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: #1e40af;
+      box-shadow: 0 3px 12px rgba(30, 64, 175, 0.2);
+      transition: all 0.3s;
+      font-weight: bold;
+    }
+
+    .nav-arrow:hover {
+      background: #1e40af;
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(30, 64, 175, 0.4);
+    }
+
+    .nav-arrow:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
   </style>
 </head>
 <body>
@@ -542,7 +582,7 @@
       <a href="#contact">Contact</a>
     </div>
     <div class="cart-section">
-      <a href="https://bixbyacademicmentors.github.io/" class="spartan-studio-btn">Spartan Hub</a>
+      <a href="index.html" style="font-weight: bold; color: #43cea2; text-decoration: none; padding: 0.3em 0.5em; border: 2px solid #43cea2; border-radius: 5px; display: inline-block;">Spartan Hub</a>
     </div>
   </nav>
 
@@ -554,7 +594,7 @@
     </p>
     <!-- Mobile Spartan Hub button (hidden on desktop/tablet) -->
     <div class="mobile-spartan-hub">
-      <a href="https://bixbyacademicmentors.github.io/" class="spartan-studio-btn">Spartan Hub</a>
+      <a href="index.html" class="spartan-studio-btn">Spartan Hub</a>
     </div>
     <div class="enterprise-info">
       <h2 style="color: #667eea; margin-bottom: 16px; font-size: 1.8em;">🎓 Educational Excellence Since 2008</h2>
@@ -791,7 +831,33 @@
     </div>
   </div>
 
+  <!-- Universal Navigation Arrows -->
+  <div class="nav-arrows">
+    <button id="prevArrow" class="nav-arrow" disabled>←</button>
+    <button id="nextArrow" class="nav-arrow">→</button>
+  </div>
+
   <script>
+    // Universal Navigation Arrows
+    const pages = ['index.html', 'teenhelp index.html', 'spartan-armory.html'];
+    const currentPath = window.location.pathname.split('/').pop();
+    const currentIndex = pages.indexOf(currentPath);
+
+    const prevArrow = document.getElementById('prevArrow');
+    const nextArrow = document.getElementById('nextArrow');
+
+    if (currentIndex > 0) {
+      prevArrow.disabled = false;
+      prevArrow.addEventListener('click', () => window.location.href = pages[currentIndex - 1]);
+    }
+
+    if (currentIndex < pages.length - 1) {
+      nextArrow.disabled = false;
+      nextArrow.addEventListener('click', () => window.location.href = pages[currentIndex + 1]);
+    } else {
+      nextArrow.disabled = true;
+    }
+
     // Modal functionality
     function openModal(modalId) {
       document.getElementById(modalId).style.display = 'block';

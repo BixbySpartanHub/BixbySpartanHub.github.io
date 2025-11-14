@@ -24,8 +24,6 @@
       100% { content: 'school spirit'; }
     }
 
-
-
     /* SF Pro Typography */
     @import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700;800;900&display=swap');
 
@@ -75,6 +73,85 @@
       0% { opacity: 1; transform: translate(0, 0) scale(1); }
       100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(0); }
     }
+
+    /* Banner Ad Space */
+    .ad-banner-space {
+      height: 90px; /* Reserve space for banner ads */
+      width: 100%;
+      margin: 20px 0;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 14px;
+    }
+
+    /* Universal Navigation Arrows */
+    .nav-arrows {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 1000;
+    }
+
+    .nav-arrow {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: 2px solid #1e40af;
+      background: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: #1e40af;
+      box-shadow: 0 3px 12px rgba(30, 64, 175, 0.2);
+      transition: all 0.3s;
+      font-weight: bold;
+    }
+
+    .nav-arrow:hover {
+      background: #1e40af;
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(30, 64, 175, 0.4);
+    }
+
+    .nav-arrow:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* iPad/Tablet Optimizations */
+    @media (min-width: 768px) and (max-width: 1024px) {
+      .grid.grid-cols-1-md:grid-cols-2-lg:grid-cols-3 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .max-w-7xl {
+        max-width: 95vw;
+      }
+
+      .text-5xl {
+        font-size: 3.5rem;
+      }
+
+      .py-16 {
+        padding-top: 4rem;
+        padding-bottom: 4rem;
+      }
+
+      .ad-banner-space {
+        height: 120px; /* More space for tablets */
+        margin: 30px 0;
+      }
+    }
   </style>
 </head>
 
@@ -110,8 +187,8 @@
         </div>
 
         <!-- Mental Health Support -->
-        <div class="bg-gradient-to-br from-purple-50 to-pink-50 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer group opacity-75" onclick="handleComingSoon()">
-          <div class="bg-gray-400 text-white text-sm font-semibold px-3 py-1 rounded-full inline-block mb-4">Coming Soon</div>
+        <div class="bg-gradient-to-br from-purple-50 to-pink-50 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer group" onclick="handleCardClick('teenhelp index.html')">
+          <div class="bg-green-500 text-white text-sm font-semibold px-3 py-1 rounded-full inline-block mb-4">Available Now</div>
           <div class="w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-600 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
             <i class="fas fa-heart text-3xl text-white"></i>
           </div>
@@ -275,6 +352,12 @@
     </div>
   </footer>
 
+  <!-- Universal Navigation Arrows -->
+  <div class="nav-arrows">
+    <button id="prevArrow" class="nav-arrow" disabled>&larr;</button>
+    <button id="nextArrow" class="nav-arrow">&rarr;</button>
+  </div>
+
   <!-- Privacy Policy Bar -->
   <div class="fixed bottom-0 left-0 right-0 bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-center py-3 px-4 z-40 shadow-lg">
     <span class="text-sm">
@@ -390,6 +473,26 @@
         document.body.appendChild(particle);
         setTimeout(() => { if (particle.parentNode) particle.parentNode.removeChild(particle); }, 1000);
       }
+    }
+
+    // Universal Navigation Arrows
+    const pages = ['index.html', 'teenhelp index.html', 'spartan-armory.html'];
+    const currentPath = window.location.pathname.split('/').pop();
+    const currentIndex = pages.indexOf(currentPath);
+
+    const prevArrow = document.getElementById('prevArrow');
+    const nextArrow = document.getElementById('nextArrow');
+
+    if (currentIndex > 0) {
+      prevArrow.disabled = false;
+      prevArrow.addEventListener('click', () => window.location.href = pages[currentIndex - 1]);
+    }
+
+    if (currentIndex < pages.length - 1) {
+      nextArrow.disabled = false;
+      nextArrow.addEventListener('click', () => window.location.href = pages[currentIndex + 1]);
+    } else {
+      nextArrow.disabled = true;
     }
 
     // Handle card clicks

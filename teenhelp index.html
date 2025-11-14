@@ -19,6 +19,21 @@
       --shadow: 0 4px 24px rgba(67,206,162,0.08);
       --radius: 18px;
     }
+
+    /* Banner Ad Space */
+    .ad-banner-space {
+      height: 90px; /* Reserve space for banner ads */
+      width: 100%;
+      margin: 20px 0;
+      background: rgba(67,206,162,0.1);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 14px;
+      border: 2px dashed var(--primary);
+    }
     body {
       font-family: 'Segoe UI', Arial, sans-serif;
       background: linear-gradient(120deg, #e0eafc 0%, #cfdef3 100%);
@@ -845,6 +860,35 @@
       background: linear-gradient(120deg, #1a1d23 0%, #23272f 20%) !important;
     }
 
+    /* iPad/Tablet Optimizations */
+    @media (min-width: 768px) and (max-width: 1024px) {
+      .resource-categories {
+        gap: 2.5em;
+      }
+
+      .resource-category .resource-cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .self-care-grid,
+      .stories-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .faq-content {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .grid.grid-cols-1.md:grid-cols-2.lg:grid-cols-3 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .ad-banner-space {
+        height: 120px;
+        margin: 30px 0;
+      }
+    }
+
     @media (max-width: 900px) {
       .site-wrapper {
         flex-direction: column;
@@ -892,20 +936,11 @@
   </style>
 </head>
 <body>
-  <!-- Crisis Hotline Banner -->
-  <div class="crisis-banner" id="crisis-banner">
-    <div class="crisis-content">
-      <span class="crisis-text">🚨 Need help right now?</span>
-      <div class="crisis-buttons">
-        <a href="tel:988" class="crisis-btn primary">Call 988</a>
-        <button class="crisis-btn secondary" id="chatButton">💬 Live Chat</button>
-        <button class="crisis-btn exit" id="quickExit" aria-label="Quick exit">❌</button>
-      </div>
-    </div>
-  </div>
+
 
   <div class="site-wrapper">
     <aside class="sidebar">
+      <div style="text-align: center; margin-bottom: 1em; padding: 0.5em;"><a href="index.html" style="font-weight: bold; color: #43cea2; text-decoration: none; padding: 0.3em 0.5em; border: 2px solid #43cea2; border-radius: 5px; display: inline-block;">Spartan Hub</a></div>
       <h3>💬 Affirmations</h3>
       <ul>
         <li>You matter here.</li>
@@ -919,6 +954,7 @@
         <a href="#about">About Us</a>
         <a href="#stories">Stories & Positivity</a>
         <a href="#help-friend">Help a Friend</a>
+        <a href="#games">Mental Health Games</a>
         <a href="#faq">FAQ</a>
         <a href="#how-it-works">How It Works</a>
       </div>
@@ -1361,11 +1397,89 @@
             <li>Support is always kind, never pushy.</li>
           </ol>
         </section>
-      </main>
+
+        <!-- Mental Health Games Section -->
+        <section class="games-section" id="games">
+          <h3>🧠 Mental Health Games & Activities</h3>
+          <p class="text-center color: var(--muted); margin-bottom: 2em;">Calm your mind and boost your mood with these interactive games designed for relaxation and self-care.</p>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <!-- Calm Collage -->
+            <div class="bg-white rounded-2xl shadow-lg p-8 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer group" onclick="handleCardClick('calm-collage.html')">
+              <div class="w-20 h-20 bg-gradient-to-br from-green-500 to-teal-600 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 mx-auto">
+                <i class="fas fa-palette text-3xl text-white"></i>
+              </div>
+              <h4 class="text-2xl font-bold text-gray-900 mb-4 text-center">Calm Collage</h4>
+              <p class="text-gray-600 leading-relaxed text-center">Create a vision board with uplifting words and images to promote positivity and calm.</p>
+            </div>
+
+            <!-- Collect Serenity -->
+            <div class="bg-white rounded-2xl shadow-lg p-8 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer group" onclick="handleCardClick('collect-serenity.html')">
+              <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 mx-auto">
+                <i class="fas fa-gamepad text-3xl text-white"></i>
+              </div>
+              <h4 class="text-2xl font-bold text-gray-900 mb-4 text-center">Collect Serenity</h4>
+              <p class="text-gray-600 leading-relaxed text-center">Play this relaxing snake-like game while collecting serenity points for peaceful gaming entertainment.</p>
+            </div>
+
+            <!-- Gratitude Garden -->
+            <div class="bg-white rounded-2xl shadow-lg p-8 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer group" onclick="handleCardClick('gratitude-garden.html')">
+              <div class="w-20 h-20 bg-gradient-to-br from-teal-500 to-emerald-600 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 mx-auto">
+                <i class="fas fa-seedling text-3xl text-white"></i>
+              </div>
+              <h4 class="text-2xl font-bold text-gray-900 mb-4 text-center">Gratitude Garden</h4>
+              <p class="text-gray-600 leading-relaxed text-center">Plant seeds of gratitude and watch a beautiful garden grow from your positive thoughts.</p>
+            </div>
+
+            <!-- Harmony Puzzle -->
+            <div class="bg-white rounded-2xl shadow-lg p-8 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer group" onclick="handleCardClick('harmony-puzzle.html')">
+              <div class="w-20 h-20 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 mx-auto">
+                <i class="fas fa-puzzle-piece text-3xl text-white"></i>
+              </div>
+              <h4 class="text-2xl font-bold text-gray-900 mb-4 text-center">Harmony Puzzle</h4>
+              <p class="text-gray-600 leading-relaxed text-center">Solve puzzles that promote mental harmony and help you find peace through challenging yet calming activities.</p>
+            </div>
+
+            <!-- Mindful Breathing -->
+            <div class="bg-white rounded-2xl shadow-lg p-8 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer group" onclick="handleCardClick('mindful-breathing.html')">
+              <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 mx-auto">
+                <i class="fas fa-wind text-3xl text-white"></i>
+              </div>
+              <h4 class="text-2xl font-bold text-gray-900 mb-4 text-center">Mindful Breathing</h4>
+              <p class="text-gray-600 leading-relaxed text-center">Follow guided breathing exercises to reduce stress and increase mindfulness in your daily life.</p>
+            </div>
+
+            <!-- Mindful Maze -->
+            <div class="bg-white rounded-2xl shadow-lg p-8 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer group" onclick="handleCardClick('mindful-maze.html')">
+              <div class="w-20 h-20 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 mx-auto">
+                <i class="fas fa-route text-3xl text-white"></i>
+              </div>
+              <h4 class="text-2xl font-bold text-gray-900 mb-4 text-center">Mindful Maze</h4>
+              <p class="text-gray-600 leading-relaxed text-center">Navigate through calming mazes that encourage mindful thinking and patience.</p>
+            </div>
+
+            <!-- Positive Bubbles -->
+            <div class="bg-white rounded-2xl shadow-lg p-8 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer group md:col-span-2 lg:col-span-1" onclick="handleCardClick('positive-bubbles.html')">
+              <div class="w-20 h-20 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 mx-auto">
+                <i class="fas fa-circle text-3xl text-white"></i>
+              </div>
+              <h4 class="text-2xl font-bold text-gray-900 mb-4 text-center">Positive Bubbles</h4>
+              <p class="text-gray-600 leading-relaxed text-center">Pop positive bubbles that reveal uplifting messages and affirmations for a boost of good vibes.</p>
+            </div>
+
+          </div>
+          <p class="text-center color: var(--muted); margin-top: 2em; font-style: italic;">Remember, these games are tools for relaxation and can be great complements to professional help.</p>
+        </section>
+  </main>
       <footer class="site-footer">
         <small>&copy; 2025 Teen Help Line. All rights reserved.</small>
       </footer>
     </div>
+  <!-- Universal Navigation Arrows -->
+  <div class="nav-arrows">
+    <button id="prevArrow" class="nav-arrow" disabled>←</button>
+    <button id="nextArrow" class="nav-arrow">→</button>
+  </div>
   </div>
   <script>
     // Low Light Mode Toggle
@@ -1396,18 +1510,18 @@
     const startHereButton = document.getElementById('startHereButton');
 
     talkButton.addEventListener('click', function() {
-      // Scroll to FAQ section or show contact options
-      document.getElementById('faq').scrollIntoView({ behavior: 'smooth' });
+      // Trigger live chat alert for talking to someone
+      alert('Live chat feature coming soon! For immediate help, please call 988 or text HOME to 741741.');
     });
 
     exploreButton.addEventListener('click', function() {
-      // Scroll to resources section
+      // Scroll to resources section for exploring options
       document.getElementById('resources').scrollIntoView({ behavior: 'smooth' });
     });
 
     startHereButton.addEventListener('click', function() {
-      // Scroll to about section
-      document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
+      // Scroll to mental health games section for newcomers
+      document.getElementById('games').scrollIntoView({ behavior: 'smooth' });
     });
 
     // Smooth scrolling for sidebar links
