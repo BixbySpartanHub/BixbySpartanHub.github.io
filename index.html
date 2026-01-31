@@ -688,7 +688,7 @@
         const password = passwordInput.value.trim();
         if (password === 'NeverStop') {
           overlay.remove();
-          openRumbleTalkPopup();
+          showTwoOptionButtons();
         } else {
           errorDiv.textContent = 'Invalid passcode. Please try again.';
           passwordInput.value = '';
@@ -735,6 +735,40 @@
     }
 
     // Popup System
+    function openGoogleMeetWithAppFallback() {
+      // Check if device is mobile
+      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      
+      if (isMobile) {
+        // Try to open the native app first with a timeout fallback
+        const meetUrl = 'https://meet.google.com/igp-uyev-ckc';
+        const deepLinkAndroid = 'intent://meet.google.com/igp-uyev-ckc#Intent;scheme=https;package=com.google.android.apps.meetings;end';
+        const deepLinkIOS = 'googlemeet://meet.google.com/igp-uyev-ckc';
+        
+        if (/Android/.test(navigator.userAgent)) {
+          // Try Android app
+          window.location.href = deepLinkAndroid;
+          // Fallback to web if app doesn't open after 1 second
+          setTimeout(() => {
+            window.open(meetUrl, '_blank');
+          }, 1000);
+        } else if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
+          // Try iOS app
+          window.location.href = deepLinkIOS;
+          // Fallback to web if app doesn't open after 1 second
+          setTimeout(() => {
+            window.open(meetUrl, '_blank');
+          }, 1000);
+        } else {
+          // Other mobile devices
+          window.open(meetUrl, '_blank');
+        }
+      } else {
+        // Desktop - just open in browser
+        window.open('https://meet.google.com/igp-uyev-ckc', '_blank');
+      }
+    }
+
     function openRumbleTalkPopup() {
       // Create popup overlay
       const overlay = document.createElement('div');
@@ -769,7 +803,157 @@
       // Close on Escape key
       document.addEventListener('keydown', handleEscapeKey);
     }
+    function showTwoOptionButtons() {
+      // Create overlay with 2 square buttons
+      const overlay = document.createElement('div');
+      overlay.className = 'popup-overlay';
+      overlay.id = 'options-overlay';
 
+      overlay.innerHTML = `
+        <div class="popup-container" style="height: auto; max-height: none; padding: 40px;">
+          <div class="popup-header">
+            <div class="popup-title">Select an Option</div>
+            <button class="popup-close" id="options-close-btn" aria-label="Close">×</button>
+          </div>
+          <div style="padding: 40px 30px; text-align: center;">
+            <div style="display: flex; gap: 30px; justify-content: center; flex-wrap: wrap; margin-top: 30px;">
+              <button id="option-express" style="width: 200px; height: 200px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 12px; cursor: pointer; font-weight: bold; font-size: 18px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px; transition: transform 0.3s, box-shadow 0.3s; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);">Express</button>
+              <button id="option-igloos" style="width: 200px; height: 200px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; border: none; border-radius: 12px; cursor: pointer; font-weight: bold; font-size: 16px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px; transition: transform 0.3s, box-shadow 0.3s; box-shadow: 0 4px 15px rgba(245, 87, 108, 0.4);">Igloos Built by Polar Bears are Great and Powerful.</button>
+            </div>
+          </div>
+        </div>
+      `;
+
+      document.body.appendChild(overlay);
+      overlay.style.display = 'flex';
+
+      const expressBtn = document.getElementById('option-express');
+      const igloosBtn = document.getElementById('option-igloos');
+      const closeBtn = document.getElementById('options-close-btn');
+
+      // Add hover effects
+      expressBtn.addEventListener('mouseover', () => {
+        expressBtn.style.transform = 'translateY(-5px)';
+        expressBtn.style.boxShadow = '0 6px 20px rgba(102, 126, 234, 0.6)';
+      });
+      expressBtn.addEventListener('mouseout', () => {
+        expressBtn.style.transform = 'translateY(0)';
+        expressBtn.style.boxShadow = '0 4px 15px rgba(102, 126, 234, 0.4)';
+      });
+
+      igloosBtn.addEventListener('mouseover', () => {
+        igloosBtn.style.transform = 'translateY(-5px)';
+        igloosBtn.style.boxShadow = '0 6px 20px rgba(245, 87, 108, 0.6)';
+      });
+      igloosBtn.addEventListener('mouseout', () => {
+        igloosBtn.style.transform = 'translateY(0)';
+        igloosBtn.style.boxShadow = '0 4px 15px rgba(245, 87, 108, 0.4)';
+      });
+
+      // Express button - open RumbleTalk chat
+      expressBtn.addEventListener('click', () => {
+        overlay.remove();
+        openRumbleTalkPopup();
+      });
+
+      // Igloos button - open Google Meet
+      igloosBtn.addEventListener('click', () => {
+        overlay.remove();
+        openGoogleMeetWithAppFallback();
+      });
+
+      // Close button
+      closeBtn.addEventListener('click', () => {
+        overlay.remove();
+      });
+
+      // Close on overlay click
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) {
+          overlay.remove();
+        }
+      });
+    }
+
+    function showSecondPasswordPrompt() {
+      // Create password overlay for second check
+      const overlay = document.createElement('div');
+      overlay.className = 'popup-overlay';
+      overlay.id = 'password-overlay-2';
+
+      overlay.innerHTML = `
+        <div class="popup-container" style="height: 50%; max-height: 400px;">
+          <div class="popup-header">
+            <div class="popup-title">Access Verification Required</div>
+            <button class="popup-close" id="password-close-btn-2" aria-label="Close">×</button>
+          </div>
+          <div style="padding: 40px 30px; text-align: center;">
+            <div style="margin-bottom: 30px;">
+              <i class="fas fa-lock" style="font-size: 48px; color: #ff4d4d; margin-bottom: 20px; display: block;"></i>
+              <h3 style="font-size: 24px; color: #333; margin-bottom: 10px;">Security Check</h3>
+              <p style="color: #666; font-size: 16px;">Please enter the access code to continue</p>
+            </div>
+            <div style="margin-bottom: 30px;">
+              <input type="password" id="password-input-2" placeholder="Enter passcode" style="width: 100%; max-width: 300px; padding: 15px; font-size: 18px; border: 2px solid #ddd; border-radius: 8px; outline: none;">
+            </div>
+            <div style="display: flex; gap: 15px; justify-content: center;">
+              <button id="password-submit-btn-2" style="background: #ff4d4d; color: white; border: none; padding: 12px 30px; font-size: 16px; border-radius: 6px; cursor: pointer; font-weight: bold; transition: all 0.3s;">Submit</button>
+              <button id="password-cancel-btn-2" style="background: #f5f5f5; color: #333; border: none; padding: 12px 30px; font-size: 16px; border-radius: 6px; cursor: pointer; font-weight: bold; transition: all 0.3s;">Cancel</button>
+            </div>
+            <div id="password-error-2" style="color: #ff4d4d; font-size: 14px; margin-top: 20px; min-height: 20px;"></div>
+          </div>
+        </div>
+      `;
+
+      document.body.appendChild(overlay);
+      overlay.style.display = 'flex';
+
+      const passwordInput = document.getElementById('password-input-2');
+      const submitBtn = document.getElementById('password-submit-btn-2');
+      const cancelBtn = document.getElementById('password-cancel-btn-2');
+      const closeBtn = document.getElementById('password-close-btn-2');
+      const errorDiv = document.getElementById('password-error-2');
+
+      // Focus on input
+      setTimeout(() => passwordInput.focus(), 100);
+
+      // Handle submit
+      submitBtn.addEventListener('click', () => {
+        const password = passwordInput.value.trim();
+        if (password === 'NeverStop') {
+          overlay.remove();
+          openRumbleTalkPopup();
+        } else {
+          errorDiv.textContent = 'Invalid passcode. Please try again.';
+          passwordInput.value = '';
+          passwordInput.focus();
+        }
+      });
+
+      // Handle cancel
+      cancelBtn.addEventListener('click', () => {
+        overlay.remove();
+      });
+
+      // Handle close button
+      closeBtn.addEventListener('click', () => {
+        overlay.remove();
+      });
+
+      // Handle overlay click
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) {
+          overlay.remove();
+        }
+      });
+
+      // Handle Enter key
+      passwordInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          submitBtn.click();
+        }
+      });
+    }
     function closeRumbleTalkPopup() {
       const overlay = document.getElementById('rumbletalk-popup');
       if (overlay) {
