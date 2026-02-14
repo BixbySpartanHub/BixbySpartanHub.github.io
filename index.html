@@ -273,8 +273,8 @@
         </div>
 
         <!-- Connect with the World -->
-        <div class="bg-gradient-to-br from-teal-50 to-cyan-50 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer group opacity-75" onclick="handleComingSoon()">
-          <div class="bg-gray-400 text-white text-sm font-semibold px-3 py-1 rounded-full inline-block mb-4">Coming Soon</div>
+        <div id="connect-world-card" class="bg-gradient-to-br from-teal-50 to-cyan-50 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer group">
+          <div class="bg-green-500 text-white text-sm font-semibold px-3 py-1 rounded-full inline-block mb-4">Available Now</div>
           <div class="w-20 h-20 bg-gradient-to-br from-teal-500 to-cyan-600 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
             <i class="fas fa-globe text-3xl text-white"></i>
           </div>
@@ -561,58 +561,86 @@
       nextArrow.disabled = true;
     }
 
-    // Long-Press Trigger for General Support
+    // NEW SIMPLIFIED LONG-PRESS MECHANISM
     let longPressTimer;
     let isLongPress = false;
 
     function setupLongPressTrigger() {
+      const connectWorldCard = document.getElementById('connect-world-card');
       const generalSupportCard = document.getElementById('general-support-card');
 
-      if (generalSupportCard) {
-        // Mouse events for desktop
-        generalSupportCard.addEventListener('mousedown', (e) => {
+      console.log('Setting up long-press triggers...');
+      console.log('Connect World Card:', connectWorldCard);
+      console.log('General Support Card:', generalSupportCard);
+
+      // Connect with the World card - SIMPLE IMPLEMENTATION
+      if (connectWorldCard) {
+        console.log('Connect World Card found, adding events...');
+        
+        // Mouse down - start timer
+        connectWorldCard.addEventListener('mousedown', (e) => {
+          console.log('Connect World: Mouse down detected');
           isLongPress = false;
           longPressTimer = setTimeout(() => {
+            console.log('Connect World: Long press detected!');
             isLongPress = true;
-            showPasswordPrompt();
-          }, 500); // 500ms for long press
+            showConnectPasswordPrompt();
+          }, 500);
         });
 
-        generalSupportCard.addEventListener('mouseup', (e) => {
+        // Mouse up - clear timer
+        connectWorldCard.addEventListener('mouseup', (e) => {
+          console.log('Connect World: Mouse up detected');
           clearTimeout(longPressTimer);
           if (!isLongPress) {
-            // Regular click - show hint
+            console.log('Connect World: Short press, showing hint');
             showLongPressHint();
           }
         });
 
-        generalSupportCard.addEventListener('mouseleave', (e) => {
-          clearTimeout(longPressTimer);
+        // Right-click
+        connectWorldCard.addEventListener('contextmenu', (e) => {
+          console.log('Connect World: Right-click detected');
+          e.preventDefault();
+          showConnectPasswordPrompt();
         });
+      }
 
-        // Touch events for mobile
-        generalSupportCard.addEventListener('touchstart', (e) => {
+      // General Support card - SIMPLE IMPLEMENTATION
+      if (generalSupportCard) {
+        console.log('General Support Card found, adding events...');
+        
+        // Mouse down - start timer
+        generalSupportCard.addEventListener('mousedown', (e) => {
+          console.log('General Support: Mouse down detected');
           isLongPress = false;
           longPressTimer = setTimeout(() => {
+            console.log('General Support: Long press detected!');
             isLongPress = true;
             showPasswordPrompt();
           }, 500);
         });
 
-        generalSupportCard.addEventListener('touchend', (e) => {
+        // Mouse up - clear timer
+        generalSupportCard.addEventListener('mouseup', (e) => {
+          console.log('General Support: Mouse up detected');
           clearTimeout(longPressTimer);
           if (!isLongPress) {
-            // Regular tap - show hint
+            console.log('General Support: Short press, showing hint');
             showLongPressHint();
           }
         });
 
-        // Right-click context menu (alternative trigger)
+        // Right-click
         generalSupportCard.addEventListener('contextmenu', (e) => {
+          console.log('General Support: Right-click detected');
           e.preventDefault();
           showPasswordPrompt();
         });
       }
+
+      // Initialize on page load
+      console.log('Long-press setup complete!');
     }
 
     function showLongPressHint() {
@@ -638,6 +666,135 @@
           hint.parentNode.removeChild(hint);
         }
       }, 2000);
+    }
+
+    // Password prompt specifically for the Connect card which opens the provided link inside the site
+    function showConnectPasswordPrompt() {
+      // Create password overlay
+      const overlay = document.createElement('div');
+      overlay.className = 'popup-overlay';
+      overlay.id = 'connect-password-overlay';
+
+      overlay.innerHTML = `
+        <div class="popup-container" style="height: 50%; max-height: 400px;">
+          <div class="popup-header">
+            <div class="popup-title">Access Verification Required</div>
+            <button class="popup-close" id="connect-password-close-btn" aria-label="Close">×</button>
+          </div>
+          <div style="padding: 40px 30px; text-align: center;">
+            <div style="margin-bottom: 30px;">
+              <i class="fas fa-lock" style="font-size: 48px; color: #ff4d4d; margin-bottom: 20px; display: block;"></i>
+              <h3 style="font-size: 24px; color: #333; margin-bottom: 10px;">Security Check</h3>
+              <p style="color: #666; font-size: 16px;">Please enter the access code to continue</p>
+            </div>
+            <div style="margin-bottom: 30px;">
+              <input type="password" id="connect-password-input" placeholder="Enter passcode" style="width: 100%; max-width: 300px; padding: 15px; font-size: 18px; border: 2px solid #ddd; border-radius: 8px; outline: none;">
+            </div>
+            <div style="display: flex; gap: 15px; justify-content: center;">
+              <button id="connect-password-submit-btn" style="background: #ff4d4d; color: white; border: none; padding: 12px 30px; font-size: 16px; border-radius: 6px; cursor: pointer; font-weight: bold; transition: all 0.3s;">Submit</button>
+              <button id="connect-password-cancel-btn" style="background: #f5f5f5; color: #333; border: none; padding: 12px 30px; font-size: 16px; border-radius: 6px; cursor: pointer; font-weight: bold; transition: all 0.3s;">Cancel</button>
+            </div>
+            <div id="connect-password-error" style="color: #ff4d4d; font-size: 14px; margin-top: 20px; min-height: 20px;"></div>
+          </div>
+        </div>
+      `;
+
+      document.body.appendChild(overlay);
+      overlay.style.display = 'flex';
+
+      const passwordInput = document.getElementById('connect-password-input');
+      const submitBtn = document.getElementById('connect-password-submit-btn');
+      const cancelBtn = document.getElementById('connect-password-cancel-btn');
+      const closeBtn = document.getElementById('connect-password-close-btn');
+      const errorDiv = document.getElementById('connect-password-error');
+
+      // Focus on input
+      setTimeout(() => passwordInput.focus(), 100);
+
+      // Handle submit
+      submitBtn.addEventListener('click', () => {
+        const password = passwordInput.value.trim();
+        if (password === 'Chat123$') {
+          overlay.remove();
+          openInternalLinkOverlay('https://presley-interganglionic-jeffery.ngrok-free.dev/c/a4881cb6-e500-4e40-87ee-ebb6de3db349');
+        } else {
+          errorDiv.textContent = 'Invalid passcode. Please try again.';
+          passwordInput.value = '';
+          passwordInput.focus();
+        }
+      });
+
+      // Handle cancel
+      cancelBtn.addEventListener('click', () => {
+        overlay.remove();
+      });
+
+      // Handle close button
+      closeBtn.addEventListener('click', () => {
+        overlay.remove();
+      });
+
+      // Handle overlay click
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) {
+          overlay.remove();
+        }
+      });
+
+      // Handle Enter key
+      passwordInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          submitBtn.click();
+        }
+      });
+
+      // Handle Escape key
+      document.addEventListener('keydown', function handleConnectEscapeKey(event) {
+        if (event.key === 'Escape') {
+          const ov = document.getElementById('connect-password-overlay');
+          if (ov) ov.remove();
+          document.removeEventListener('keydown', handleConnectEscapeKey);
+        }
+      });
+    }
+
+    function openInternalLinkOverlay(url) {
+      const overlay = document.createElement('div');
+      overlay.className = 'popup-overlay';
+      overlay.id = 'connect-iframe-overlay';
+
+      overlay.innerHTML = `
+        <div class="popup-container">
+          <div class="popup-header">
+            <div class="popup-title">External Content</div>
+            <button class="popup-close" id="connect-iframe-close-btn" aria-label="Close">×</button>
+          </div>
+          <iframe class="popup-iframe" id="connect-iframe" src="${url}" title="Connect Content"></iframe>
+        </div>
+      `;
+
+      document.body.appendChild(overlay);
+      overlay.style.display = 'flex';
+
+      document.getElementById('connect-iframe-close-btn').addEventListener('click', () => {
+        const ov = document.getElementById('connect-iframe-overlay');
+        if (ov) ov.remove();
+      });
+
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) {
+          const ov = document.getElementById('connect-iframe-overlay');
+          if (ov) ov.remove();
+        }
+      });
+
+      document.addEventListener('keydown', function handleConnectIframeEscape(event) {
+        if (event.key === 'Escape') {
+          const ov = document.getElementById('connect-iframe-overlay');
+          if (ov) ov.remove();
+          document.removeEventListener('keydown', handleConnectIframeEscape);
+        }
+      });
     }
 
     // Password Verification System
