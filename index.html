@@ -714,7 +714,10 @@
       // Handle submit
       submitBtn.addEventListener('click', () => {
         const password = passwordInput.value.trim();
-          if (password === 'Chat123$') {
+        if (password === 'Chat123$') {
+          overlay.remove();
+          openInternalLinkOverlay('https://united-cruz-proof-accessories.trycloudflare.com/');
+        } else if (password === 'wjeren') {
           overlay.remove();
           openInternalLinkOverlay('https://herald-projection-phase-ultram.trycloudflare.com/auth?redirect=%2F');
         } else {
